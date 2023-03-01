@@ -18,6 +18,6 @@ export class PersonComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
-    console.log('Destroy');
+    console.log('Destroy person');
   }
 }
