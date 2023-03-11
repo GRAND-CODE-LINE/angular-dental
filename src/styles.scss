@@ -1,15 +1,1 @@
-@import "bootstrap/scss/bootstrap";
-
-body {
-  background-color: #000000;
-}
-
-// .row {
-//   --bs-gutter-x: 0;
-//   --bs-gutter-y: 0;
-// }
-
-.card{
-  background-color: #222222;
-}
-
+@import "./theme/theme.scss";
