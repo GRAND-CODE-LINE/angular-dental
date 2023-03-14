@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { AdmRoutingModule } from './adm-routing.module';
 import { PersonComponent } from './person/person.component';
 import { MenuComponent } from './menu/menu.component';
-
-
 @NgModule({
   declarations: [
     PersonComponent,
@@ -13,7 +11,7 @@ import { MenuComponent } from './menu/menu.component';
   ],
   imports: [
     CommonModule,
-    AdmRoutingModule,
+    AdmRoutingModule
   ],
   exports: [AdmRoutingModule]
 })
