@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+  constructor(private loginservice: LoginService) {
+  }
+
+  async test() {
+    console.log('aaa');
+    let res = await this.loginservice.getPerson();
+    console.log(res);
+  }
 }
