@@ -36,8 +36,8 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/@popperjs/core/dist/umd/popper.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/@popperjs/core/dist/umd/popper.min.js"
             ],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
@@ -102,20 +102,15 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/@popperjs/core/dist/umd/popper.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ]
+            "scripts": []
           }
         }
       }
     }
   },
   "cli": {
-    "analytics": "f9492a3b-3529-4fe9-bf67-13c48174f46e"
+    "analytics": "db321926-d242-4962-a3c2-bc3ad55a9123"
   }
 }
