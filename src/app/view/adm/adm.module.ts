@@ -5,17 +5,18 @@ import { AdmRoutingModule } from './adm-routing.module';
 import { PersonComponent } from './person/person.component';
 import { MenuComponent } from './menu/menu.component';
 import { CreatePersonComponent } from './person/create-person/create-person.component';
-import { PersonNewComponent } from './person/person-new/person-new.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     PersonComponent,
     MenuComponent,
     CreatePersonComponent,
-    PersonNewComponent
   ],
   imports: [
     CommonModule,
-    AdmRoutingModule
+    AdmRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [AdmRoutingModule]
 })
