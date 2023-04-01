@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { FormBuilder, NgForm, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { Login, LoginResponse } from 'src/app/models/login';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -8,12 +12,35 @@ import { LoginService } from '../services/login.service';
 })
 export class LoginComponent {
 
-  constructor(private loginservice: LoginService) {
+  loginForm: FormGroup;
+
+  constructor(private loginservice: LoginService, private fb: FormBuilder, private router: Router) {
+
+    this.loginForm = this.fb.group({
+      username: ['asdas', Validators.compose([Validators.required])],
+      password: [, Validators.required]
+    })
   }
 
-  async test() {
-    console.log('aaa');
-    let res = await this.loginservice.getPerson();
+  ngOnOnit() {
+
+  }
+
+  async doLogin() {
+    console.log(this.loginForm);
+    let login: Login = this.loginForm.value;
+    console.log(login);
+
+
+    let res: LoginResponse = await firstValueFrom(this.loginservice.login(login));
     console.log(res);
+    if (res) {
+      this.router.navigateByUrl('/home/principal');
+    }
+
+  }
+
+  test() {
+    console.log(this.loginForm);
   }
 }
