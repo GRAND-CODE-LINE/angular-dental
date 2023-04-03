@@ -9,6 +9,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrincipalComponent } from './view/home/principal/principal.component';
 import { PersonComponent } from './view/adm/person/person.component';
 import { AdmModule } from './view/adm/adm.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from './security/services/auth-interceptor.service';
+import { LayoutsModule } from './layouts/layouts.module';
+import { MessagesService } from './layouts/services/messages.service';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -29,9 +34,14 @@ import { AdmModule } from './view/adm/adm.module';
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),LayoutsModule, ModalModule.forRoot()
+    
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true
+  },MessagesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

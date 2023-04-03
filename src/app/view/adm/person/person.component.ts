@@ -7,7 +7,7 @@ import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 })
 export class PersonComponent implements OnInit, OnDestroy, OnChanges {
 
-
+  tasks=[{id:1,nombre:"carlos"},{id:2,nombre:"Eduardo"},{id:3,nombre:"romel"},{id:4,nombre:"ruben"}];
 
   ngOnInit() {
     console.log('Init');

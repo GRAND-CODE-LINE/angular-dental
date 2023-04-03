@@ -1,3 +1,20 @@
-<div class="container-fluid text-center">
-    <h1>person works!</h1>
+<div class="container-fluid ">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-sm-10 vertical-center">
+      <div class="card">
+        <div class="card-header">
+          <div class="col-auto bg-ganger p-1">
+            <h4>Personas</h4>
+          </div>
+        </div>
+        <ng-container *ngFor="let task of tasks; let i = index; let isFirst = first">
+          <div class="row">
+            <div class="col-auto">
+            {{task.id}}&NonBreakingSpace;{{task.nombre}}
+          </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
 </div>

@@ -4,14 +4,19 @@ import { CommonModule } from '@angular/common';
 import { AdmRoutingModule } from './adm-routing.module';
 import { PersonComponent } from './person/person.component';
 import { MenuComponent } from './menu/menu.component';
+import { CreatePersonComponent } from './person/create-person/create-person.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     PersonComponent,
-    MenuComponent
+    MenuComponent,
+    CreatePersonComponent,
   ],
   imports: [
     CommonModule,
-    AdmRoutingModule
+    AdmRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [AdmRoutingModule, MenuComponent]
 })

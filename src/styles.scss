@@ -1,15 +1,4 @@
-@import "bootstrap/scss/bootstrap";
+@import "./theme/theme.scss";
 
-body {
-  background-color: #000000;
-}
-
-// .row {
-//   --bs-gutter-x: 0;
-//   --bs-gutter-y: 0;
-// }
-
-.card{
-  background-color: #222222;
-}
-
+/* Importing Bootstrap SCSS file. */
+@import "./node_modules/bootstrap/scss/bootstrap";
