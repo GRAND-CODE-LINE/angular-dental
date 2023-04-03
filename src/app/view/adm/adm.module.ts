@@ -13,6 +13,6 @@ import { MenuComponent } from './menu/menu.component';
     CommonModule,
     AdmRoutingModule
   ],
-  exports: [AdmRoutingModule]
+  exports: [AdmRoutingModule, MenuComponent]
 })
 export class AdmModule { }
