@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, throwError, } from 'rxjs';
 import { MessagesService } from 'src/app/layouts/services/messages.service';
+import { LoginResponse } from 'src/app/models/login';
 import { Message_I } from 'src/app/models/utils/message_i';
 
 @Injectable({
@@ -14,14 +15,19 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const token: string | null = localStorage.getItem('token');
+
+    if (localStorage.getItem('minita_user') == null) {
+      this.router.navigateByUrl('/security/login');
+    }
+    const token: any = localStorage.getItem('minita_user');
+    const loginobj: LoginResponse = JSON.parse(token)
 
     let request = req;
 
     if (token) {
       request = req.clone({
         setHeaders: {
-          authorization: `Bearer ${token}`
+          authorization: loginobj.type + ' ' + loginobj.token
         }
       });
     }

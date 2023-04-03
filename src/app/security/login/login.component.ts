@@ -35,8 +35,11 @@ export class LoginComponent {
     let res: LoginResponse = await firstValueFrom(this.loginservice.login(login));
     console.log(res);
     if (res) {
+      localStorage.setItem('token', res.token);
       this.router.navigateByUrl('/home/principal');
     }
+
+
 
   }
 

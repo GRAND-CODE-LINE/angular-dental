@@ -6,9 +6,11 @@
 
 
 .fade:not(.show) {
-   // transition: opacity 2.15s linear !important;
-   animation-name: example !important;
-   animation-duration: 0.5s !important;
+
+    .modal-content {
+        animation-name: example !important;
+        animation-duration: 0.5s !important;
+    }
 }
 
 
