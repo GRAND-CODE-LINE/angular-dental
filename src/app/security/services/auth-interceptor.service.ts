@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, throwError, } from 'rxjs';
 import { MessagesService } from 'src/app/layouts/services/messages.service';
+import { Message_I } from 'src/app/models/utils/message_i';
 
 @Injectable({
   providedIn: 'root'
@@ -30,15 +31,16 @@ export class AuthInterceptorService implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => {
 
         if (err.status === 401 && this.router.url == '/security/login') {
-          console.log('aaaaaaaaaa');
-          this.messageService.openModal();
-          //          return;
-
+          let message: Message_I = {
+            title: 'Error',
+            message: 'Usuario y/o contraseña incorrectos',
+            type: 'danger'
+          }
+          this.messageService.openModal(message);
         } else if (err.status === 401) {
 
           this.router.navigateByUrl('/security/login');
         }
-
         return throwError(() => new Error('Error Login:' + err.message));
 
       })

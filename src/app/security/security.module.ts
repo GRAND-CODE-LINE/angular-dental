@@ -7,6 +7,7 @@ import { LoginService } from './services/login.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MessagesService } from '../layouts/services/messages.service';
 import { ModalComponent } from '../layouts/modal/modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ModalComponent } from '../layouts/modal/modal.component';
     CommonModule,
     SecurityRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ],
   providers: [LoginService],
   exports: [SecurityRoutingModule]
