@@ -35,7 +35,7 @@ export class LoginComponent {
     let res: LoginResponse = await firstValueFrom(this.loginservice.login(login));
     console.log(res);
     if (res) {
-      localStorage.setItem('token', res.token);
+      localStorage.setItem('minita_user', JSON.stringify(res));
       this.router.navigateByUrl('/home/principal');
     }
 

@@ -1,10 +1,14 @@
 export interface LoginResponse {
-    token: string;
-    type: string;
+    accessToken: string;
+    tokenType: string;
     id: string;
     username: string;
     email: string;
     roles: any[];
+
+
+
+
 }
 
 export interface Login {

@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, throwError, } from 'rxjs';
@@ -16,41 +16,51 @@ export class AuthInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
 
-    if (localStorage.getItem('minita_user') == null) {
-      this.router.navigateByUrl('/security/login');
-    }
+
     const token: any = localStorage.getItem('minita_user');
     const loginobj: LoginResponse = JSON.parse(token)
 
     let request = req;
+    console.log("--------------Aqui token", token);
 
     if (token) {
+
+
       request = req.clone({
+        //headers: new HttpHeaders({ Authorization: loginobj.tokenType + ' ' + loginobj.accessToken }),
+        // setHeaders: {
+        //   'Authorization': loginobj.tokenType + ' ' + loginobj.accessToken
+        // }
         setHeaders: {
-          authorization: loginobj.type + ' ' + loginobj.token
+          Authorization: `Bearer ${loginobj.accessToken}`,
+          'Access-Control-Allow-Origin': '*'
         }
       });
+
+
     }
-    console.log(this.router.url);
-    return next.handle(request).pipe(
+    console.log(loginobj);
+    console.log(request.headers);
+    return next.handle(request)
+      .pipe(
 
-      catchError((err: HttpErrorResponse) => {
+        catchError((err: HttpErrorResponse) => {
+          console.log(err);
+          if (err.status === 401 && this.router.url == '/security/login') {
+            let message: Message_I = {
+              title: 'Error',
+              message: 'Usuario y/o contraseña incorrectos',
+              type: 'danger'
+            }
+            this.messageService.openModal(message);
+          } else if (err.status === 401) {
 
-        if (err.status === 401 && this.router.url == '/security/login') {
-          let message: Message_I = {
-            title: 'Error',
-            message: 'Usuario y/o contraseña incorrectos',
-            type: 'danger'
+            this.router.navigateByUrl('/security/login');
           }
-          this.messageService.openModal(message);
-        } else if (err.status === 401) {
+          return throwError(() => new Error('Error Login:' + err.message));
 
-          this.router.navigateByUrl('/security/login');
-        }
-        return throwError(() => new Error('Error Login:' + err.message));
-
-      })
-    );
+        })
+      );
   }
 
 }

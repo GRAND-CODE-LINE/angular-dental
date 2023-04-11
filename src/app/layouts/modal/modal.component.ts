@@ -1,6 +1,8 @@
 import { Component, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { firstValueFrom } from 'rxjs';
 import { Message_I } from 'src/app/models/utils/message_i';
+import { LoginService } from 'src/app/security/services/login.service';
 import { MessagesService } from '../services/messages.service';
 
 
@@ -22,7 +24,7 @@ export class ModalComponent {
 
   @ViewChild('template') modalTemplate!: TemplateRef<any>;
 
-  constructor(public messageService: MessagesService, private modalService: BsModalService) {
+  constructor(public messageService: MessagesService, private modalService: BsModalService, private loginservice: LoginService) {
     if (this.messageService.subsVar == undefined) {
       this.messageService.subsVar = this.messageService.
         invokeFirstComponentFunction.subscribe((message: Message_I) => {
@@ -49,6 +51,12 @@ export class ModalComponent {
 
   }
 
+
+  async test() {
+    let res: any = await firstValueFrom(this.loginservice.test());
+    console.log(res);
+
+  }
 
 
 }
