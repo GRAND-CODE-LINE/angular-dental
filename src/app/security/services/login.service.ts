@@ -11,12 +11,13 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
 
-  getPerson() {
-    return this.http.get('http://localhost:3000/posts')
-  }
 
   public login(login: Login): Observable<LoginResponse> {
-    
-    return this.http.post<LoginResponse>('http://192.168.0.2:8081/api/auth/signin', login)
+    return this.http.post<LoginResponse>('http://192.168.0.2:8081/api/auth/login', login)
+  }
+
+
+  public test(): Observable<any> {
+    return this.http.get<any>('http://192.168.0.2:8081/api/test/mod')
   }
 }

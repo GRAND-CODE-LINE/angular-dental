@@ -5,6 +5,8 @@ import { ModalComponent } from './modal/modal.component';
 import { MessagesService } from './services/messages.service';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginService } from '../security/services/login.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -17,9 +19,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     CommonModule,
     FormsModule,
-    
+    HttpClientModule
+
   ],
-  providers: [MessagesService],
+  providers: [MessagesService, LoginService],
   exports: [ModalComponent]
 })
 export class LayoutsModule { }
