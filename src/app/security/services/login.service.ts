@@ -13,11 +13,11 @@ export class LoginService {
 
 
   public login(login: Login): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('http://192.168.0.2:8081/api/auth/login', login)
+    return this.http.post<LoginResponse>('http://localhost:8081/api/auth/login', login)
   }
 
 
   public test(): Observable<any> {
-    return this.http.get<any>('http://192.168.0.2:8081/api/test/mod')
+    return this.http.get<any>('http://localhost:8081/api/test/mod')
   }
 }
