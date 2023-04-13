@@ -11,18 +11,18 @@ export class PersonServiceService {
   ) { }
 
   getAll(){
-    return this.http.get('http://localhost:8080/api/listar')
+    return this.http.get('http://localhost:8080/person/listar')
   }
   create(person: any){
-    return this.http.post('http://localhost:8080/api/create',person)
+    return this.http.post('http://localhost:8080/person',person)
   }
 
   update(id: BigInteger , person:any){
-    return this.http.put('http://localhost:8080/api/person/${id}',person)
+    return this.http.put('http://localhost:8080/person/'+id,person)
   }
 
   delete(id:string){
-    return this.http.delete('http://localhost:8080/api/delete/${id}')
+    return this.http.delete('http://localhost:8080/delete/${id}')
   }
 
 }
