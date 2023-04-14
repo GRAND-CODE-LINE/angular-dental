@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
+import { Person } from 'src/app/models/Person';
 import { PersonServiceService } from 'src/app/services/person/person-service.service';
 
 @Component({
@@ -7,15 +8,28 @@ import { PersonServiceService } from 'src/app/services/person/person-service.ser
   styleUrls: ['./person.component.scss']
 })
 export class PersonComponent implements OnInit, OnDestroy, OnChanges {
+  persons: any[] = [];
+  person={
+    nombre:'',
+    apaterno :'',
+      amaterno:'',
+    email: '',
+    tipoDocumento: '',
+    numeroDocumento : null,
+    fechaNacimiento: null
+  }
 
-  tasks=[{id:1,nombre:"carlos"},{id:2,nombre:"Eduardo"},{id:3,nombre:"romel"},{id:4,nombre:"ruben"}];
   constructor(
-    private service :PersonServiceService
-  ){}
+    private service: PersonServiceService
+  ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+   this.getAll;
+  }
+
+  getAll(){
     this.service.getAll()
-    .subscribe((data:any)=>this. = data);
+    .subscribe((data: any) => this.persons = data);
   }
 
   ngOnChanges() {
