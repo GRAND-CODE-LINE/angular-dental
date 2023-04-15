@@ -9,48 +9,50 @@
           </div>
           <div class="card-body">
             <div class="col-auto bg-ganger">
-              <section class="form-register">
-                <div class="col-auto bg-ganger p-1">
-                  <label>Nombres</label>
-                  <input class="form-control" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre">
-                </div>
-                <div class="col-auto bg-ganger p-1">
-                  <label>Apellido Paterno</label>
-                  <input class="form-control" type="text" name="apellidos" id="apellidos"
-                    placeholder="Ingrese su Apellido Paterno">
-                </div>
-                <div class="col-auto bg-ganger p-1">
-                  <label>Apellido Materno</label>
-                  <input class="form-control" type="text" name="apellidos" id="apellidos"
-                    placeholder="Ingrese su Apellido Materno">
-                </div>
-                <div class="col-auto bg-ganger p-1">
-                  <label>Email</label>
-                  <input class="form-control" type="email" name="correo" id="correo" placeholder="Ingrese su Correo">
-                </div>
-                <div class="col-auto bg-ganger p-1">
-                  <label>Selecciona Tipo de Documento</label>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>Tipo Documento</option>
-                    <option value="1">DNI</option>
-                    <option value="2">Passaporte</option>
-                    <option value="3">LE</option>
-                  </select>
-                </div>
-                <div class="col-auto bg-ganger p-1">
-                  <label class="form-label">Numero de Documento</label>
-                  <input class="form-control" type="documento" name="documento" id="documento"
-                    placeholder="Ingrese su Numero de Documento">
-                </div>
-                <div class="col-auto bg-ganger p-1">
-                  <label class="form-label">Fecha de Nacimiento</label>
-                  <input class="form-control" type="date" name="fecha" id="fecha nacimiento"
-                    placeholder="Ingrese Fecha de nacimiento">
-                </div>
-                <div class="col-auto bg-ganger p-1">
-                  <input class="botons" type="submit" value="Registrar">
-                </div>
-              </section>
+              <form (submit)="create()" [formGroup]="personform">
+                <section class="form-register">
+                  <div class="col-auto bg-ganger p-1">
+                    <label>Nombres</label>
+                    <input class="form-control" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre" formControlName ="nombre">
+                  </div>
+                  <div class="col-auto bg-ganger p-1">
+                    <label>Apellido Paterno</label>
+                    <input class="form-control" type="text" name="apellidos" id="apellidos"
+                      placeholder="Ingrese su Apellido Paterno" formControlName="apaterno">
+                  </div>
+                  <div class="col-auto bg-ganger p-1">
+                    <label>Apellido Materno</label>
+                    <input class="form-control" type="text" name="apellidos" id="apellidos"
+                      placeholder="Ingrese su Apellido Materno" formControlName="amaterno">
+                  </div>
+                  <div class="col-auto bg-ganger p-1">
+                    <label>Email</label>
+                    <input class="form-control" type="email" name="correo" id="correo" placeholder="Ingrese su Correo" formControlName="email">
+                  </div>
+                  <div class="col-auto bg-ganger p-1">
+                    <label>Selecciona Tipo de Documento</label>
+                    <select class="form-select" aria-label="Default select example" formControlName="tipoDocumento">
+                      <option selected>Tipo Documento</option>
+                      <option value="dni">DNI</option>
+                      <option value="Passaporte">Passaporte</option>
+                      <option value="libreta electoral">LE</option>
+                    </select>
+                  </div>
+                  <div class="col-auto bg-ganger p-1">
+                    <label class="form-label">Numero de Documento</label>
+                    <input class="form-control" type="documento" name="documento" id="documento"
+                      placeholder="Ingrese su Numero de Documento" formControlName="numeroDocumento">
+                  </div>
+                  <div class="col-auto bg-ganger p-1">
+                    <label class="form-label">Fecha de Nacimiento</label>
+                    <input class="form-control" type="date" name="fecha" id="fecha nacimiento"
+                      placeholder="Ingrese Fecha de nacimiento" formControlName="fechaNacimiento" >
+                  </div>
+                  <div class="col-auto bg-ganger p-1">
+                    <input class="botons" type="submit" value="Registrar">
+                  </div>
+                </section>
+              </form>              
             </div>
           </div>
         </div>
