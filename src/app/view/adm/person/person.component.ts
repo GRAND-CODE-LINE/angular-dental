@@ -24,7 +24,7 @@ export class PersonComponent implements OnInit, OnDestroy, OnChanges {
   ) { }
 
   ngOnInit(): void {
-   this.getAll;
+   this.getAll();
   }
 
   getAll(){
