@@ -1,35 +1,40 @@
 import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
-import { Person } from 'src/app/models/Person';
+import { firstValueFrom } from 'rxjs';
+import { Person, PersonFilter } from 'src/app/models/Person';
+import { Paginate_I } from 'src/app/models/utils/filter_i';
 import { PersonServiceService } from 'src/app/services/person/person-service.service';
+
 
 @Component({
   selector: 'app-person',
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.scss']
 })
-export class PersonComponent implements OnInit, OnDestroy, OnChanges {
+export class PersonComponent {
   persons: any[] = [];
-  person={
-    nombre:'',
-    apaterno :'',
-      amaterno:'',
-    email: '',
-    tipoDocumento: '',
-    numeroDocumento : null,
-    fechaNacimiento: null
-  }
+  //filter interface Person extendes FILTER_I interface
+  filter: PersonFilter;
+  items: Person[] = [];
+  cols: any[] = [];
 
-  constructor(
-    private service: PersonServiceService
-  ) { }
+  constructor(private personService: PersonServiceService) {
+    // initialize filter
+    this.filter = {
+      page: 0,
+      size: 10,
+      sortFiled: 'name',
+      sortOrder: 1
+    }
+  }
 
   ngOnInit(): void {
-   this.getAll();
+    console.log('Init');
+    this.paginateData();
+    this.initCols();
   }
 
-  getAll(){
-    this.service.getAll()
-    .subscribe((data: any) => this.persons = data);
+  initCols() {
+    this.cols = [{ name: 'Nombre', field: 'name' }]
   }
 
   ngOnChanges() {
@@ -38,5 +43,12 @@ export class PersonComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     console.log('Destroy person');
+  }
+
+  async paginateData() {
+
+    let res: Paginate_I = await firstValueFrom(this.personService.paginate(this.filter));
+    this.items = res.content;
+    console.log(this.items);
   }
 }
