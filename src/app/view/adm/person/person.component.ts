@@ -29,12 +29,14 @@ export class PersonComponent {
 
   ngOnInit(): void {
     console.log('Init');
-    this.paginateData();
     this.initCols();
+    this.paginateData();
+
   }
 
   initCols() {
-    this.cols = [{ name: 'Nombre', field: 'name' }]
+    this.cols = [{ name: 'Nombre', field: 'nombre' }, { name: 'Apellido Pat.', field: 'apaterno' },
+    { name: 'Apellido Mat.', field: 'amaterno' }, { name: 'DNI', field: 'numeroDocumento' }]
   }
 
   ngOnChanges() {
@@ -46,7 +48,6 @@ export class PersonComponent {
   }
 
   async paginateData() {
-
     let res: Paginate_I = await firstValueFrom(this.personService.paginate(this.filter));
     this.items = res.content;
     console.log(this.items);
