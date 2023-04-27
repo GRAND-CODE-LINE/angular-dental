@@ -2,8 +2,8 @@
 export interface Filter_I {
     page: number,
     size: number,
-    sortFiled: string,
-    sortOrder: number
+    sortFiled?: string,
+    sortOrder?: number
 }
 
 // OBJETO DE PAGINACION QUE DEVUELVE SPRING DATA

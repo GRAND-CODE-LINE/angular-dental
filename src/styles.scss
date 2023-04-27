@@ -1,4 +1,12 @@
+@import "./theme/named-variables.scss";
 @import "./theme/theme.scss";
 
 /* Importing Bootstrap SCSS file. */
 @import "./node_modules/bootstrap/scss/bootstrap";
+
+
+.minita-container {
+    //margin-top:  calc($height-paginator + 0px); 
+}
+
+
