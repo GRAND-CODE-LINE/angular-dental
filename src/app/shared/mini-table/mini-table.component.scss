@@ -1,33 +1,19 @@
 table {
-    // border: 1px solid #ccc;
-    border-collapse: collapse;
     margin: 0;
     padding: 0;
     width: 100%;
     table-layout: fixed;
 }
 
-table caption {
-    // font-size: 1.5em;
-    // margin: .5em 0 .75em;
-}
-
 table tr {
-    // background-color: #f8f8f8;
-    // border: 1px solid #ddd;
-    // padding: .35em;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: #202020 !important;
 }
 
 table th,
 table td {
-    // padding: .625em;
-    // text-align: center;
-}
-
-table th {
-    // font-size: .85em;
-    // letter-spacing: .1em;
-    // text-transform: uppercase;
+    font-size: .8em;
 }
 
 @media screen and (max-width: 600px) {
@@ -42,41 +28,45 @@ table th {
     table thead {
         border: none;
         clip: rect(0 0 0 0);
-        height: 1px;
         margin: -1px;
         overflow: hidden;
-        padding: 0;
         position: absolute;
-        width: 1px;
     }
 
     table tr {
-        border-bottom: 3px solid #ddd;
+        background-color: #202020 !important;
         display: block;
-        margin-bottom: .625em;
+        border-radius: 0.5rem;
     }
 
     table td {
-        border-bottom: 1px solid #ddd;
+        border-bottom-width: 0rem;
         display: block;
         font-size: .8em;
         text-align: right;
+        min-height: 2rem;
     }
 
     table td::before {
-        /*
-      * aria-label has no advantage, it won't be read inside a table
-      content: attr(aria-label);
-      */
         content: attr(data-label);
         float: left;
         font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    table td:last-child {
-        border-bottom: 0;
     }
 }
 
 
+.mini-pagination {
+    position: sticky !important;
+    background-color: #000;
+    width: 100%;
+    padding: 0.5rem;
+    bottom: 0%;
+}
+
+.container-table {
+    position: relative !important;
+}
+
+ul{
+    margin-bottom: 0rem;
+}
