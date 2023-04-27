@@ -1,3 +1,6 @@
+// Utilities
+@import "../theme/named-variables.scss";
+
 .modal-content {
     animation-name: example !important;
     animation-duration: 0.3s !important;
@@ -16,3 +19,4 @@
         transform: scale(1)
     }
 }
+
