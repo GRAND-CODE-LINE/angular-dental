@@ -1,11 +1,24 @@
-[data-bs-theme="dark"] {
-  --bs-body-bg: #000000 !important;
+// [data-bs-theme="dark"] {
+//   --bs-body-bg: #000000 !important;
 
-  --bs-body-color: #FFFFFF !important;
+//   --bs-body-color: #FFFFFF !important;
 
-  .card {
-    --bs-card-bg: #212121 !important;
-    --bs-card-border-color: --bs-body-bg
-  }
+//   .card {
+//     --bs-card-bg: #212121 !important;
+//     --bs-card-border-color: --bs-body-bg
+//   }
+
+// }
+
+
+[data-bs-theme="light"] {
+  // --bs-body-bg: #000000 !important;
+
+  // --bs-body-color: #FFFFFF !important;
+
+  // .card {
+  //   --bs-card-bg: #212121 !important;
+  //   --bs-card-border-color: --bs-body-bg
+  // }
 
 }

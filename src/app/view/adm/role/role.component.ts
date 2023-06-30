@@ -78,10 +78,12 @@ export class RoleComponent {
     this.items = this.items.concat(this.items);
   }
 
-  onPageChange(e: Paginate_T) {
+  onPageChangexx(e: Paginate_T) {
     console.log(e);
 
     this.paginateObject = e
+
+    
     this.filter.size = this.paginateObject.size
     this.filter.page = this.paginateObject.currentPage
     this.paginateData()
