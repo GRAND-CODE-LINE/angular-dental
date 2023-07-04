@@ -1,26 +1,28 @@
-<div class="container">
+<div class="container minita-container">
     <div class="row">
-      <div></div>
+        <div class="col-md-12" style="text-align: center;">
+            <h5>Mantenimiento Rol</h5>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <span class="mr-1">Filtros</span>
-            <span class="ml-1 badge rounded-pill text-bg-primary">Primary</span>
-            <span class="badge rounded-pill text-bg-primary">Primary</span>
-            <span class="badge rounded-pill text-bg-primary">Primary</span>
+            <button class="btn btn-primary" (click)="update()">Actualizar</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <app-mini-filter></app-mini-filter>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <app-mini-table [cols]="cols" [items]="items" [paginateObject]="paginateObject"
+                (onPageChange)="onPageChange($event)"></app-mini-table>
         </div>
     </div>
 
 
-  
-    <app-mini-table [cols]="cols" [items]="items"></app-mini-table>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-    </nav>
+
+
 </div>
