@@ -1,9 +1,11 @@
-
 <div class="container-table">
     <table class="table">
         <thead>
             <tr>
                 <th *ngFor="let col of cols">{{col.name}}</th>
+                <th *ngIf="edit">
+                    Editar
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -11,7 +13,11 @@
                 <ng-container *ngFor="let col of cols">
                     <td [attr.data-label]="col.name">{{item[col.field]}}</td>
                 </ng-container>
+                <ng-container *ngIf="edit">
+                    <td> <button type="button" class="btn btn-outline-warning m-2"
+                            (click)="onEdit(item)">Editar</button></td>
 
+                </ng-container>
 
             </tr>
 

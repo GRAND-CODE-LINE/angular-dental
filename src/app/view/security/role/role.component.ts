@@ -11,7 +11,6 @@ import { Paginate_T } from 'src/app/shared/mini-table/mini-table.component';
   styleUrls: ['./role.component.scss']
 })
 export class RoleComponent {
-
   // filter interface ROLE extendes FILTER_I interface
   filter: RoleFilter;
 
@@ -75,7 +74,8 @@ export class RoleComponent {
   }
 
   update() {
-    this.items = this.items.concat(this.items);
+    // this.items = this.items.concat(this.items);
+    this.paginateData()
   }
 
   onPageChangexx(e: Paginate_T) {
@@ -83,9 +83,16 @@ export class RoleComponent {
 
     this.paginateObject = e
 
-    
+
     this.filter.size = this.paginateObject.size
     this.filter.page = this.paginateObject.currentPage
     this.paginateData()
+  }
+
+
+
+  onEditClick(event: Role) {
+    console.log(event);
+
   }
 }

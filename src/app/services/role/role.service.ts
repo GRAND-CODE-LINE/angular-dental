@@ -12,7 +12,7 @@ export class RoleService {
 
   constructor(private http: HttpClient) { }
 
-  URL_BASE = environment.URL_ADM + '/role';
+  URL_BASE = environment.URL_SECURITY + '/api/role';
 
   public paginate(filter: RoleFilter): Observable<Paginate_I> {
     return this.http.post<Paginate_I>(this.URL_BASE + '/paginate', filter)
