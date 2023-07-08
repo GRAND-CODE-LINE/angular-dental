@@ -70,4 +70,9 @@ export class PersonComponent {
       currentPage :res.number
     }
   }
+  
+  onEditClick(event: Person) {
+  
+
+  }
 }
