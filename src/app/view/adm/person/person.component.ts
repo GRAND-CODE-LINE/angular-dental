@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Person, PersonFilter } from 'src/app/models/Person';
 import { Paginate_I } from 'src/app/models/utils/filter_i';
@@ -25,7 +26,7 @@ export class PersonComponent {
     totalpages: 0
   }
 
-  constructor(private personService: PersonServiceService) {
+  constructor(private personService: PersonServiceService, private router: Router) {
     // initialize filter
     this.filter = {
       page: 0,
@@ -46,9 +47,9 @@ export class PersonComponent {
       { name: 'ID ', field: 'id' },
       { name: 'Nombre', field: 'nombre' },
       { name: 'Apellido', field: 'apaterno' },
-      { name: 'Mail', field: 'email'},
-      { name: 'DNI' , field: 'numeroDocumento'},
-      { name: 'Fecha Nac.', field:'fechaNacimiento'}];
+      { name: 'Mail', field: 'email' },
+      { name: 'DNI', field: 'numeroDocumento' },
+      { name: 'Fecha Nac.', field: 'fechaNacimiento' }];
   }
 
   ngOnChanges() {
@@ -67,12 +68,14 @@ export class PersonComponent {
       size: res.size,
       total: res.totalElements,
       totalpages: res.totalPages,
-      currentPage :res.number
+      currentPage: res.number
     }
   }
-  
+
   onEditClick(event: Person) {
-  
+    this.router.navigate(['adm/createperson', event.id]);
+
+    //  this.personService.servidor.emit(event);
 
   }
 }
