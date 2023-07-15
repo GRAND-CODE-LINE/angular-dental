@@ -5,6 +5,12 @@ table {
     table-layout: fixed;
 }
 
+.action {
+    min-width: 3rem;
+    width: 4rem;
+    table-layout: fixed;
+}
+
 table tr {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
@@ -67,6 +73,6 @@ table td {
     position: relative !important;
 }
 
-ul{
+ul {
     margin-bottom: 0rem;
 }
