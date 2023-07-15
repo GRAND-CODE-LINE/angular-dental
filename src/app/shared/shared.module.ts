@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MiniTableComponent } from './mini-table/mini-table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MiniFilterComponent } from './mini-filter/mini-filter.component';
-
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 
 
 @NgModule({
@@ -14,9 +16,15 @@ import { MiniFilterComponent } from './mini-filter/mini-filter.component';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
-    
-  ], 
+    ReactiveFormsModule,
+    FontAwesomeModule
+
+  ],
   exports: [MiniTableComponent, MiniFilterComponent]
 })
-export class SharedModule { }
+export class SharedModule {
+
+  constructor(library: FaIconLibrary) {
+    library.addIconPacks(fas, far);
+  }
+}

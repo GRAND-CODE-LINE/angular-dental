@@ -21,9 +21,11 @@ export class MiniTableComponent {
   @Input() items: any[] = []
   @Input() paginateObject: Paginate_T
   @Input() edit: boolean = false
+  @Input() delete: boolean = false
   @Output() onPageChange = new EventEmitter<Paginate_T>();
 
   @Output() onEditClick = new EventEmitter<any>();
+  @Output() onDeleteClick = new EventEmitter<any>();
 
   constructor() {
     this.paginateObject = {
@@ -33,9 +35,9 @@ export class MiniTableComponent {
       currentPage: 0
     }
   }
+
   ngOnInit() {
     console.log('Init mini table');
-
   }
 
 
@@ -60,5 +62,10 @@ export class MiniTableComponent {
   onEdit(item: any) {
     // console.log(item);
     this.onEditClick.emit(item);
+  }
+
+  onDelete(item: any) {
+    // console.log(item);
+    this.onDeleteClick.emit(item);
   }
 }

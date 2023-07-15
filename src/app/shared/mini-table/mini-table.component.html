@@ -3,8 +3,11 @@
         <thead>
             <tr>
                 <th *ngFor="let col of cols">{{col.name}}</th>
-                <th *ngIf="edit">
+                <th class="action" *ngIf="edit">
                     Editar
+                </th>
+                <th class="action" *ngIf="delete">
+                    Eliminar
                 </th>
             </tr>
         </thead>
@@ -14,8 +17,14 @@
                     <td [attr.data-label]="col.name">{{item[col.field]}}</td>
                 </ng-container>
                 <ng-container *ngIf="edit">
-                    <td> <button type="button" class="btn btn-outline-warning m-2"
-                            (click)="onEdit(item)">Editar</button></td>
+                    <td [attr.data-label]="'Editar'"> <button type="button" class="btn btn-outline-warning m-2 btn-sm"
+                            (click)="onEdit(item)"><fa-icon [icon]='"pen-to-square"'></fa-icon></button></td>
+
+                </ng-container>
+
+                <ng-container *ngIf="delete">
+                    <td [attr.data-label]="'Eliminar'"> <button type="button" class="btn btn-outline-danger m-2 btn-sm"
+                            (click)="onDelete(item)"><fa-icon [icon]='"trash"'></fa-icon></button></td>
 
                 </ng-container>
 
@@ -34,7 +43,7 @@
 
 
         <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link">Previous</a></li>
             <li class="page-item" *ngFor="let xx of [].constructor(paginateObject.totalpages);  let page = index"
                 [ngClass]="{'active': paginateObject.currentPage === page}">
                 <a class="page-link" (click)="changePage(page)">{{ page + 1 }}</a>
