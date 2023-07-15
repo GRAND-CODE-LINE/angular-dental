@@ -33,12 +33,13 @@ export class CreateUserComponent {
 
   initForms() {
     this.userForm = this.fb.group({
+      id: [],
       username: [null, Validators.compose([Validators.required])],
       email: [null, Validators.compose([Validators.required])],
       password: [null, Validators.compose([Validators.required])],
       reppassword: [null, Validators.compose([Validators.required])],
     })
-    
+
 
     this.personform = this.fb.group({
       nombre: [null, Validators.compose([Validators.required])],
