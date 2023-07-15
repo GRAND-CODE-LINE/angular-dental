@@ -46,15 +46,20 @@ export class AuthInterceptorService implements HttpInterceptor {
 
         catchError((err: HttpErrorResponse) => {
           console.log(err);
-          if (err.status === 401 && this.router.url == '/security/login') {
+          if ((err.status === 401 || err.status === 403) && this.router.url == '/security/login') {
             let message: Message_I = {
               title: 'Error',
               message: 'Usuario y/o contraseña incorrectos',
               type: 'danger'
             }
             this.messageService.openModal(message);
-          } else if (err.status === 401) {
-
+          } else if (err.status === 401 || err.status === 403) {
+            let message: Message_I = {
+              title: 'Error',
+              message: 'Seson ha expirado, ingresar nuevamente.',
+              type: 'danger'
+            }
+            this.messageService.openModal(message);
             this.router.navigateByUrl('/security/login');
           }
           return throwError(() => new Error('Error Login:' + err.message));
