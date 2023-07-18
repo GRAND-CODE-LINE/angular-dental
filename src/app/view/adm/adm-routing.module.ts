@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'person', component: PersonComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'createperson', component: CreatePersonComponent },
+  { path: 'createperson/:id', component: CreatePersonComponent },
 ];
 
 @NgModule({
