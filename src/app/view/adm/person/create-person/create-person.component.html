@@ -4,7 +4,8 @@
       <div class="card">
         <div class="card-header">
           <div class="col-auto bg-ganger p-1">
-            <h4>Registro Persona</h4>
+            <h4 *ngIf="!modoEditar">Registro Persona</h4>
+            <h4 *ngIf="modoEditar">Editar Persona</h4>
           </div>
         </div>
         <div class="card-body">
@@ -50,8 +51,11 @@
                   <input class="form-control" type="date" name="fecha" id="fecha nacimiento"
                     placeholder="Ingrese Fecha de nacimiento" formControlName="fechaNacimiento">
                 </div>
-                <div class="col-auto bg-ganger p-1">
+                <div class="col-auto bg-ganger p-1" *ngIf="!modoEditar">
                   <input class="botons" type="submit" value="Registrar">
+                </div>
+                <div class="col-auto bg-ganger p-1" *ngIf="modoEditar">
+                  <input class="botons" type="submit" value="Actualizar Datos">
                 </div>
               </section>
             </form>
