@@ -1,0 +1,13 @@
+[{
+  "icon": "caret-down-outline",
+  "text": "Pasiente",
+  "url": "/pasente"  
+},{
+    "icon":"alarm-outline",
+    "text":"historial",
+    "url":"/historial"
+},{
+    "icon":"Logout",
+    "text":"Cerrar Sesión",
+    "url":"/login"
+}]
