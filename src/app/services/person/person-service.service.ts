@@ -32,4 +32,8 @@ export class PersonServiceService {
     return this.http.post<Paginate_I>('http://localhost:8080/person/paginate', filter)
   }
 
+  getByDocument(document: string) {
+    return this.http.get('http://localhost:8080/person/getByDocument/'+document)
+  }
+
 }

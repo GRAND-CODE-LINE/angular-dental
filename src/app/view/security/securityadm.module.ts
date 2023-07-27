@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -20,7 +21,8 @@ import { CreateUserComponent } from './user/create-user/create-user.component';
     SecurityRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ]
 })
 export class SecurityAdmModule { }

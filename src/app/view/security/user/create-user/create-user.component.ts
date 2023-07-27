@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { User } from 'src/app/models/user';
+import { PersonServiceService } from 'src/app/services/person/person-service.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -14,11 +15,14 @@ export class CreateUserComponent {
 
   user!: User;
   userForm!: FormGroup;
-
   edit = false
-
   personform!: FormGroup;
-  constructor(private userService: UserService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) { }
+
+  documentTypePerson = [
+    { value: 'DNI', label: 'Documento de identidad' }
+  ]
+
+  constructor(private userService: UserService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private personService: PersonServiceService) { }
 
 
   async ngOnInit(): Promise<void> {
@@ -62,6 +66,11 @@ export class CreateUserComponent {
   }
 
   async create() {
+    if (!this.userForm.valid) {
+      return
+    }
+
+
     this.user = this.userForm.value;
     await firstValueFrom(this.userService.create(this.user));
     this.router.navigate(['securityadm/user'])
@@ -83,6 +92,11 @@ export class CreateUserComponent {
   }
 
   back() {
+
+  }
+
+
+  searchPerson() {
 
   }
 }
