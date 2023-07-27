@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Person, PersonFilter } from 'src/app/models/Person';
 import { Paginate_I } from 'src/app/models/utils/filter_i';
@@ -35,5 +35,10 @@ export class PersonServiceService {
   getByDocument(document: string) {
     return this.http.get('http://localhost:8080/person/getByDocument/'+document)
   }
+
+  getById(id: string) {
+    return this.http.get('http://localhost:8080/person/'+id)
+  }
+
 
 }
