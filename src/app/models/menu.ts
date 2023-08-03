@@ -10,8 +10,9 @@ export interface Menu {
     //empty in collection menus, only used in roles
     permissions?: string[]
 }
-export interface itemsMenu{
+export interface itemsMenu {
     icon: string;
     text: string;
-    url:  string;
+    url: string;
+    childs?: any[]
 }

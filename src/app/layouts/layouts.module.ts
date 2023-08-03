@@ -7,7 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginService } from '../security/services/login.service';
 import { HttpClientModule } from '@angular/common/http';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 
 
 
@@ -25,6 +27,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
   ],
   providers: [MessagesService, LoginService],
-  exports: [ModalComponent,MenuComponent]
+  exports: [ModalComponent, MenuComponent]
 })
-export class LayoutsModule { }
+export class LayoutsModule {
+
+
+  constructor(library: FaIconLibrary) {
+    library.addIconPacks(fas, far);
+  }
+}
