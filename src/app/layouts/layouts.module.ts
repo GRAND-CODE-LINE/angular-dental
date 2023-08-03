@@ -23,6 +23,6 @@ import { HttpClientModule } from '@angular/common/http';
 
   ],
   providers: [MessagesService, LoginService],
-  exports: [ModalComponent]
+  exports: [ModalComponent,MenuComponent]
 })
 export class LayoutsModule { }
