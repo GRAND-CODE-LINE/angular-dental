@@ -20,12 +20,12 @@ export class PersonServiceService {
     return this.http.post('http://localhost:8080/person', person)
   }
 
-  update(id: BigInteger, person: Person) {
+  update(id?: String, person?: Person) {
     return this.http.put('http://localhost:8080/person/' + id, person)
   }
 
-  delete(id: string) {
-    return this.http.delete('http://localhost:8080/delete/${id}')
+  delete(id?: string) {
+    return this.http.delete('http://localhost:8080/person/'+id)
   }
 
   public paginate(filter: PersonFilter): Observable<Paginate_I> {

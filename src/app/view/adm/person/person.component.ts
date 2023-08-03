@@ -78,4 +78,9 @@ export class PersonComponent {
     //  this.personService.servidor.emit(event);
 
   }
+  
+  async onDeleteClick (event : Person){
+    await firstValueFrom(this.personService.delete(event.id));
+    this.paginateData();
+  }
 }

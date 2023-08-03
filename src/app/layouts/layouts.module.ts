@@ -25,6 +25,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
   ],
   providers: [MessagesService, LoginService],
-  exports: [ModalComponent]
+  exports: [ModalComponent,MenuComponent]
 })
 export class LayoutsModule { }

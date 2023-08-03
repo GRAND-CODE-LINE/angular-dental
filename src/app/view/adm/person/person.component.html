@@ -7,8 +7,8 @@
             <h4>Personas</h4>
           </div>
         </div>
-        <app-mini-table [cols]="cols" [items]="items" [paginateObject]="paginateObject" [edit]="true"
-          (onEditClick)="onEditClick($event)"></app-mini-table>
+        <app-mini-table [cols]="cols" [items]="items" [paginateObject]="paginateObject" [edit]="true" [delete]="true"
+          (onEditClick)="onEditClick($event)" (onDeleteClick)="onDeleteClick($event)"></app-mini-table>
       </div>
     </div>
   </div>
