@@ -14,5 +14,4 @@ export interface Person {
 export interface PersonFilter extends Filter_I {
 	id?: string,
 	name?: string
-
 }

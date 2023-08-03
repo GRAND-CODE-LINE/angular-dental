@@ -13,7 +13,7 @@ import { PersonServiceService } from 'src/app/services/person/person-service.ser
 export class CreatePersonComponent implements OnInit, OnDestroy, OnChanges {
   person!: Person;
   personform!: FormGroup;
-
+  modoEditar= false;
   constructor(
     private service: PersonServiceService,
     private fb: FormBuilder,
@@ -22,6 +22,7 @@ export class CreatePersonComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
     this.personform = this.fb.group({
+      id:[],
       nombre: [null, Validators.compose([Validators.required])],
       apaterno: [null, Validators.compose([Validators.required])],
       amaterno: [null, Validators.compose([Validators.required])],
@@ -33,6 +34,7 @@ export class CreatePersonComponent implements OnInit, OnDestroy, OnChanges {
       fechaNacimiento: [null, Validators.compose([Validators.required])]
     })
     if (this.route.snapshot.params['id'] != undefined) {
+      this.modoEditar=true;
       const id = this.route.snapshot.paramMap.get('id')!;
       this.service.getById(id)
         .subscribe((data: any) => this.Llenar(data));
@@ -40,9 +42,15 @@ export class CreatePersonComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   create() {
+    if(!this.modoEditar){
     this.person = this.personform.value;
     this.service.create(this.person)
       .subscribe((data: any) => this.person = data);
+    }else{
+      this.person = this.personform.value;
+      this.service.update(this.person.id,this.person)
+      .subscribe((data:any) => this.person = data);
+    }
   }
   ngOnChanges() {
     console.log('Changes');

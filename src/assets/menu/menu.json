@@ -1,0 +1,25 @@
+[{
+  "icon": "caret-down-outline",
+  "text": "Manteninmiento",
+  "childs" :[{
+    "icon":"alarm-outline",
+    "text":"Pacientes",
+    "url":""
+  },{
+    "icon":"alarm-outline",
+    "text":"Usuario",
+    "url":"securityadm/user"
+  }]
+},{
+    "icon":"alarm-outline",
+    "text":"Operaciones",
+    "childs" :[{
+      "icon":"alarm-outline",
+      "text":"Historia Clinica",
+      "url":"---"
+    }]
+  },{
+    "icon":"Logout",
+    "text":"Cerrar Sesión",
+    "url":"/login"
+}]
