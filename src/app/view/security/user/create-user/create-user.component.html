@@ -2,13 +2,13 @@
 
 
 
+    <div class="card">
+        <div class="card-header">
+            Nuevo usuario
+        </div>
+        <div class="card-body">
+            <form (submit)="saveData()" [formGroup]="userForm" autocomplete="off">
 
-    <form (submit)="saveData()" [formGroup]="userForm" autocomplete="off" >
-        <div class="card">
-            <div class="card-header">
-                Nuevo usuario
-            </div>
-            <div class="card-body">
 
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -17,56 +17,73 @@
                     </div>
                     <div class="col-md-6">
                         <label for="email" class="form-label">Email</label>
-                        <input autocomplete="new-email" type="email" class="form-control" id="email" formControlName="email">
+                        <input autocomplete="new-email" type="email" class="form-control" id="email"
+                            formControlName="email">
                     </div>
                     <div class="col-md-6">
                         <label for="passwordform" class="form-label">Contraseña</label>
-                        <input autocomplete="new-password" type="password" class="form-control" id="passwordform" formControlName="password">
+                        <input autocomplete="new-password" type="password" class="form-control" id="passwordform"
+                            formControlName="password">
                     </div>
                     <div class="col-md-6">
                         <label for="reppassword" class="form-label">Repita Contraseña</label>
                         <input type="password" class="form-control" id="reppassword" formControlName="reppassword">
                     </div>
                     <hr>
-                    
-                    <div class="col-12">
-                        <label for="inputAddress" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                    </div>
-                    <div class="col-12">
-                        <label for="inputAddress2" class="form-label">Address 2</label>
-                        <input type="text" class="form-control" id="inputAddress2"
-                            placeholder="Apartment, studio, or floor">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputCity" class="form-label">City</label>
-                        <input type="text" class="form-control" id="inputCity">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="inputState" class="form-label">State</label>
-                        <select id="inputState" class="form-select">
-                            <option selected>Choose...</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="inputZip" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="inputZip">
-                    </div>
-                    <div class="col-12">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gridCheck">
-                            <label class="form-check-label" for="gridCheck">
-                                Check me out
-                            </label>
-                        </div>
-                    </div>
-                 
+
+
+
                 </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </form>
 
+            </form>
+
+            <form [formGroup]="personform" autocomplete="off">
+
+                <div class="row g-3">
+                    <div class="col-6">
+                        <label for="NroDoc" class="form-label">Nro. Documento</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="NroDoc" formControlName="numeroDocumento">
+                            <button class="btn btn-outline-secondary" type="button" (click)="searchPerson()"><fa-icon
+                                    [icon]='"search"'></fa-icon></button>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="tipoDoc" class="form-label">Tipo Documento</label>
+                        <select class="form-select" id="tipoDoc" formControlName="tipoDocumento">
+                            <option *ngFor="let item of documentTypePerson" value="item.value">{{item.label}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-4">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" formControlName="nombre">
+                    </div>
+                    <div class="col-4">
+                        <label for="apPaterno" class="form-label">Apellido Paterno</label>
+                        <input type="text" class="form-control" id="apPaterno" formControlName="apaterno">
+                    </div>
+                    <div class="col-4">
+                        <label for="apMaterno" class="form-label">Apellido Materno</label>
+                        <input type="text" class="form-control" id="apMaterno" formControlName="amaterno">
+                    </div>
+                    <div class="col-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" formControlName="email">
+                    </div>
+                    <div class="col-6">
+                        <label for="fechaNac" class="form-label">Fecha Nacimiento</label>
+                        <input type="date" class="form-control" id="fechaNac" formControlName="fechaNacimiento">
+                    </div>
+                </div>
+            </form>
+            <hr>
+
+
+            <button type="button" class="btn btn-primary" (click)="create()">Submit</button>
+
+        </div>
+    </div>
 </div>
