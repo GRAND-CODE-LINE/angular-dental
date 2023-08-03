@@ -45,7 +45,7 @@
                         <label for="NroDoc" class="form-label">Nro. Documento</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="NroDoc" formControlName="numeroDocumento">
-                            <button class="btn btn-outline-secondary" type="button"><fa-icon
+                            <button class="btn btn-outline-secondary" type="button" (click)="searchPerson()"><fa-icon
                                     [icon]='"search"'></fa-icon></button>
                         </div>
                     </div>
@@ -69,13 +69,13 @@
                         <label for="apMaterno" class="form-label">Apellido Materno</label>
                         <input type="text" class="form-control" id="apMaterno" formControlName="amaterno">
                     </div>
-                    <div class="col-12">
+                    <div class="col-6">
                         <label for="email" class="form-label">Email</label>
                         <input type="text" class="form-control" id="email" formControlName="email">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <label for="fechaNac" class="form-label">Fecha Nacimiento</label>
-                        <input type="text" class="form-control" id="fechaNac" formControlName="fechaNacimiento">
+                        <input type="date" class="form-control" id="fechaNac" formControlName="fechaNacimiento">
                     </div>
                 </div>
             </form>

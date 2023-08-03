@@ -33,11 +33,11 @@ export class PersonServiceService {
   }
 
   getByDocument(document: string) {
-    return this.http.get('http://localhost:8080/person/getByDocument/'+document)
+    return this.http.get('http://localhost:8080/person/getByDocument/' + document)
   }
 
   getById(id: string) {
-    return this.http.get('http://localhost:8080/person/'+id)
+    return this.http.get('http://localhost:8080/person/' + id)
   }
 
 

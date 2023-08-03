@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { Person } from 'src/app/models/Person';
 import { User } from 'src/app/models/user';
 import { PersonServiceService } from 'src/app/services/person/person-service.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -63,6 +64,7 @@ export class CreateUserComponent {
     let userGet: any = await firstValueFrom(this.userService.getById(id));
     console.log(userGet);
     this.userForm.patchValue(userGet)
+    this.personform.patchValue(userGet.person)
   }
 
   async create() {
@@ -72,6 +74,10 @@ export class CreateUserComponent {
 
 
     this.user = this.userForm.value;
+    this.user.person = this.personform.value
+
+    console.log(this.user);
+
     await firstValueFrom(this.userService.create(this.user));
     this.router.navigate(['securityadm/user'])
 
@@ -79,6 +85,7 @@ export class CreateUserComponent {
 
   async update() {
     this.user = this.userForm.value;
+    this.user.person = this.personform.value
     await firstValueFrom(this.userService.update(this.user.id, this.user));
     this.router.navigate(['securityadm/user'])
   }
@@ -96,7 +103,16 @@ export class CreateUserComponent {
   }
 
 
-  searchPerson() {
+  async searchPerson() {
+    let person = this.personform.value;
+    let res: any = await firstValueFrom(this.personService.getByDocument(person.numeroDocumento)) as Person;
 
+    let personGet: Person = res;
+    console.log(personGet);
+
+    if (personGet) {
+      this.personform.patchValue(personGet)
+    }
+    // personGet.fechaNacimiento = personGet.fechaNacimiento.substring(0, 10);
   }
 }
