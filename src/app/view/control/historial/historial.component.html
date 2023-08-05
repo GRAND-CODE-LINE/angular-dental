@@ -1,0 +1,161 @@
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col" style=" text-align:  center;">
+            <h4>Historial clinico</h4>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control form-control-lg" placeholder="Número de documento"
+                    aria-label="Número de documento" aria-describedby="button-addon2">
+                <button class="btn btn-primary" type="button" id="button-addon2"><fa-icon [icon]='"search"'></fa-icon></button>
+                <button class="btn btn-danger" type="button" id="button-addon2"><fa-icon [icon]='"times"'></fa-icon></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+
+
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h5>Información general</h5>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary"><fa-icon [icon]='"pen-to-square"'></fa-icon></button>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="card-header">
+                    <h5>Información general</h5>
+                </div> -->
+                <div class="card-body">
+                    <img class="oversize" src="/assets/images/user.png" alt="image">
+                    <br>
+                    <div class="row mt-3" style="text-align: center;">
+                        <div class="col-sm-12">
+                            <p><strong>Nombres:</strong> {{paciente.nombres}}</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p><strong>Nro. Documento: </strong> {{paciente.nroDocumento}}</p>
+
+                        </div>
+                        <div class="col-sm-12">
+                            <p><strong>Tipo Documento: </strong> {{paciente.tipoDoc}}</p>
+                            <p> </p>
+
+                        </div>
+                        <div class="col-sm-12">
+                            <p><strong>Fecha Nacimiento: </strong> {{paciente.fechaNacimiento}}</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p><strong>Edad: </strong> {{paciente.edad}}</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p><strong>Genero: </strong> {{paciente.genero}}</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p><strong>Celular: </strong>{{paciente.celular}}</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p><strong>Email: </strong> {{paciente.email}}</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p><strong>Direccion: </strong> {{paciente.direccion}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h5>Anamnesis</h5>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary"><fa-icon [icon]='"pen-to-square"'></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mt-3">
+                        <div class="col-sm-12 mb-2">
+                            <p><strong>Observaciones: </strong> </p>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <p><strong>Alergias:</strong></p>
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-warning">An item</li>
+                                <li class="list-group-item list-group-item-warning">A second item</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <p><strong>Enfermedades </strong> </p>
+                            <ul class="list-group">
+                                <li class="list-group-item">An item</li>
+                                <li class="list-group-item">A second item</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h5>Consultas</h5>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary"><fa-icon [icon]='"plus"'></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="list-group">
+                                <a class="list-group-item list-group-item-action " aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">List group item heading</h5>
+                                        <small>3 days ago</small>
+                                    </div>
+                                    <p class="mb-1">Some placeholder content in a paragraph.</p>
+                                    <small>And some small print.</small>
+                                </a>
+                                <a class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">List group item heading</h5>
+                                        <small class="text-body-secondary">3 days ago</small>
+                                    </div>
+                                    <p class="mb-1">Some placeholder content in a paragraph.</p>
+                                    <small class="text-body-secondary">And some muted small print.</small>
+                                </a>
+                                <a class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">List group item heading</h5>
+                                        <small class="text-body-secondary">3 days ago</small>
+                                    </div>
+                                    <p class="mb-1">Some placeholder content in a paragraph.</p>
+                                    <small class="text-body-secondary">And some muted small print.</small>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
