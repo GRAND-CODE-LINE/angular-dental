@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ControlRoutingModule } from './control-routing.module';
 import { HistorialComponent } from './historial/historial.component';
 import { ConsultaComponent } from './consulta/consulta.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ConsultaComponent } from './consulta/consulta.component';
   ],
   imports: [
     CommonModule,
-    ControlRoutingModule
+    ControlRoutingModule,
+    FontAwesomeModule
   ]
 })
 export class ControlModule { }

@@ -6,7 +6,8 @@ const routes: Routes = [
   { path: 'adm', loadChildren: () => import('./view/adm/adm.module').then(m => m.AdmModule) },
   { path: 'security', loadChildren: () => import('./security/security.module').then(m => m.SecurityModule) },
   { path: 'securityadm', loadChildren: () => import('./view/security/securityadm.module').then(m => m.SecurityAdmModule) },
-  { path: '', redirectTo: '/security/login', pathMatch: 'full' }
+  { path: '', redirectTo: '/security/login', pathMatch: 'full' },
+  { path: 'control', loadChildren: () => import('./view/control/control.module').then(m => m.ControlModule) },
 ];
 
 @NgModule({
