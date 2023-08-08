@@ -6,18 +6,22 @@ import { HistorialComponent } from './historial/historial.component';
 import { ConsultaComponent } from './consulta/consulta.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PatientComponent } from './patient/patient.component';
+import { CreatepatientComponent } from './patient/createpatient/createpatient.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     HistorialComponent,
     ConsultaComponent,
-    PatientComponent
+    PatientComponent,
+    CreatepatientComponent
   ],
   imports: [
     CommonModule,
     ControlRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReactiveFormsModule
   ]
 })
 export class ControlModule { }

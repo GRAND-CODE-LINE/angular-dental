@@ -47,6 +47,24 @@
                     placeholder="Ingrese su Numero de Documento" formControlName="numeroDocumento">
                 </div>
                 <div class="col-auto bg-ganger p-1">
+                  <label>Selecciona Genero</label>
+                  <select class="form-select" aria-label="Default select example" formControlName="tipoDocumento">
+                    <option value="dni">Masculino</option>
+                    <option value="Passaporte">Femenino</option>
+                  </select>
+                </div>
+                <div class="col-auto bg-ganger p-1">
+                  <label class="form-label">Direccion </label>
+                  <input class="form-control" type="documento" name="direccion" id="direccion"
+                    placeholder="Ingrese su la direccion" formControlName="direccion">
+                </div>
+                <div class="col-auto bg-ganger p-1">
+                  <label class="form-label">Celular </label>
+                  <input class="form-control" type="celular" name="celular" id="celular"
+                    placeholder="Ingrese su celular" formControlName="celular">
+                </div>
+
+                <div class="col-auto bg-ganger p-1">
                   <label class="form-label">Fecha de Nacimiento</label>
                   <input class="form-control" type="date" name="fecha" id="fecha nacimiento"
                     placeholder="Ingrese Fecha de nacimiento" formControlName="fechaNacimiento">
