@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
           <div class="row p-2 m-2">
-            <form class="row" (submit)="create()" [formGroup]="personform">
+            <form class="row" [formGroup]="personform">
               <div class="col-md-6">
                 <label>Nombres</label>
                 <input class="form-control" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre"
@@ -71,7 +71,7 @@
             </form>
             <form class="row" (submit)="create()" [formGroup]="patientform">
               <div class="col-md-6     ">
-                <label>Alergias</label>
+                <label>Alergia</label>
                 <input class="form-control" type="text" name="alergia" id="alergia"
                   placeholder="Ingrese Alergia del paciente" formControlName="alergia">
               </div>

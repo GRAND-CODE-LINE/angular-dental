@@ -14,29 +14,29 @@ export class PatientService {
   ) { }
 
   getAll() {
-    return this.http.get('http://localhost:8080/patient/listar')
+    return this.http.get('http://localhost:8082/patient/listar')
   }
   create(patient: Patient) {
-    return this.http.post('http://localhost:8080/patient', patient)
+    return this.http.post('http://localhost:8082/patient', patient)
   }
 
   update(id?: String, patient?: Patient) {
-    return this.http.put('http://localhost:8080/patient/' + id, patient)
+    return this.http.put('http://localhost:8082/patient/' + id, patient)
   }
 
   delete(id?: string) {
-    return this.http.delete('http://localhost:8080/patient/' + id)
+    return this.http.delete('http://localhost:8082/patient/' + id)
   }
 
   public paginate(filter: PatientFilter): Observable<Paginate_I> {
-    return this.http.post<Paginate_I>('http://localhost:8080/patient/paginate', filter)
+    return this.http.post<Paginate_I>('http://localhost:8082/patient/paginate', filter)
   }
 
   getByDocument(document: string) {
-    return this.http.get('http://localhost:8080/patient/getByDocument/' + document)
+    return this.http.get('http://localhost:8082/patient/getByDocument/' + document)
   }
 
   getById(id: string) {
-    return this.http.get('http://localhost:8080/patient/' + id)
+    return this.http.get('http://localhost:8082/patient/' + id)
   }
 }
