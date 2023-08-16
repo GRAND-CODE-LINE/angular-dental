@@ -15,6 +15,8 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
   personform!: FormGroup;
   patientform!: FormGroup;
   modoEditar = false;
+  listAlergias:string[]=[];
+  listEnfermedades:string[]=[];
   constructor(
     private service: PatientService,
     private personService: PersonServiceService,
@@ -34,18 +36,17 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
       tipoDocumento: [null, Validators.compose([Validators.required])],
       numeroDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(8)])],
       fechaNacimiento: [null, Validators.compose([Validators.required])],
-      genero: [null, Validators.compose([Validators.required])]
+      genero:[],
     })
     this.patientform = this.fb.group({
       id: [],
-      redes: [null, Validators.compose([Validators.required])],
+      redSocial: [null, Validators.compose([Validators.required])],
       contactoEmergencia: [null, Validators.compose([Validators.required])],
       numeroEmergencia: [null, Validators.compose([Validators.required])],
-      alergia:[],
-      enfermedades:[],
       peso: [null, Validators.compose([Validators.required])],
       talla: [null, Validators.compose([Validators.required])],
-
+      alergias:[],
+      enfermedades:[], 
     })
     if (this.route.snapshot.params['id'] != undefined) {
       this.modoEditar = true;
@@ -77,10 +78,19 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
 
   Llenar(data: Patient) {
     this.patientform.patchValue(data);
+    this.personform.patchValue(data.Persona);
   }
 
   crearPatient() {
     this.patient = this.patientform.value;
+    this.patient.alergias=this.listAlergias;
+    this.patient.enfermedades=this.listEnfermedades;
     this.patient.Persona = this.personform.value;
+  }
+  agregarAlergia(data:string){
+    this.listAlergias.push(data);
+  }
+  agregarEnfermedad(data:string){
+    this.listEnfermedades.push(data);
   }
 }

@@ -3,12 +3,12 @@ import { Filter_I } from "./utils/filter_i";
 
 export interface Patient {
 	id?: string;
-	alergias: string;
+	alergias: string[];
 	redsocial: string;
 	fotoPermiso: String;
 	numeroEmergencia: string;
 	contactoEmergencia: string;
-	Enfermedades: string;
+	enfermedades: string[];
 	peso: DoubleRange;
     talla:DoubleRange;
     Persona:Person;

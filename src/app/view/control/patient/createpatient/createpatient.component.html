@@ -47,7 +47,8 @@
               </div>
               <div class="col-md-6">
                 <label>Selecciona Genero</label>
-                <select class="form-select" aria-label="Default select example" formControlName="tipoDocumento">
+                <select class="form-select" aria-label="Default select example" formControlName="genero">
+                  <option selected>Genero</option>
                   <option value="dni">Masculino</option>
                   <option value="Passaporte">Femenino</option>
                 </select>
@@ -69,16 +70,24 @@
                   placeholder="Ingrese Fecha de nacimiento" formControlName="fechaNacimiento">
               </div>
             </form>
+
+
+
             <form class="row" (submit)="create()" [formGroup]="patientform">
               <div class="col-md-6     ">
-                <label>Alergia</label>
-                <input class="form-control" type="text" name="alergia" id="alergia"
-                  placeholder="Ingrese Alergia del paciente" formControlName="alergia">
+                <label>Alergias</label>
+                <input class="form-control" type="text" name="alergia" id="alergias"
+                  placeholder="Ingrese Alergia del paciente" formControlName="alergias">
               </div>
               <div class="col-md-6     ">
-                <label>Redes Sociales</label>
-                <input class="form-control" type="textarea" name="redes" id="redes"
-                  placeholder="Ingrese sus redes Sociales o Formas de contacto " formControlName="redes">
+                <label>Enfermedades</label>
+                <input class="form-control" type="text" name="Enfermedades" id="enfermedades"
+                  placeholder="Ingrese Alergia del paciente" formControlName="alergias">
+              </div>
+              <div class="col-md-6     ">
+                <label>redSocial Sociales</label>
+                <input class="form-control" type="textarea" name="redSocial" id="redSocial"
+                  placeholder="Ingrese sus redSocial Sociales o Formas de contacto " formControlName="redSocial">
               </div>
               <div class="col-md-6     ">
                 <label>Nombre del Contacto de Emergencia</label>
