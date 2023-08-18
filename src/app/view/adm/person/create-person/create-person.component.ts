@@ -31,7 +31,8 @@ export class CreatePersonComponent implements OnInit, OnDestroy, OnChanges {
       email: [null, Validators.compose([Validators.required])],
       tipoDocumento: [null, Validators.compose([Validators.required])],
       numeroDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(8)])],
-      fechaNacimiento: [null, Validators.compose([Validators.required])]
+      fechaNacimiento: [null, Validators.compose([Validators.required])],
+      genero: [null,Validators.compose([Validators.required])]
     })
     if (this.route.snapshot.params['id'] != undefined) {
       this.modoEditar=true;

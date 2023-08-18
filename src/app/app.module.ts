@@ -17,7 +17,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserAnimationsModule,

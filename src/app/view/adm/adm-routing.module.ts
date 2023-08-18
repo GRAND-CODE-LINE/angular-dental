@@ -7,8 +7,8 @@ import { CreatePersonComponent } from './person/create-person/create-person.comp
 const routes: Routes = [
   { path: 'person', component: PersonComponent },
   { path: 'menu', component: MenuComponent },
-  { path: 'createperson', component: CreatePersonComponent },
-  { path: 'createperson/:id', component: CreatePersonComponent },
+  { path: 'person/create', component: CreatePersonComponent },
+  { path: 'person/create/:id', component: CreatePersonComponent },
 ];
 
 @NgModule({
