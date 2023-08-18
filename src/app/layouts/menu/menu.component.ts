@@ -8,14 +8,13 @@ import { MenuService } from 'src/app/services/menu.service';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit{
   menuPrincipal!: Observable<itemsMenu[]>;
 
-  constructor(private servicio: MenuService) { }
+  constructor(private servicio :MenuService){}
+  
 
-
-  ngOnInit() {
-    this.menuPrincipal = this.servicio.recibirMenu();
+  ngOnInit(){   
+    this.menuPrincipal=this.servicio.recibirMenu();
   }
-
 }

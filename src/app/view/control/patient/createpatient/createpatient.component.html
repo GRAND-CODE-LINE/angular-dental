@@ -1,0 +1,126 @@
+<div class="container-flex">
+  <div class="row justify-content-center">
+    <div class="col-md-10  col-sm-10 vertical-center">
+      <div class="card">
+        <div class="card-header">
+          <div class="col-md-6     ">
+            <h4 *ngIf="!modoEditar">Registro Paciente</h4>
+            <h4 *ngIf="modoEditar">Editar Paciente</h4>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row p-2 m-2">
+            <form class="row" [formGroup]="personform">
+              <div class="col-md-6">
+                <label>Nombres</label>
+                <input class="form-control" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre"
+                  formControlName="nombre">
+              </div>
+              <div class="col-md-6">
+                <label>Apellido Paterno</label>
+                <input class="form-control" type="text" name="apellidos" id="apellidos"
+                  placeholder="Ingrese su Apellido Paterno" formControlName="apaterno">
+              </div>
+              <div class="col-md-6">
+                <label>Apellido Materno</label>
+                <input class="form-control" type="text" name="apellidos" id="apellidos"
+                  placeholder="Ingrese su Apellido Materno" formControlName="amaterno">
+              </div>
+              <div class="col-md-6">
+                <label>Email</label>
+                <input class="form-control" type="email" name="correo" id="correo" placeholder="Ingrese su Correo"
+                  formControlName="email">
+              </div>
+              <div class="col-md-6">
+                <label>Selecciona Tipo de Documento</label>
+                <select class="form-select" aria-label="Default select example" formControlName="tipoDocumento">
+                  <option selected>Tipo Documento</option>
+                  <option value="dni">DNI</option>
+                  <option value="Passaporte">Passaporte</option>
+                  <option value="libreta electoral">LE</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Numero de Documento</label>
+                <input class="form-control" type="documento" name="documento" id="documento"
+                  placeholder="Ingrese su Numero de Documento" formControlName="numeroDocumento">
+              </div>
+              <div class="col-md-6">
+                <label>Selecciona Genero</label>
+                <select class="form-select" aria-label="Default select example" formControlName="genero">
+                  <option selected>Genero</option>
+                  <option value="dni">Masculino</option>
+                  <option value="Passaporte">Femenino</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Direccion </label>
+                <input class="form-control" type="documento" name="direccion" id="direccion"
+                  placeholder="Ingrese su la direccion" formControlName="direccion">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Celular </label>
+                <input class="form-control" type="celular" name="celular" id="celular" placeholder="Ingrese su celular"
+                  formControlName="celular">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Fecha de Nacimiento</label>
+                <input class="form-control" type="date" name="fecha" id="fecha nacimiento"
+                  placeholder="Ingrese Fecha de nacimiento" formControlName="fechaNacimiento">
+              </div>
+            </form>
+
+
+
+            <form class="row" (submit)="create()" [formGroup]="patientform">
+              <div class="col-md-6     ">
+                <label>Alergias</label>
+                <input class="form-control" type="text" name="alergia" id="alergias"
+                  placeholder="Ingrese Alergia del paciente" formControlName="alergias">
+              </div>
+              <div class="col-md-6     ">
+                <label>Enfermedades</label>
+                <input class="form-control" type="text" name="Enfermedades" id="enfermedades"
+                  placeholder="Ingrese Alergia del paciente" formControlName="alergias">
+              </div>
+              <div class="col-md-6     ">
+                <label>redSocial</label>
+                <input class="form-control" type="textarea" name="redSocial" id="redSocial"
+                  placeholder="Ingrese sus redSocial Sociales o Formas de contacto " formControlName="redSocial">
+              </div>
+              <div class="col-md-6     ">
+                <label>Nombre del Contacto de Emergencia</label>
+                <input class="form-control" type="text" name="contactoEmergencia" id="contactoEmergencia"
+                  placeholder="Ingrese el nombre de contacto  de Emergencia " formControlName="contactoEmergencia">
+              </div>
+              <div class="col-md-6     ">
+                <label>Numero de Emergencia</label>
+                <input class="form-control" type="text" name="numeroEmergencia" id="numeroEmergencia"
+                  placeholder="Ingrese El numero de Emergencia" formControlName="numeroEmergencia">
+              </div>
+              <div class="col-md-6     ">
+                <label class="form-label">Peso</label>
+                <input class="form-control" type="documento" name="peso" id="peso" placeholder="Ingrese su peso"
+                  formControlName="peso">
+              </div>
+              <div class="col-md-6     ">
+                <label class="form-label">Talla</label>
+                <input class="form-control" type="documento" name="talla" id="talla" placeholder="Ingrese su  talla"
+                  formControlName="talla">
+              </div>
+
+              <div class="col-auto bg-ganger p-1" >
+                <input class="botons" type="submit" value="Registrar">
+              </div>
+              <div class="col-auto bg-ganger p-1" >
+                <input class="botons" type="submit" value="Actualizar Datos">
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

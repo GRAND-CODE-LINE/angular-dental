@@ -1,22 +1,23 @@
-import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { Person, PersonFilter } from 'src/app/models/Person';
+import { Patient, PatientFilter } from 'src/app/models/Patient';
 import { Paginate_I } from 'src/app/models/utils/filter_i';
+import { PatientService } from 'src/app/services/patient/patient.service';
 import { PersonServiceService } from 'src/app/services/person/person-service.service';
 import { Paginate_T } from 'src/app/shared/mini-table/mini-table.component';
 
-
 @Component({
-  selector: 'app-person',
-  templateUrl: './person.component.html',
-  styleUrls: ['./person.component.scss']
+  selector: 'app-patient',
+  templateUrl: './patient.component.html',
+  styleUrls: ['./patient.component.scss']
 })
-export class PersonComponent {
-  persons: any[] = [];
-  //filter interface Person extendes FILTER_I interface
-  filter: PersonFilter;
-  items: Person[] = [];
+export class PatientComponent {
+  patients: any[] = [];
+
+  filter: PatientFilter;
+  items: Patient[] = [];
   cols: any[] = [];
 
   paginateObject: Paginate_T = {
@@ -25,9 +26,7 @@ export class PersonComponent {
     total: 0,
     totalpages: 0
   }
-
-  constructor(private personService: PersonServiceService, private router: Router) {
-    // initialize filter
+  constructor(private patientService: PatientService, private router: Router) {
     this.filter = {
       page: 0,
       size: 10,
@@ -35,7 +34,6 @@ export class PersonComponent {
       sortOrder: 1
     }
   }
-
   ngOnInit(): void {
     console.log('Init');
     this.paginateData();
@@ -49,7 +47,10 @@ export class PersonComponent {
       { name: 'Apellido', field: 'apaterno' },
       { name: 'Mail', field: 'email' },
       { name: 'DNI', field: 'numeroDocumento' },
-      { name: 'Fecha Nac.', field: 'fechaNacimiento' }];
+      { name: 'Fecha Nac.', field: 'fechaNacimiento' },
+      { name: 'Direccion',field:'direccion'},
+      { name: 'Genero',field:'genero'},
+      { name: '',field:''}];
   }
 
   ngOnChanges() {
@@ -61,7 +62,7 @@ export class PersonComponent {
   }
 
   async paginateData() {
-    let res: Paginate_I = await firstValueFrom(this.personService.paginate(this.filter));
+    let res: Paginate_I = await firstValueFrom(this.patientService.paginate(this.filter));
     this.items = res.content;
     console.log(this.items);
     this.paginateObject = {
@@ -72,15 +73,15 @@ export class PersonComponent {
     }
   }
 
-  onEditClick(event: Person) {
-    this.router.navigate(['adm/person/create', event.id]);
+  onEditClick(event: Patient) {
+    this.router.navigate(['control/patient/create', event.id]);
 
     //  this.personService.servidor.emit(event);
 
   }
-  
-  async onDeleteClick (event : Person){
-    await firstValueFrom(this.personService.delete(event.id));
+
+  async onDeleteClick(event: Patient) {
+    await firstValueFrom(this.patientService.delete(event.id));
     this.paginateData();
   }
 }
