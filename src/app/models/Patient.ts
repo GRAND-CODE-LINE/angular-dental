@@ -4,14 +4,14 @@ import { Filter_I } from "./utils/filter_i";
 export interface Patient {
 	id?: string;
 	alergias: string[];
-	redsocial: string;
-	fotoPermiso: String;
+	redSocial: string;
+	fotoPermiso: string;
 	numeroEmergencia: string;
 	contactoEmergencia: string;
 	enfermedades: string[];
-	peso: DoubleRange;
-    talla:DoubleRange;
-    Persona:Person;
+	peso: number;
+    talla:number;
+    persona:Person;
 }
 
 export interface PatientFilter extends Filter_I {

@@ -60,7 +60,7 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
       this.crearPatient();
       this.service.create(this.patient)
         .subscribe((data: any) => this.patient = data);
-      this.personService.create(this.patient.Persona)
+      this.personService.create(this.patient.persona)
         .subscribe((data: any) => this.patient = data);
     } else {
       this.crearPatient();
@@ -78,14 +78,14 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
 
   Llenar(data: Patient) {
     this.patientform.patchValue(data);
-    this.personform.patchValue(data.Persona);
+    this.personform.patchValue(data.persona);
   }
 
   crearPatient() {
     this.patient = this.patientform.value;
     this.patient.alergias=this.listAlergias;
     this.patient.enfermedades=this.listEnfermedades;
-    this.patient.Persona = this.personform.value;
+    this.patient.persona = this.personform.value;
   }
   agregarAlergia(data:string){
     this.listAlergias.push(data);
