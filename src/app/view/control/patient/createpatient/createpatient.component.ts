@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Patient } from 'src/app/models/Patient';
 import { PatientService } from 'src/app/services/patient/patient.service';
-import { PersonServiceService } from 'src/app/services/person/person-service.service';
+import { PersonService } from 'src/app/services/person/person.service';
 
 @Component({
   selector: 'app-createpatient',
@@ -15,11 +15,11 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
   personform!: FormGroup;
   patientform!: FormGroup;
   modoEditar = false;
-  listAlergias:string[]=[];
-  listEnfermedades:string[]=[];
+  listAlergias: string[] = [];
+  listEnfermedades: string[] = [];
   constructor(
     private service: PatientService,
-    private personService: PersonServiceService,
+    private personService: PersonService,
     private fb: FormBuilder,
     private route: ActivatedRoute
   ) { }
@@ -36,7 +36,7 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
       tipoDocumento: [null, Validators.compose([Validators.required])],
       numeroDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(8)])],
       fechaNacimiento: [null, Validators.compose([Validators.required])],
-      genero:[],
+      genero: [],
     })
     this.patientform = this.fb.group({
       id: [],
@@ -45,8 +45,8 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
       numeroEmergencia: [null, Validators.compose([Validators.required])],
       peso: [null, Validators.compose([Validators.required])],
       talla: [null, Validators.compose([Validators.required])],
-      alergias:[],
-      enfermedades:[], 
+      alergias: [],
+      enfermedades: [],
     })
     if (this.route.snapshot.params['id'] != undefined) {
       this.modoEditar = true;
@@ -83,14 +83,14 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
 
   crearPatient() {
     this.patient = this.patientform.value;
-    this.patient.alergias=this.listAlergias;
-    this.patient.enfermedades=this.listEnfermedades;
+    this.patient.alergias = this.listAlergias;
+    this.patient.enfermedades = this.listEnfermedades;
     this.patient.persona = this.personform.value;
   }
-  agregarAlergia(data:string){
+  agregarAlergia(data: string) {
     this.listAlergias.push(data);
   }
-  agregarEnfermedad(data:string){
+  agregarEnfermedad(data: string) {
     this.listEnfermedades.push(data);
   }
 }

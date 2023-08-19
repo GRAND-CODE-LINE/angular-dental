@@ -22,7 +22,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
     BrowserAnimationsModule,
     CommonModule,
     FormsModule,
-    HttpClientModule,
+    // HttpClientModule,
     FontAwesomeModule
 
   ],

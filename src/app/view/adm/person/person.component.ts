@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Person, PersonFilter } from 'src/app/models/Person';
 import { Paginate_I } from 'src/app/models/utils/filter_i';
-import { PersonServiceService } from 'src/app/services/person/person-service.service';
+import { PersonService } from 'src/app/services/person/person.service';
 import { Paginate_T } from 'src/app/shared/mini-table/mini-table.component';
 
 
@@ -26,7 +26,7 @@ export class PersonComponent {
     totalpages: 0
   }
 
-  constructor(private personService: PersonServiceService, private router: Router) {
+  constructor(private personService: PersonService, private router: Router) {
     // initialize filter
     this.filter = {
       page: 0,

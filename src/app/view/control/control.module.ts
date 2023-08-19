@@ -9,6 +9,10 @@ import { PatientComponent } from './patient/patient.component';
 import { CreatepatientComponent } from './patient/createpatient/createpatient.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from "../../shared/shared.module";
+import { PersonService } from 'src/app/services/person/person.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
+import { ConsultationService } from 'src/app/services/consultation/consultation.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -19,6 +23,7 @@ import { SharedModule } from "../../shared/shared.module";
         CreatepatientComponent
     ],
     imports: [
+
         CommonModule,
         ControlRoutingModule,
         FontAwesomeModule,

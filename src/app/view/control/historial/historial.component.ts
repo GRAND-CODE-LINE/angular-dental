@@ -41,6 +41,5 @@ export class HistorialComponent {
     console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     let res = await firstValueFrom(this.consultationService.searhConsultationByPatientNroDocumento(this.nroDocumento));
     console.log(res);
-
   }
 }

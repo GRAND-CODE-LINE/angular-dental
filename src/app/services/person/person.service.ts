@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Person, PersonFilter } from 'src/app/models/Person';
@@ -7,7 +7,7 @@ import { Paginate_I } from 'src/app/models/utils/filter_i';
 @Injectable({
   providedIn: 'root'
 })
-export class PersonServiceService {
+export class PersonService {
 
   constructor(
     private http: HttpClient

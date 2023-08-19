@@ -11,9 +11,6 @@ export class ConsultationService {
 
   URL_BASE = environment.URL_DENTAL + '/dental';
 
-
-
-
   searhConsultationByPatientNroDocumento(nroDocumento: string) {
     return this.http.get(this.URL_BASE + '/consultations/' + nroDocumento)
   }
