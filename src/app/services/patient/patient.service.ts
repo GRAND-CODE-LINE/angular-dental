@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Patient, PatientFilter } from 'src/app/models/Patient';
+import { Patient, PatientFilter } from 'src/app/models/patient';
 import { Paginate_I } from 'src/app/models/utils/filter_i';
 
 @Injectable({

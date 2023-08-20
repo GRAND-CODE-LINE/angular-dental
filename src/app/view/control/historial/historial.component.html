@@ -11,9 +11,11 @@
         <div class="col">
             <div class="input-group mb-3">
                 <input type="text" class="form-control form-control-lg" placeholder="Número de documento"
-                    aria-label="Número de documento" aria-describedby="button-addon2">
-                <button (click)="getConsulta()" class="btn btn-primary" type="button" ngModel="nroDocumento"><fa-icon [icon]='"search"'></fa-icon></button>
-                <button class="btn btn-danger" type="button" id="button-addon2"><fa-icon [icon]='"times"'></fa-icon></button>
+                    aria-label="Número de documento" aria-describedby="button-addon2" [(ngModel)]="nroDocumento">
+                <button (click)="getConsultation()" class="btn btn-primary" type="button"><fa-icon
+                        [icon]='"search"'></fa-icon></button>
+                <button class="btn btn-danger" type="button" id="button-addon2"><fa-icon
+                        [icon]='"times"'></fa-icon></button>
             </div>
         </div>
     </div>
@@ -24,7 +26,7 @@
 
     <div class="row">
 
-        <div class="col-md-3">
+        <div class="col-md-3" *ngIf="patientGet">
             <div class="card border-info">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
@@ -38,46 +40,46 @@
                 <!-- <div class="card-header">
                     <h5>Información general</h5>
                 </div> -->
-                <div class="card-body">
-                    <img class="oversize" src="/assets/images/user.png" alt="image">
+                <div class="card-body" *ngIf="patientGet.persona">
+                    <img class=" oversize" src="/assets/images/user.png" alt="image">
                     <br>
                     <div class="row mt-3" style="text-align: center;">
                         <div class="col-sm-12">
-                            <p class="card-text"><strong>Nombres:</strong> {{paciente.nombres}}</p>
+                            <p class="card-text"><strong>Nombres:</strong> {{patientGet.persona.nombre}}</p>
                         </div>
                         <div class="col-sm-12">
-                            <p><strong>Nro. Documento: </strong> {{paciente.nroDocumento}}</p>
+                            <p><strong>Nro. Documento: </strong> {{patientGet.persona.numeroDocumento}}</p>
 
                         </div>
                         <div class="col-sm-12">
-                            <p><strong>Tipo Documento: </strong> {{paciente.tipoDoc}}</p>
+                            <p><strong>Tipo Documento: </strong> {{patientGet.persona.tipoDocumento}}</p>
                             <p> </p>
 
                         </div>
                         <div class="col-sm-12">
-                            <p><strong>Fecha Nacimiento: </strong> {{paciente.fechaNacimiento}}</p>
+                            <p><strong>Fecha Nacimiento: </strong> {{patientGet.persona.fechaNacimiento}}</p>
                         </div>
                         <div class="col-sm-12">
-                            <p><strong>Edad: </strong> {{paciente.edad}}</p>
+                            <p><strong>Edad: </strong> {{patientGet.persona.fechaNacimiento | age}}</p>
                         </div>
                         <div class="col-sm-12">
-                            <p><strong>Genero: </strong> {{paciente.genero}}</p>
+                            <p><strong>Genero: </strong> {{patientGet.persona.genero}}</p>
                         </div>
                         <div class="col-sm-12">
-                            <p><strong>Celular: </strong>{{paciente.celular}}</p>
+                            <p><strong>Celular: </strong>{{patientGet.persona.celular}}</p>
                         </div>
                         <div class="col-sm-12">
-                            <p><strong>Email: </strong> {{paciente.email}}</p>
+                            <p><strong>Email: </strong> {{patientGet.persona.email}}</p>
                         </div>
                         <div class="col-sm-12">
-                            <p><strong>Direccion: </strong> {{paciente.direccion}}</p>
+                            <p><strong>Direccion: </strong> {{patientGet.persona.direccion}}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9" *ngIf="patientGet">
             <div class="card border-danger">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">

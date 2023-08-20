@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Patient } from 'src/app/models/Patient';
+import { Patient } from 'src/app/models/patient';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { PersonService } from 'src/app/services/person/person.service';
 

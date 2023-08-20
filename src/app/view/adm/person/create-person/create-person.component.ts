@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Person } from 'src/app/models/Person';
+import { Person } from 'src/app/models/person';
 import { PersonService } from 'src/app/services/person/person.service';
 
 @Component({

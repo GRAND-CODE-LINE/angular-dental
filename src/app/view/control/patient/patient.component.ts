@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { Patient, PatientFilter } from 'src/app/models/Patient';
+import { Patient, PatientFilter } from 'src/app/models/patient';
 import { Paginate_I } from 'src/app/models/utils/filter_i';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { Paginate_T } from 'src/app/shared/mini-table/mini-table.component';

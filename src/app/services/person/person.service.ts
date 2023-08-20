@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Person, PersonFilter } from 'src/app/models/Person';
+import { Person, PersonFilter } from 'src/app/models/person';
 import { Paginate_I } from 'src/app/models/utils/filter_i';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class PersonService {
   getAll() {
     return this.http.get('http://localhost:8080/person/listar')
   }
-  create(person: Person) {
+  create(person?: Person) {
     return this.http.post('http://localhost:8080/person', person)
   }
 

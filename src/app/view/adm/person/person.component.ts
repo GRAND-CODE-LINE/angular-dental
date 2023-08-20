@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { Person, PersonFilter } from 'src/app/models/Person';
+import { Person, PersonFilter } from 'src/app/models/person';
 import { Paginate_I } from 'src/app/models/utils/filter_i';
 import { PersonService } from 'src/app/services/person/person.service';
 import { Paginate_T } from 'src/app/shared/mini-table/mini-table.component';
