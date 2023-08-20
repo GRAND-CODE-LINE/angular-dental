@@ -1,4 +1,4 @@
-import { Person } from "./Person";
+import { Person } from "./person";
 import { Filter_I } from "./utils/filter_i";
 
 export interface UserFilter extends Filter_I {

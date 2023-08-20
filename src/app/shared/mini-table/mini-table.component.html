@@ -14,7 +14,8 @@
         <tbody>
             <tr *ngFor="let item of items">
                 <ng-container *ngFor="let col of cols">
-                    <td [attr.data-label]="col.name">{{item[col.field]}}</td>
+                    <td *ngIf="col.field" [attr.data-label]="col.name">{{item[col.field]}}</td>
+                    <td *ngIf="col.subfield" [attr.data-label]="col.name">{{item[col.field][col.subfield]}}</td>
                 </ng-container>
                 <ng-container *ngIf="edit">
                     <td [attr.data-label]="'Editar'"> <button type="button" class="btn btn-outline-warning m-2 btn-sm"

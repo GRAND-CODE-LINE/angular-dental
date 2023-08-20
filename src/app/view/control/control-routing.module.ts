@@ -6,8 +6,8 @@ import { CreatepatientComponent } from './patient/createpatient/createpatient.co
 
 const routes: Routes = [
   { path: 'historial', component: HistorialComponent },
-  { path: 'paciente', component: PatientComponent },
-  {path:'paciente/create',component: CreatepatientComponent}
+  // { path: 'paciente', component: PatientComponent },
+  // { path: 'paciente/create', component: CreatepatientComponent }
 ];
 
 @NgModule({
