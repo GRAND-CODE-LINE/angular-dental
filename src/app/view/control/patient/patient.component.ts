@@ -30,7 +30,7 @@ export class PatientComponent {
     this.filter = {
       page: 0,
       size: 10,
-      sortFiled: 'name',
+      sortFiled: 'id',
       sortOrder: 1
     }
   }
@@ -43,14 +43,13 @@ export class PatientComponent {
   initCols() {
     this.cols = [
       { name: 'ID ', field: 'id' },
-      { name: 'Nombre', field: 'nombre' },
-      { name: 'Apellido', field: 'apaterno' },
-      { name: 'Mail', field: 'email' },
-      { name: 'DNI', field: 'numeroDocumento' },
+      { name: 'Nombre', field: "persona.nombre"},
+      { name: 'Apellido', field:'persona.apaterno'},
+      { name: 'Mail', field:'email'},
+      { name: 'DNI', field:'numeroDocumento'},
       { name: 'Fecha Nac.', field: 'fechaNacimiento' },
-      { name: 'Direccion',field:'direccion'},
-      { name: 'Genero',field:'genero'},
-      { name: '',field:''}];
+      { name: 'Talla',field:'talla'},
+      { name: 'Genero',field:'genero'}];
   }
 
   ngOnChanges() {
@@ -64,7 +63,6 @@ export class PatientComponent {
   async paginateData() {
     let res: Paginate_I = await firstValueFrom(this.patientService.paginate(this.filter));
     this.items = res.content;
-    console.log(this.items);
     this.paginateObject = {
       size: res.size,
       total: res.totalElements,
