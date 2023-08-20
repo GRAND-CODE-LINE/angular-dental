@@ -41,14 +41,14 @@ export class PatientComponent {
   initCols() {
     this.cols = [
       { name: 'ID ', field: 'id' },
-      { name: 'Nombre', field: 'nombre' },
+      { name: 'Nombre', field: 'persona', subfield: 'nombre' },
       { name: 'Apellido', field: 'apaterno' },
       { name: 'Mail', field: 'email' },
       { name: 'DNI', field: 'numeroDocumento' },
       { name: 'Fecha Nac.', field: 'fechaNacimiento' },
-      { name: 'Direccion',field:'direccion'},
-      { name: 'Genero',field:'genero'},
-      { name: '',field:''}];
+      { name: 'Direccion', field: 'direccion' },
+      { name: 'Genero', field: 'genero' },
+      { name: '', field: '' }];
   }
 
   ngOnChanges() {
