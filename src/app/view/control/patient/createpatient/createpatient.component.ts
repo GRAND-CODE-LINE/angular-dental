@@ -68,6 +68,8 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
       this.crearPatient();
       this.service.update(this.patient.id, this.patient)
         .subscribe((data: any) => this.patient = data);
+        this.personService.update(this.patient.persona.id,this.patient.persona)
+        .subscribe((data:any)=> this.patient.persona = data);
     }
   }
   ngOnChanges() {
