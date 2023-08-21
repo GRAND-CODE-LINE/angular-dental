@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'person', component: PersonComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'person/create', component: CreatePersonComponent },
-  { path: 'person/create/:id', component: CreatePersonComponent },
+  { path: 'person/edit/:id', component: CreatePersonComponent },
 ];
 
 @NgModule({

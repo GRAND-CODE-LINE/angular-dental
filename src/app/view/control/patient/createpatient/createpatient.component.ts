@@ -17,6 +17,8 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
   modoEditar = false;
   listAlergias: string[] = [];
   listEnfermedades: string[] = [];
+  alergiaAdd: string = '';
+  enfermedadesAdd: string = '';
   constructor(
     private service: PatientService,
     private personService: PersonService,
@@ -45,8 +47,8 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
       numeroEmergencia: [null, Validators.compose([Validators.required])],
       peso: [null, Validators.compose([Validators.required])],
       talla: [null, Validators.compose([Validators.required])],
-      alergias: [],
-      enfermedades: [],
+      // alergias: [this.listAlergias],
+      // enfermedades: [this.listEnfermedades],
     })
     if (this.route.snapshot.params['id'] != undefined) {
       this.modoEditar = true;
@@ -89,10 +91,25 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     this.patient.enfermedades = this.listEnfermedades;
     this.patient.persona = this.personform.value;
   }
-  agregarAlergia(data: string) {
-    this.listAlergias.push(data);
+  agregarAlergia() {
+    if (this.alergiaAdd.trim() != '') {
+      this.listAlergias.push(this.alergiaAdd);
+      this.alergiaAdd = '';
+    }
   }
-  agregarEnfermedad(data: string) {
-    this.listEnfermedades.push(data);
+
+  eliminarAlergia(alergia: string) {
+    this.listAlergias = this.listAlergias.filter(x => { return x !== alergia })
+  }
+
+  agregarEnfermedad(){
+    if (this.enfermedadesAdd.trim() != '') {
+      this.listEnfermedades.push(this.enfermedadesAdd);
+      this.enfermedadesAdd = '';
+    }
+  }
+
+  eliminarEnfermedad(enfermedad: string) {
+    this.listEnfermedades = this.listEnfermedades.filter(x => { return x !== enfermedad })
   }
 }

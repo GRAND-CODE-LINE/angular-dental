@@ -17,10 +17,10 @@
                     <td *ngIf="!col.subfield" [attr.data-label]="col.name">{{item[col.field]}}</td>
                     <td *ngIf="col.subfield " [attr.data-label]="col.name">
                         <ng-container *ngIf="item[col.field]">
-                        {{item[col.field][col.subfield]}}
+                            {{item[col.field][col.subfield]}}
                         </ng-container>
                     </td>
-               </ng-container>
+                </ng-container>
                 <ng-container *ngIf="edit">
                     <td [attr.data-label]="'Editar'"> <button type="button" class="btn btn-outline-warning m-2 btn-sm"
                             (click)="onEdit(item)"><fa-icon [icon]='"pen-to-square"'></fa-icon></button></td>
