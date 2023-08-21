@@ -71,7 +71,7 @@ export class PatientComponent {
   }
 
   onEditClick(event: Patient) {
-    this.router.navigate(['control/patient/create', event.id]);
+    this.router.navigate(['control/patient/edit', event.id]);
 
     //  this.personService.servidor.emit(event);
 
