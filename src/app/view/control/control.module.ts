@@ -7,8 +7,13 @@ import { ConsultaComponent } from './consulta/consulta.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PatientComponent } from './patient/patient.component';
 import { CreatepatientComponent } from './patient/createpatient/createpatient.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from "../../shared/shared.module";
+import { PersonService } from 'src/app/services/person/person.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
+import { ConsultationService } from 'src/app/services/consultation/consultation.service';
+import { HttpClientModule } from '@angular/common/http';
+import { AgePipe } from 'src/app/pipes/age.pipe';
 
 
 @NgModule({
@@ -16,9 +21,11 @@ import { SharedModule } from "../../shared/shared.module";
         HistorialComponent,
         ConsultaComponent,
         PatientComponent,
-        CreatepatientComponent
+        CreatepatientComponent,
+        AgePipe
     ],
     imports: [
+        FormsModule,
         CommonModule,
         ControlRoutingModule,
         FontAwesomeModule,

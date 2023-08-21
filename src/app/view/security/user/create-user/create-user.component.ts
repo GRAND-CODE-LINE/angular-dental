@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { Person } from 'src/app/models/Person';
+import { Person } from 'src/app/models/person';
 import { User } from 'src/app/models/user';
-import { PersonServiceService } from 'src/app/services/person/person-service.service';
+import { PersonService } from 'src/app/services/person/person.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class CreateUserComponent {
     { value: 'DNI', label: 'Documento de identidad' }
   ]
 
-  constructor(private userService: UserService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private personService: PersonServiceService) { }
+  constructor(private userService: UserService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private personService: PersonService) { }
 
 
   async ngOnInit(): Promise<void> {

@@ -1,8 +1,8 @@
 import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Person } from 'src/app/models/Person';
-import { PersonServiceService } from 'src/app/services/person/person-service.service';
+import { Person } from 'src/app/models/person';
+import { PersonService } from 'src/app/services/person/person.service';
 
 @Component({
   selector: 'app-create-person',
@@ -15,7 +15,7 @@ export class CreatePersonComponent implements OnInit, OnDestroy, OnChanges {
   personform!: FormGroup;
   modoEditar= false;
   constructor(
-    private service: PersonServiceService,
+    private service: PersonService,
     private fb: FormBuilder,
     private route: ActivatedRoute
   ) { }

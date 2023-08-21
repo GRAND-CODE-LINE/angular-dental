@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { itemsMenu } from 'src/app/models/menu';
-import { MenuService } from 'src/app/services/menu.service';
+
 
 @Component({
   selector: 'app-menu',
