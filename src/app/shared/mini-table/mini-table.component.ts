@@ -43,10 +43,6 @@ export class MiniTableComponent {
 
 
   ngOnChanges() {
-    console.log('Changes mini table');
-    console.log(this.items);
-    console.log(this.paginateObject);
-
   }
 
   ngOnDestroy() {
