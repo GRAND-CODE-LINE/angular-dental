@@ -1,25 +1,39 @@
-[{
-  "icon": "caret-down-outline",
-  "text": "Manteninmiento",
-  "childs" :[{
-    "icon":"alarm-outline",
-    "text":"Pacientes",
-    "url":""
-  },{
-    "icon":"alarm-outline",
-    "text":"Usuario",
-    "url":"securityadm/user"
-  }]
-},{
-    "icon":"alarm-outline",
-    "text":"Operaciones",
-    "childs" :[{
-      "icon":"alarm-outline",
-      "text":"Historia Clinica",
-      "url":"---"
-    }]
-  },{
-    "icon":"Logout",
-    "text":"Cerrar Sesión",
-    "url":"/login"
-}]
+[
+  {
+    "icon": "caret-down-outline",
+    "text": "Manteninmiento",
+    "childs": [
+      {
+        "icon": "alarm-outline",
+        "text": "Pacientes",
+        "url": "control/paciente"
+      },
+      {
+        "icon": "alarm-outline",
+        "text": "Usuario",
+        "url": "securityadm/user"
+      },
+      {
+        "icon": "alarm-outline",
+        "text": "Simbolos",
+        "url": "control/symbol"
+      }
+    ]
+  },
+  {
+    "icon": "alarm-outline",
+    "text": "Operaciones",
+    "childs": [
+      {
+        "icon": "alarm-outline",
+        "text": "Historia Clinica",
+        "url": "control/historial"
+      }
+    ]
+  },
+  {
+    "icon": "Logout",
+    "text": "Cerrar Sesión",
+    "url": "/login"
+  }
+]

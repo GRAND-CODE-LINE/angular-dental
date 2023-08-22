@@ -14,6 +14,9 @@ import { PatientService } from 'src/app/services/patient/patient.service';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AgePipe } from 'src/app/pipes/age.pipe';
+import { SymbolComponent } from './symbol/symbol.component';
+import { TimeAgoDetailedPipe } from 'src/app/pipes/time-ago-detailed.pipe';
+import { CreateSymbolComponent } from './symbol/create-symbol/create-symbol.component';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { AgePipe } from 'src/app/pipes/age.pipe';
         ConsultaComponent,
         PatientComponent,
         CreatepatientComponent,
-        AgePipe
+        AgePipe,
+        TimeAgoDetailedPipe,
+        SymbolComponent,
+        CreateSymbolComponent
     ],
     imports: [
         FormsModule,

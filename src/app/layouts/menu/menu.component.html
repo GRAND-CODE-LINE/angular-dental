@@ -15,8 +15,8 @@
                     </a>
                     <ul class="dropdown-menu">
 
-                        <li *ngFor="let child of obj.childs">
-                            <a class="dropdown-item">{{child.text}}</a>
+                        <li *ngFor="let child of obj.childs" [routerLink]="child.url">
+                            <a class="dropdown-item" >{{child.text}}</a>
                         </li>
 
 
