@@ -1,0 +1,19 @@
+<div class="container minita-container">
+    <div class="row">
+        <div class="col-md-12" style="text-align: center;">
+            <h5>Mantenimiento Simbolos</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary ml-2" [routerLink]="'create'">Nuevo</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <app-mini-table [cols]="cols" [items]="items" [paginateObject]="paginateObject" [edit]="true"
+                [delete]="true" (onPageChange)="onPageChangexx($event)" (onEditClick)="onEditClick($event)"
+                (onDeleteClick)="onDeleteClick($event)"></app-mini-table>
+        </div>
+    </div>
+</div>
