@@ -47,8 +47,6 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
       numeroEmergencia: [null, Validators.compose([Validators.required])],
       peso: [null, Validators.compose([Validators.required])],
       talla: [null, Validators.compose([Validators.required])],
-      // alergias: [this.listAlergias],
-      // enfermedades: [this.listEnfermedades],
     })
     if (this.route.snapshot.params['id'] != undefined) {
       this.modoEditar = true;
@@ -65,9 +63,10 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
       this.personService.create(this.patient.persona)
         .subscribe((data: any) => this.patient = data);
     } else {
-      this.crearPatient();
       this.service.update(this.patient.id, this.patient)
         .subscribe((data: any) => this.patient = data);
+        this.personService.update(this.patient.persona.id,this.patient.persona)
+        .subscribe((data:any)=> this.patient.persona = data);
     }
   }
   ngOnChanges() {

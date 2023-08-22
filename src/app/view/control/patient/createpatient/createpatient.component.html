@@ -147,10 +147,11 @@
                   formControlName="talla">
               </div>
 
-              <div class="col-auto bg-ganger p-1">
+              <div class="col-auto bg-ganger p-1" *ngIf="!modoEditar" >
                 <input class="botons" type="submit" value="Registrar">
               </div>
-              <div class="col-auto bg-ganger p-1">
+              <div class="col-auto bg-ganger p-1" *ngIf="modoEditar">
+
                 <input class="botons" type="submit" value="Actualizar Datos">
               </div>
 

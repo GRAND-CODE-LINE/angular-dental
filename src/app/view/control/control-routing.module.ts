@@ -8,11 +8,12 @@ import { CreateSymbolComponent } from './symbol/create-symbol/create-symbol.comp
 
 const routes: Routes = [
   { path: 'historial', component: HistorialComponent },
-  { path: 'paciente', component: PatientComponent },
-  { path: 'paciente/create', component: CreatepatientComponent },
   { path: 'symbol', component: SymbolComponent },
   { path: 'symbol/create', component: CreateSymbolComponent },
-  { path: 'symbol/edit/:id', component: CreateSymbolComponent }
+  { path: 'symbol/edit/:id', component: CreateSymbolComponent },
+  { path: 'patient', component: PatientComponent },
+  { path: 'patient/create', component: CreatepatientComponent },
+  { path: 'patient/edit/:id', component: CreatepatientComponent }
 ];
 
 @NgModule({
