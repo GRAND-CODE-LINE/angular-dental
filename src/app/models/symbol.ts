@@ -12,4 +12,6 @@ export interface Symbol {
     name: string,
     active?: boolean,
     image: string,
+    acronym?: string,
+    group: string
 }
