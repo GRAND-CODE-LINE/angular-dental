@@ -14,6 +14,8 @@ import { PatientService } from 'src/app/services/patient/patient.service';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AgePipe } from 'src/app/pipes/age.pipe';
+import { ProcedureComponent } from './procedure/procedure.component';
+import { AttentionComponent } from './attention/attention.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { AgePipe } from 'src/app/pipes/age.pipe';
         ConsultaComponent,
         PatientComponent,
         CreatepatientComponent,
-        AgePipe
+        AgePipe,
+        ProcedureComponent,
+        AttentionComponent
     ],
     imports: [
         FormsModule,
