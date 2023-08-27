@@ -14,7 +14,24 @@
         <tbody>
             <tr *ngFor="let item of items">
                 <ng-container *ngFor="let col of cols">
-                    <td *ngIf="!col.subfield" [attr.data-label]="col.name">{{item[col.field]}}</td>
+                    <td *ngIf="!col.subfield" [attr.data-label]="col.name">
+                        <ng-container *ngIf="item[col.field]==true || item[col.field]==false; else nonBoolean">
+                            <ng-container *ngIf="item[col.field]; else negative">
+                                <span class="badge text-bg-primary mini-badge">
+                                    <fa-icon [icon]='"thumbs-up"'></fa-icon>
+                                    Si</span>
+                            </ng-container>
+
+                            <ng-template #negative>
+                                <span class="badge text-bg-danger mini-badge">
+                                    <fa-icon [icon]='"thumbs-down"'> </fa-icon>
+                                    No</span>
+                            </ng-template>
+
+                        </ng-container>
+                        <ng-template #nonBoolean> {{item[col.field]}}</ng-template>
+
+                    </td>
                     <td *ngIf="col.subfield " [attr.data-label]="col.name">
                         <ng-container *ngIf="item[col.field]">
                             {{item[col.field][col.subfield]}}

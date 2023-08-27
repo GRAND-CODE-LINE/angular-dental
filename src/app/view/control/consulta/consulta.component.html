@@ -1,1 +1,263 @@
-<p>consulta works!</p>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 justify-content-between" style=" text-align:  center;">
+            <div class="d-flex w-100 justify-content-between pt-1 pb-1">
+                <h4 *ngIf="!consultation.id">Nueva Consulta</h4>
+                <h4 *ngIf="consultation.id">Consulta {{consultation.id}}</h4>
+                <div>
+                    <button class="btn btn-success btn-sm ms-1"><fa-icon [icon]='"floppy-disk"'></fa-icon>
+                        Guardar</button>
+                    <button class="btn btn-secondary btn-sm ms-1"><fa-icon [icon]='"comment"'></fa-icon>
+                        Comentarios</button>
+                    <button class="btn btn-warning btn-sm ms-1"><fa-icon [icon]='"arrow-rotate-right"'></fa-icon>
+                        Actualizar</button>
+                </div>
+
+            </div>
+            
+        </div>
+        <div class="col justify-content-end" style=" text-align:  center;">
+            <div *ngIf="checkForUnSaved()" class="alert alert-warning" role="alert" style="padding: 0.2rem;">
+                <fa-icon [icon]='"triangle-exclamation"'></fa-icon> No se guardaron los cambios.
+            </div>
+        </div>
+    </div>
+</div>
+<!-- consultation and patient information -->
+<div class="container-fluid" *ngIf="patientGet">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card ">
+                <div class="card-body" *ngIf="consultation">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="card-title">Precio: {{consultation.price | currency:'PEN'}}
+                        </h5>
+                        <h6 class="text-body-secondary"> Pagado: {{consultation.balance | currency:'PEN'}} </h6>
+                        <p class="text-body-secondary"><strong>Estado: </strong> {{consultation.status}}</p>
+                    </div>
+
+                    <h6 class="card-subtitle mb-1 text-body-secondary"> Fecha: {{consultation.date | timeAgoDetailed}}
+                    </h6>
+
+                    <p *ngIf="consultation.description" class="card-text"><strong>Descripcion: </strong>
+                        {{consultation.description}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card ">
+                <div class="card-body" *ngIf="patientGet.persona">
+                    <h5 class="card-title">Paciente: {{patientGet.persona.nombre}}
+                    </h5>
+                    <h6 class="card-subtitle mb-1 text-body-secondary"> {{patientGet.persona.numeroDocumento}}</h6>
+                    <p class="card-text"><strong>Edad: </strong> {{patientGet.persona.fechaNacimiento | age}} años</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container-fluid">
+
+
+
+    <div class="row">
+        <!-- acctions / cotizaciones -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h5>Cotizacion</h5>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary btn-sm" (click)="openPopupAction()"><fa-icon
+                                    [icon]='"plus"'></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="list-group">
+                                <ng-container *ngIf="consultation?.actions?.length==0; else actionsList">
+                                    <a class=" list-group-item list-group-item-action " aria-current=" true">
+                                        <div class="justify-content-between">
+                                            <h5 class="mb-1" style="text-align: center;">No hay cotizaciones</h5>
+                                        </div>
+                                    </a>
+                                </ng-container>
+                                <ng-template #actionsList>
+                                    <ng-container *ngFor="let item of consultation?.actions">
+                                        <li class="list-group-item d-flex align-items-stretch p-0">
+                                            <div class="flex-grow-1 list-group-content p-1">
+                                                <div class="d-flex w-100 justify-content-between P-1">
+                                                    <h5 class="mb-1">{{item.name}}</h5>
+                                                    <small>{{item.price | currency:'PEN'}}</small>
+                                                </div>
+                                                <small>{{item.comments}}</small>
+                                            </div>
+                                            <button (click)="deleteAction(item)"
+                                                class="btn btn-danger btn-sm rounded-0 flex-fill button-g-list"><fa-icon
+                                                    [icon]='"trash"'></fa-icon></button>
+                                        </li>
+                                    </ng-container>
+                                </ng-template>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- attentions -->
+        <div class="col-md-4">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h5>Atenciones</h5>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary btn-sm"><fa-icon [icon]='"plus"'></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="list-group">
+                                <ng-container *ngIf="consultation?.attentions?.length==0; else attentionsList">
+                                    <a class=" list-group-item list-group-item-action " aria-current=" true">
+                                        <div class="justify-content-between">
+                                            <h5 class="mb-1" style="text-align: center;">No hay atenciones</h5>
+                                        </div>
+                                    </a>
+                                </ng-container>
+
+                                <ng-template #attentionsList>
+                                    <ng-container *ngFor="let item of consultation?.attentions">
+                                        <a class=" list-group-item list-group-item-action " aria-current=" true">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">Fecha: {{item.endDate | timeAgoDetailed}}</h5>
+                                                <small>{{item.status}}</small>
+                                            </div>
+                                            <p class="mb-1">{{item.comments}}</p>
+                                        </a>
+                                    </ng-container>
+                                </ng-template>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- pagos -->
+        <div class="col-md-4">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h5>Pagos</h5>
+                        <div class="btn-group" role="group">
+                            <button (click)="openPopupPayment()" class="btn btn-primary btn-sm"><fa-icon
+                                    [icon]='"plus"'></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="list-group">
+                                <ng-container *ngIf="consultation?.payments?.length==0; else paymentList">
+                                    <a class=" list-group-item list-group-item-action " aria-current=" true">
+                                        <div class="justify-content-between">
+                                            <h5 class="mb-1" style="text-align: center;">No hay pagos</h5>
+                                        </div>
+                                    </a>
+                                </ng-container>
+
+                                <ng-template #paymentList>
+                                    <ng-container *ngFor="let item of consultation?.payments">
+                                        <li class="list-group-item d-flex align-items-stretch p-0">
+                                            <div class="flex-grow-1 list-group-content p-1">
+                                                <div class="d-flex w-100 justify-content-between P-1">
+                                                    <h6 class="mb-1">Monto: {{item.amount}}</h6>
+
+                                                </div>
+                                                <small>{{item.date | timeAgoDetailed}}</small>
+                                            </div>
+                                            <button (click)="deletePayment(item)"
+                                                class="btn btn-danger btn-sm rounded-0 flex-fill button-g-list"><fa-icon
+                                                    [icon]='"trash"'></fa-icon></button>
+                                        </li>
+                                    </ng-container>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<ng-template #modalActions>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"> <fa-icon [icon]='"plus"'></fa-icon> Cotizacion </h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="actionForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="name" formControlName="name">
+                </div>
+                <div class="col-md-12">
+                    <label for="comments" class="form-label">Comentarios</label>
+                    <textarea type="text" class="form-control" id="comments" formControlName="comments"></textarea>
+                </div>
+                <div class="col-md-12">
+                    <label for="price" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="price" formControlName="price" step="0.1">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="newAction(modalActions)"><fa-icon [icon]='"floppy-disk"'></fa-icon>
+            Agregar</button>
+    </div>
+</ng-template>
+
+
+<ng-template #modalPayment>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"> <fa-icon [icon]='"plus"'></fa-icon> Nuevo Pago </h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="paymentForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="amount" class="form-label">Monto</label>
+                    <input type="number" class="form-control" id="amount" formControlName="amount" step="0.1">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="newPayment(modalPayment)"><fa-icon [icon]='"floppy-disk"'></fa-icon>
+            Agregar</button>
+    </div>
+</ng-template>

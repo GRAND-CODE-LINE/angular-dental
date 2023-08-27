@@ -73,7 +73,7 @@ export class PersonComponent {
   }
 
   onEditClick(event: Person) {
-    this.router.navigate(['adm/person/create', event.id]);
+    this.router.navigate(['adm/person/edit', event.id]);
 
     //  this.personService.servidor.emit(event);
 

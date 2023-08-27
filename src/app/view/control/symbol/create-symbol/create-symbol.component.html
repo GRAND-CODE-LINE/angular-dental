@@ -1,0 +1,56 @@
+<br>
+<div class="container minita-container">
+    <div class="card">
+        <div class="card-header">
+            Nuevo símbolo
+        </div>
+        <div class="card-body">
+            <form (submit)="saveData()" [formGroup]="symbolForm" autocomplete="off">
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <label for="name_symbol" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="name_symbol" formControlName="name">
+                    </div>
+                    <div class="col-md-4 col-sm-2">
+                        <label for="email" class="form-label">Activo</label>
+                        <!-- <div class="btn-group mini-btn-group" role="group">
+                            <input formControlName="active" [value]="true" type="radio" class="btn-check" name="active"
+                                id="active">
+                            <label class="btn btn-outline-primary">Si</label>
+                            <input formControlName="active" [value]="false" type="radio" class="btn-check" name="active"
+                                id="inactive">
+                            <label class="btn btn-outline-primary">No</label>
+                        </div> -->
+
+                        <div class="form-check form-switch">
+                            <input formControlName="active" class="form-check-input" type="checkbox" role="switch"
+                                id="flexSwitchCheckChecked">
+                            <!-- <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox
+                                input</label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="group" class="form-label">Grupo</label>
+                        <select class="form-select" id="group" formControlName="group">
+                            <option *ngFor="let item of groups" [value]="item.value">{{item.label}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="name_acronym" class="form-label">Abreviatura</label>
+                        <input type="text" class="form-control" id="name_acronym" formControlName="acronym">
+                    </div>
+                    <div class="col-md-12">
+                        <label for="image" class="form-label">Imagen</label>
+                        <input (change)="picked($event)" class="form-control" type="file">
+                    </div>
+                    <div class="col-md-12" *ngIf="imageFile">
+                        <img class=" oversize" [src]="transform()" alt="image">
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <button type="button" class="btn btn-primary" (click)="saveData()">Guardar</button>
+        </div>
+    </div>
+</div>

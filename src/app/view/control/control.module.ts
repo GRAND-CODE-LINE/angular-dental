@@ -14,8 +14,11 @@ import { PatientService } from 'src/app/services/patient/patient.service';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AgePipe } from 'src/app/pipes/age.pipe';
-import { ProcedureComponent } from './procedure/procedure.component';
-import { AttentionComponent } from './attention/attention.component';
+import { SymbolComponent } from './symbol/symbol.component';
+import { TimeAgoDetailedPipe } from 'src/app/pipes/time-ago-detailed.pipe';
+import { CreateSymbolComponent } from './symbol/create-symbol/create-symbol.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -25,8 +28,9 @@ import { AttentionComponent } from './attention/attention.component';
         PatientComponent,
         CreatepatientComponent,
         AgePipe,
-        ProcedureComponent,
-        AttentionComponent
+        TimeAgoDetailedPipe,
+        SymbolComponent,
+        CreateSymbolComponent
     ],
     imports: [
         FormsModule,
@@ -34,7 +38,7 @@ import { AttentionComponent } from './attention/attention.component';
         ControlRoutingModule,
         FontAwesomeModule,
         ReactiveFormsModule,
-        SharedModule
+        SharedModule,
     ]
 })
 export class ControlModule { }
