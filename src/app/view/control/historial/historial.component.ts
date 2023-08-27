@@ -4,15 +4,28 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Patient } from 'src/app/models/patient';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
-
+import { trigger, state, animate, style, transition } from '@angular/animations'
 @Component({
   selector: 'app-historial',
   templateUrl: './historial.component.html',
-  styleUrls: ['./historial.component.scss']
+  styleUrls: ['./historial.component.scss'],
+  animations: [
+    trigger('dosearch', [
+      state('novalue', style({
+        transform: 'translateY(40vh)'
+      })),
+      state('withvalue', style({
+        transform: 'translateY(0)'
+      })),
+      transition('novalue -> withvalue', animate('200ms ease-in')),
+      transition('withvalue -> novalue', animate('600ms ease-out'))
+    ])
+  ]
 })
 export class HistorialComponent {
 
-  patientGet!: Patient;
+  status: string = 'novalue';
+  patientGet: Patient | undefined;
 
   nroDocumento: string = ''
 
@@ -31,8 +44,22 @@ export class HistorialComponent {
     console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
 
     let res = await firstValueFrom(this.consultationService.searhConsultationByPatientNroDocumento(this.nroDocumento));
-
+    if (res) {
+      this.status = 'withvalue';
+    }
     this.patientGet = res as Patient
     console.log(this.patientGet);
+
+  }
+
+  cancel() {
+    this.patientGet = undefined;
+    this.nroDocumento = '';
+    this.status = 'novalue';
+  }
+
+  newConsultation() {
+    // this.router.navigate(['control/consultation/create'])
+    this.router.navigateByUrl('control/consultation/create', { state: this.patientGet });
   }
 }

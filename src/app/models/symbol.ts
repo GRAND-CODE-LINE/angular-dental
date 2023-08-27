@@ -13,5 +13,5 @@ export interface Symbol {
     active?: boolean,
     image: string,
     acronym?: string,
-    group: string
+    group?: string
 }

@@ -18,7 +18,9 @@ export class CreateSymbolComponent {
   edit = false
   imageFile: any;
 
-
+  groups = [
+    { value: 'GRUPO 1', label: 'Grupo 1' }
+  ]
   constructor(private symbolService: SymbolService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute,
     private sanitizer: DomSanitizer) { }
 
@@ -38,7 +40,9 @@ export class CreateSymbolComponent {
       id: [],
       name: [null, Validators.compose([Validators.required])],
       active: [true, Validators.compose([Validators.required])],
-      image: [null, Validators.compose([Validators.required])]
+      image: [null, Validators.compose([Validators.required])],
+      acronym: [null],
+      group: [null, Validators.compose([Validators.required])]
     })
   }
 
@@ -69,10 +73,10 @@ export class CreateSymbolComponent {
 
   saveData() {
     console.log(this.edit);
-    
+
     if (this.edit) {
       console.log('edita');
-      
+
       this.update();
     } else {
       this.create();
