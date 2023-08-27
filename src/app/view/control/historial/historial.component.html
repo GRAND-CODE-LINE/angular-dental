@@ -1,20 +1,21 @@
 <br>
-<div class="container-fluid">
+<div class="container-fluid" [@dosearch]="status">
     <div class="row">
         <div class="col" style=" text-align:  center;">
             <h4>Historial clinico</h4>
         </div>
     </div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" [@dosearch]="status">
     <div class="row">
         <div class="col">
             <div class="input-group mb-3">
                 <input type="text" class="form-control form-control-lg" placeholder="Número de documento"
-                    aria-label="Número de documento" [(ngModel)]="nroDocumento">
-                <button (click)="getConsultation()" class="btn btn-outline-primary" type="button"><fa-icon
-                        [icon]='"search"'></fa-icon></button>
-                <button class="btn btn-outline-danger" type="button"><fa-icon [icon]='"times"'></fa-icon></button>
+                    aria-label="Número de documento" [(ngModel)]="nroDocumento" [disabled]="patientGet!=undefined" (keyup.enter)="getConsultation()">
+                <button *ngIf="!patientGet" (click)="getConsultation()" class="btn btn-outline-primary"
+                    type="button"><fa-icon [icon]='"search"'></fa-icon></button>
+                <button *ngIf="patientGet" (click)="cancel()" class="btn btn-outline-danger" type="button"><fa-icon
+                        [icon]='"times"'></fa-icon></button>
             </div>
         </div>
     </div>
@@ -31,7 +32,7 @@
                     <div class="d-flex justify-content-between">
                         <h5>Información general</h5>
                         <div class="btn-group" role="group">
-                            <button class="btn btn-primary"><fa-icon [icon]='"pen-to-square"'></fa-icon></button>
+                            <button class="btn btn-primary" ><fa-icon [icon]='"pen-to-square"'></fa-icon></button>
 
                         </div>
                     </div>
@@ -119,7 +120,7 @@
                     <div class="d-flex justify-content-between">
                         <h5>Consultas</h5>
                         <div class="btn-group" role="group">
-                            <button class="btn btn-primary"><fa-icon [icon]='"plus"'></fa-icon></button>
+                            <button (click)="newConsultation()" class="btn btn-primary"><fa-icon [icon]='"plus"'></fa-icon></button>
                         </div>
                     </div>
                 </div>

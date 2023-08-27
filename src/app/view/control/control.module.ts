@@ -17,6 +17,8 @@ import { AgePipe } from 'src/app/pipes/age.pipe';
 import { SymbolComponent } from './symbol/symbol.component';
 import { TimeAgoDetailedPipe } from 'src/app/pipes/time-ago-detailed.pipe';
 import { CreateSymbolComponent } from './symbol/create-symbol/create-symbol.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -36,7 +38,7 @@ import { CreateSymbolComponent } from './symbol/create-symbol/create-symbol.comp
         ControlRoutingModule,
         FontAwesomeModule,
         ReactiveFormsModule,
-        SharedModule
+        SharedModule,
     ]
 })
 export class ControlModule { }
