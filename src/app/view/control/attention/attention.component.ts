@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Consultation } from 'src/app/models/consultation';
 import { Procedure } from 'src/app/models/procedure';
+import { ConsultationService } from 'src/app/services/consultation/consultation.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
   selector: 'app-attention',
@@ -8,11 +11,20 @@ import { Procedure } from 'src/app/models/procedure';
   styleUrls: ['./attention.component.scss']
 })
 export class AttentionComponent {
-  Cols: any[] = [];
+  Cards: any[] = [];
   items: any[] = [];
+  consulta : Consultation;
   @Input() edit: boolean = false
   @Input() delete: boolean = false
-  constructor(private router: Router) {
+
+
+  constructor(
+    private router: Router,
+    private route : ActivatedRoute,
+    private consultationService: ConsultationService,
+    private patientService: PatientService
+    ) {
+
   }
 
   ngOnInit(): void {
@@ -21,12 +33,9 @@ export class AttentionComponent {
   }
 
   initCols() {
-    this.Cols = [
-      { name: 'Nombre', field: 'persona', subfield: 'nombre' },
-      { name: 'Apellido', field: 'persona', subfield: 'apaterno' },
-      { name: 'DNI', field: 'persona', subfield: 'numeroDocumento' },
-      { name: 'Genero', field: 'genero' }
-    ];
+    const id = this.route.snapshot.paramMap.get('id')!
+     this.consulta=this.consultationService.getByid(id);
+    
   }
 
   ngOnChanges() {
