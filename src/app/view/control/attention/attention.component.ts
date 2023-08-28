@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
+import { Form, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Consultation } from 'src/app/models/consultation';
 import { Procedure } from 'src/app/models/procedure';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
@@ -11,16 +13,16 @@ import { PatientService } from 'src/app/services/patient/patient.service';
   styleUrls: ['./attention.component.scss']
 })
 export class AttentionComponent {
-  Cards: any[] = [];
-  items: any[] = [];
-  consulta : Consultation;
-  @Input() edit: boolean = false
-  @Input() delete: boolean = false
-
-
+  modalRef?: BsModalRef;
+  @ViewChild('modalActions') modalAction!: TemplateRef<any>;
+  config = {
+    animated: true
+  };
+  Cards:any[]=[];
+  items:Procedure[]=[];
   constructor(
-    private router: Router,
     private route : ActivatedRoute,
+    private modalService: BsModalService,
     private consultationService: ConsultationService,
     private patientService: PatientService
     ) {
@@ -29,13 +31,11 @@ export class AttentionComponent {
 
   ngOnInit(): void {
     console.log('Init');
-    this.initCols();
+    this.initData();
   }
 
-  initCols() {
-    const id = this.route.snapshot.paramMap.get('id')!
-     this.consulta=this.consultationService.getByid(id);
-    
+  initData() { 
+    //llenarData(this.route.snapshot.paramMap.get())
   }
 
   ngOnChanges() {
@@ -46,10 +46,19 @@ export class AttentionComponent {
     console.log('Destroy person');
   }
 
+  onProcedureClick(){
+ this.modalRef = this.modalService.show(this.modalAction,this.config)
+  }
   onEditClick(event: Procedure): void {
 
   }
 
   onDeleteClick(event: Procedure): void {
   }
+  
+  llenarData(data : Consultation) {
+    //this.patientForm.patchValue(data);
+  }
 }
+
+

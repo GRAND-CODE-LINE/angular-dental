@@ -4,24 +4,25 @@
             <div class="card" style="width: 18rem;">
                 <ul class="list-group list-group-flush">
                     <li class="nombre"></li>
+                    <li class="apellido"></li>
                     <li class="dni"></li>
-                    <li class="algomas"></li>
+                    <li class="edad"></li>
                 </ul>
             </div>
         </div>
         <div class="col-md-6">
-            <button type="button" class="btn btn-success">Procedimiento</button>
+            <button type="button" (click)="onProcedureClick" class="btn btn-success">Procedimiento</button>
         </div>
     </div>
     <div class="container-table">
         <table class="table">
             <thead>
                 <tr>
-                    <th class="action" *ngIf="edit">
-                        Editar
+                    <th class="action">
+                        
                     </th>
-                    <th class="action" *ngIf="delete">
-                        Eliminar
+                    <th class="action">
+                    
                     </th>
                 </tr>
             </thead>
@@ -31,18 +32,10 @@
                         <div class="card" style="width: 5rem;">
                             <img src="symbol" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">{{item[col.name]}}</h5>
-                                <p class="card-text">{{item[col.comments]}}</p>
+                                <h5 class="card-title"></h5>
+                                <p class="card-text"></p>
                             </div>
                             <div class="card-body">
-                                <ng-container *ngIf="edit">
-                                    <td [attr.data-label]="'Editar'"> <button type="button"
-                                            class="btn btn-outline-warning m-2 btn-sm" (click)="(item)"></button></td>
-                                </ng-container>
-                                <ng-container *ngIf="delete">
-                                    <td [attr.data-label]="'Eliminar'"> <button type="button"
-                                            class="btn btn-outline-danger m-2 btn-sm" (click)="(item)"></button></td>
-                                </ng-container>
                             </div>
                         </div>
                     </ng-container>
@@ -51,3 +44,31 @@
         </table>
     </div>
 </div>
+
+
+<ng-template #modalActions>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Procedimiento </h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form autocomplete="off">
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="name" class="form-label">Nombre</label>
+                </div>
+                <div class="col-md-12">
+                    <label for="comments" class="form-label">Comentarios</label>
+                    <textarea type="text" class="form-control" id="comments" formControlName="comments"></textarea>
+                </div>
+                <button type="button" class="btn btn-success">Guardar</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary"><fa-icon [icon]='"floppy-disk"'></fa-icon>
+            Agregar</button>
+    </div>
+</ng-template>
