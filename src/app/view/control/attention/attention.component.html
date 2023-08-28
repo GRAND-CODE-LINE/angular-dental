@@ -1,1 +1,53 @@
-<p>attention works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                    <li class="nombre"></li>
+                    <li class="dni"></li>
+                    <li class="algomas"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <button type="button" class="btn btn-success">Procedimiento</button>
+        </div>
+    </div>
+    <div class="container-table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="action" *ngIf="edit">
+                        Editar
+                    </th>
+                    <th class="action" *ngIf="delete">
+                        Eliminar
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items">
+                    <ng-container *ngFor="let col of Cols">
+                        <div class="card" style="width: 5rem;">
+                            <img src="symbol" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{item[col.name]}}</h5>
+                                <p class="card-text">{{item[col.comments]}}</p>
+                            </div>
+                            <div class="card-body">
+                                <ng-container *ngIf="edit">
+                                    <td [attr.data-label]="'Editar'"> <button type="button"
+                                            class="btn btn-outline-warning m-2 btn-sm" (click)="(item)"></button></td>
+                                </ng-container>
+                                <ng-container *ngIf="delete">
+                                    <td [attr.data-label]="'Eliminar'"> <button type="button"
+                                            class="btn btn-outline-danger m-2 btn-sm" (click)="(item)"></button></td>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </ng-container>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

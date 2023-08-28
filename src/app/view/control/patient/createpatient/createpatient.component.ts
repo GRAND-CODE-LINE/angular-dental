@@ -60,13 +60,9 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
       this.crearPatient();
       this.service.create(this.patient)
         .subscribe((data: any) => this.patient = data);
-      this.personService.create(this.patient.persona)
-        .subscribe((data: any) => this.patient = data);
     } else {
       this.service.update(this.patient.id, this.patient)
         .subscribe((data: any) => this.patient = data);
-        this.personService.update(this.patient.persona.id,this.patient.persona)
-        .subscribe((data:any)=> this.patient.persona = data);
     }
   }
   ngOnChanges() {
@@ -99,7 +95,7 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     this.listAlergias = this.listAlergias.filter(x => { return x !== alergia })
   }
 
-  agregarEnfermedad(){
+  agregarEnfermedad() {
     if (this.enfermedadesAdd.trim() != '') {
       this.listEnfermedades.push(this.enfermedadesAdd);
       this.enfermedadesAdd = '';
