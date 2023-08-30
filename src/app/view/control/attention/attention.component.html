@@ -3,15 +3,14 @@
         <div class="col-md-6">
             <div class="card" style="width: 18rem;">
                 <ul class="list-group list-group-flush">
-                    <li class="nombre"></li>
-                    <li class="apellido"></li>
-                    <li class="dni"></li>
-                    <li class="edad"></li>
+                    <li class="nombre">{{patient?.persona?.nombre}}</li>
+                    <li class="apellido">{{patient?.persona?.apaterno}}</li>
+                    <li class="dni">{{patient?.persona?.numeroDocumento}}</li>
                 </ul>
             </div>
         </div>
         <div class="col-md-6">
-            <button type="button" (click)="onProcedureClick" class="btn btn-success">Procedimiento</button>
+            <button type="button" (click)="onProcedureClick()" class="btn btn-success">Procedimiento</button>
         </div>
     </div>
     <div class="container-table">
@@ -19,10 +18,10 @@
             <thead>
                 <tr>
                     <th class="action">
-                        
+
                     </th>
                     <th class="action">
-                    
+
                     </th>
                 </tr>
             </thead>
@@ -68,7 +67,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary"><fa-icon [icon]='"floppy-disk"'></fa-icon>
+        <button class="btn btn-primary" (click)="onAddProcedure()"><fa-icon [icon]='"floppy-disk"'></fa-icon>
             Agregar</button>
     </div>
 </ng-template>
