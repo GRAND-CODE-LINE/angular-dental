@@ -53,7 +53,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <form autocomplete="off">
+        <form autocomplete="off" formGroup="procedureselected">
             <div class="row">
                 <div class="col-md-12">
                     <label for="name" class="form-label">Nombre</label>
@@ -67,7 +67,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" (click)="onAddProcedure()"><fa-icon [icon]='"floppy-disk"'></fa-icon>
+        <button class="btn btn-primary" (click)="onAddProcedure"><fa-icon [icon]='"floppy-disk"'></fa-icon>
             Agregar</button>
     </div>
 </ng-template>

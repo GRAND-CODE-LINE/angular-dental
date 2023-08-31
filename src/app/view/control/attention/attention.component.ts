@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
-import { Form, FormGroup } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Consultation } from 'src/app/models/consultation';
@@ -26,12 +26,14 @@ export class AttentionComponent {
   consultation:Consultation|undefined;
   patient :Patient|undefined;
   procedures:Procedure[]=[];
+  procedureselected!:FormGroup;
   constructor(
     private route : ActivatedRoute,
     private modalService: BsModalService,
     private consultationService: ConsultationService,
     private patientService: PatientService,
-    private location :Location
+    private location :Location,
+    private fb: FormBuilder
     ) {
 
   }
@@ -59,7 +61,11 @@ export class AttentionComponent {
  this.modalRef = this.modalService.show(this.modalAction,this.config)
   }
   onAddProcedure(event : Procedure){
-    this.modalAction
+  this.procedureselected= this.fb.group({
+    id:[null, Validators.compose([Validators.required])],
+    Comments:[null, Validators.compose([Validators.required])],
+  })
+  
   this.procedures.push()
   }
 
