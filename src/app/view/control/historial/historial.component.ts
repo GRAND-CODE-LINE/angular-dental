@@ -48,6 +48,9 @@ export class HistorialComponent {
       this.status = 'withvalue';
     }
     this.patientGet = res as Patient
+    this.patientGet.consultations = this.patientGet.consultations?.sort(function (a, b) {
+      return b.code - a.code
+    })
     console.log(this.patientGet);
 
   }

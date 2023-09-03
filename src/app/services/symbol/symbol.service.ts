@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SymbolService {
 
-  
+
   constructor(private http: HttpClient) { }
 
   URL_BASE = environment.URL_DENTAL + '/symbol/';

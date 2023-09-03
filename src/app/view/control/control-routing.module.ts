@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'consultation/create', component: ConsultaComponent },
   { path: 'consultation/edit/:id', component: ConsultaComponent },
   { path: 'attention/create', component :AttentionComponent},
-  { path: 'attention/:id', component :AttentionComponent}
+  { path: 'attention/edit/:id', component :AttentionComponent}
 ];
 
 @NgModule({

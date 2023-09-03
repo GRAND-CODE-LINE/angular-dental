@@ -46,19 +46,18 @@
                     <br>
                     <div class="row mt-3" style="text-align: center;">
                         <div class="col-sm-12">
-                            <p class="card-text"><strong>Nombres:</strong> {{patientGet.persona.nombre}}</p>
+                            <p><strong>Nombres:</strong> {{patientGet.persona.nombre}}</p>
                         </div>
                         <div class="col-sm-12">
                             <p><strong>Nro. Documento: </strong> {{patientGet.persona.numeroDocumento}}</p>
-
                         </div>
                         <div class="col-sm-12">
                             <p><strong>Tipo Documento: </strong> {{patientGet.persona.tipoDocumento}}</p>
-                            <p> </p>
+
 
                         </div>
                         <div class="col-sm-12">
-                            <p><strong>Fecha Nacimiento: </strong> {{patientGet.persona.fechaNacimiento}}</p>
+                            <p><strong>Fecha Nacimiento: </strong> {{patientGet.persona.fechaNacimiento | date}}</p>
                         </div>
                         <div class="col-sm-12">
                             <p><strong>Edad: </strong> {{patientGet.persona.fechaNacimiento | age}}</p>
@@ -89,7 +88,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row mt-3">
+                    <div class="row ">
                         <div class="col-sm-12 mb-2">
                             <p><strong>Observaciones: </strong> </p>
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -153,20 +152,11 @@
                                                     <small>{{item.price | currency:'PEN'}}</small>
                                                 </div>
                                                 <button (click)="editConsultation(item.id)"
-                                                    class="btn btn-danger btn-sm rounded-0 flex-fill button-g-list"><fa-icon
-                                                        [icon]='"trash"'></fa-icon></button>
+                                                    class="btn btn-secondary btn-sm rounded-0 flex-fill button-g-list"><fa-icon
+                                                        [icon]='"eye"'></fa-icon></button>
                                             </li>
 
 
-                                            <!-- <a class=" list-group-item list-group-item-action " aria-current=" true">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <h5 class="mb-1">Código: {{item.code}}</h5>
-                                                    <small>{{item.date | timeAgoDetailed}}</small>
-                                                    <small>{{item.status}}</small>
-                                                </div>
-                                                <p class="mb-1">{{item.description}}</p>
-                                                <small>{{item.price}}</small>
-                                            </a> -->
                                         </ng-container>
                                     </ul>
 

@@ -6,7 +6,7 @@
       {
         "icon": "alarm-outline",
         "text": "Pacientes",
-        "url": "control/paciente"
+        "url": "control/patient"
       },
       {
         "icon": "alarm-outline",

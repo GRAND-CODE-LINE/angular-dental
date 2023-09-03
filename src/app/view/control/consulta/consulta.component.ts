@@ -12,6 +12,7 @@ import { Message_I } from 'src/app/models/utils/message_i';
 import { MessagesService } from 'src/app/layouts/services/messages.service';
 import * as _ from 'lodash';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
+import { Attention } from 'src/app/models/attention';
 
 @Component({
   selector: 'app-consulta',
@@ -64,7 +65,7 @@ export class ConsultaComponent {
       patient: this.patientGet as Patient,
       price: 0,
       status: 'Creado',
-      code: ''
+      code: 0
     }
     this.consultationOld = _.clone(this.consultation);
   }
@@ -209,7 +210,19 @@ export class ConsultaComponent {
     this.getConsultationById(this.consultation.id)
   }
 
-  newAttention() {
-    this.router.navigateByUrl('control/attention/create/', { state: this.consultation });
+  async newAttention() {
+    if (this.edit) {
+      this.router.navigateByUrl('control/attention/create', { state: this.consultation });
+    } else {
+      this.consultation.patient = this.patientGet as Patient
+      let res = await firstValueFrom(this.consultationService.create(this.consultation));
+      const consultation: Consultation = res as Consultation;
+      this.router.navigateByUrl('control/attention/create', { state: consultation });
+    }
+
+  }
+
+  detailAttention(item: Attention) {
+    this.router.navigateByUrl('control/attention/edit/' + item.id, { state: this.consultation });
   }
 }
