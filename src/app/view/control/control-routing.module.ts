@@ -6,6 +6,7 @@ import { CreatepatientComponent } from './patient/createpatient/createpatient.co
 import { SymbolComponent } from './symbol/symbol.component';
 import { CreateSymbolComponent } from './symbol/create-symbol/create-symbol.component';
 import { ConsultaComponent } from './consulta/consulta.component';
+import { AttentionComponent } from './attention/attention.component';
 
 const routes: Routes = [
   { path: 'historial', component: HistorialComponent },
@@ -16,7 +17,9 @@ const routes: Routes = [
   { path: 'patient/create', component: CreatepatientComponent },
   { path: 'patient/edit/:id', component: CreatepatientComponent },
   { path: 'consultation/create', component: ConsultaComponent },
-  { path: 'consultation/edit/:id', component: ConsultaComponent }
+  { path: 'consultation/edit/:id', component: ConsultaComponent },
+  { path: 'attention', component :AttentionComponent},
+  { path: 'attention/:id', component :AttentionComponent}
 ];
 
 @NgModule({
