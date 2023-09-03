@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'patient/edit/:id', component: CreatepatientComponent },
   { path: 'consultation/create', component: ConsultaComponent },
   { path: 'consultation/edit/:id', component: ConsultaComponent },
-  { path: 'attention', component :AttentionComponent},
+  { path: 'attention/create', component :AttentionComponent},
   { path: 'attention/:id', component :AttentionComponent}
 ];
 
