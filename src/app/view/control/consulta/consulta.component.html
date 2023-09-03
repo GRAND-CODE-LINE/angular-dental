@@ -4,18 +4,20 @@
         <div class="col-md-12 justify-content-between" style=" text-align:  center;">
             <div class="d-flex w-100 justify-content-between pt-1 pb-1">
                 <h4 *ngIf="!consultation.id">Nueva Consulta</h4>
-                <h4 *ngIf="consultation.id">Consulta {{consultation.id}}</h4>
+                <h4 *ngIf="consultation.id">Consulta {{patientGet?.persona?.numeroDocumento}}-{{consultation.code}}</h4>
                 <div>
-                    <button class="btn btn-success btn-sm ms-1"><fa-icon [icon]='"floppy-disk"'></fa-icon>
+                    <button (click)="saveChanges()" class="btn btn-success btn-sm ms-1"><fa-icon
+                            [icon]='"floppy-disk"'></fa-icon>
                         Guardar</button>
                     <button class="btn btn-secondary btn-sm ms-1"><fa-icon [icon]='"comment"'></fa-icon>
                         Comentarios</button>
-                    <button class="btn btn-warning btn-sm ms-1"><fa-icon [icon]='"arrow-rotate-right"'></fa-icon>
+                    <button (click)="reload()" *ngIf="consultation.id" class="btn btn-warning btn-sm ms-1"><fa-icon
+                            [icon]='"arrow-rotate-right"'></fa-icon>
                         Actualizar</button>
                 </div>
 
             </div>
-            
+
         </div>
         <div class="col justify-content-end" style=" text-align:  center;">
             <div *ngIf="checkForUnSaved()" class="alert alert-warning" role="alert" style="padding: 0.2rem;">
@@ -48,10 +50,12 @@
         <div class="col-md-4">
             <div class="card ">
                 <div class="card-body" *ngIf="patientGet.persona">
-                    <h5 class="card-title">Paciente: {{patientGet.persona.nombre}}
+                    <h5 class="card-title">Paciente: {{patientGet.persona.nombre}} {{patientGet.persona.apaterno}}
+                        {{patientGet.persona.amaterno}}
                     </h5>
                     <h6 class="card-subtitle mb-1 text-body-secondary"> {{patientGet.persona.numeroDocumento}}</h6>
-                    <p class="card-text"><strong>Edad: </strong> {{patientGet.persona.fechaNacimiento | age}} años</p>
+                    <p class="card-text"><strong>Edad: </strong> {{patientGet.persona.fechaNacimiento |
+                        age}} años</p>
                 </div>
             </div>
         </div>
@@ -91,7 +95,7 @@
                                         <li class="list-group-item d-flex align-items-stretch p-0">
                                             <div class="flex-grow-1 list-group-content p-1">
                                                 <div class="d-flex w-100 justify-content-between P-1">
-                                                    <h5 class="mb-1">{{item.name}}</h5>
+                                                    <h6 class="mb-1">{{item.name}}</h6>
                                                     <small>{{item.price | currency:'PEN'}}</small>
                                                 </div>
                                                 <small>{{item.comments}}</small>
