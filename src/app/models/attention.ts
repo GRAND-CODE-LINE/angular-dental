@@ -4,9 +4,9 @@ import { Procedure } from "./procedure";
 
 export interface Attention {
     id?: string,
-    endDate: Date,
+    endDate?: Date,
     status: string,
     comments: string,
-    consultation: Consultation,
+    consultation?: Consultation,
     procedures: Procedure[]
 }

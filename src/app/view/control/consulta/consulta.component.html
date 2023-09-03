@@ -4,18 +4,20 @@
         <div class="col-md-12 justify-content-between" style=" text-align:  center;">
             <div class="d-flex w-100 justify-content-between pt-1 pb-1">
                 <h4 *ngIf="!consultation.id">Nueva Consulta</h4>
-                <h4 *ngIf="consultation.id">Consulta {{consultation.id}}</h4>
-                <div>
-                    <button class="btn btn-success btn-sm ms-1"><fa-icon [icon]='"floppy-disk"'></fa-icon>
+                <h4 *ngIf="consultation.id">Consulta {{patientGet?.persona?.numeroDocumento}}-{{consultation.code}}</h4>
+                <div class="no-print">
+                    <button (click)="saveChanges()" class="btn btn-success btn-sm ms-1"><fa-icon
+                            [icon]='"floppy-disk"'></fa-icon>
                         Guardar</button>
-                    <button class="btn btn-secondary btn-sm ms-1"><fa-icon [icon]='"comment"'></fa-icon>
-                        Comentarios</button>
-                    <button class="btn btn-warning btn-sm ms-1"><fa-icon [icon]='"arrow-rotate-right"'></fa-icon>
+                    <!-- <button class="btn btn-secondary btn-sm ms-1"><fa-icon [icon]='"comment"'></fa-icon>
+                        Comentarios</button> -->
+                    <button (click)="reload()" *ngIf="consultation.id" class="btn btn-warning btn-sm ms-1"><fa-icon
+                            [icon]='"arrow-rotate-right"'></fa-icon>
                         Actualizar</button>
                 </div>
 
             </div>
-            
+
         </div>
         <div class="col justify-content-end" style=" text-align:  center;">
             <div *ngIf="checkForUnSaved()" class="alert alert-warning" role="alert" style="padding: 0.2rem;">
@@ -48,10 +50,13 @@
         <div class="col-md-4">
             <div class="card ">
                 <div class="card-body" *ngIf="patientGet.persona">
-                    <h5 class="card-title">Paciente: {{patientGet.persona.nombre}}
+                    <h5 class="card-title">Paciente: {{patientGet.persona.nombre}} {{patientGet.persona.apaterno}}
+                        {{patientGet.persona.amaterno}}
                     </h5>
-                    <h6 class="card-subtitle mb-1 text-body-secondary"> {{patientGet.persona.numeroDocumento}}</h6>
-                    <p class="card-text"><strong>Edad: </strong> {{patientGet.persona.fechaNacimiento | age}} años</p>
+                    <h6 class="card-subtitle text-body-secondary">Documento: {{patientGet.persona.numeroDocumento}}
+                    </h6>
+                    <p class="card-text">Edad: {{patientGet.persona.fechaNacimiento |
+                        age}} años</p>
                 </div>
             </div>
         </div>
@@ -59,9 +64,6 @@
 </div>
 <br>
 <div class="container-fluid">
-
-
-
     <div class="row">
         <!-- acctions / cotizaciones -->
         <div class="col-md-4">
@@ -91,7 +93,7 @@
                                         <li class="list-group-item d-flex align-items-stretch p-0">
                                             <div class="flex-grow-1 list-group-content p-1">
                                                 <div class="d-flex w-100 justify-content-between P-1">
-                                                    <h5 class="mb-1">{{item.name}}</h5>
+                                                    <h6 class="mb-1">{{item.name}}</h6>
                                                     <small>{{item.price | currency:'PEN'}}</small>
                                                 </div>
                                                 <small>{{item.comments}}</small>
@@ -110,14 +112,15 @@
 
         </div>
         <!-- attentions -->
-        <div class="col-md-4">
+        <div class="col-md-4 no-print">
 
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h5>Atenciones</h5>
                         <div class="btn-group" role="group">
-                            <button class="btn btn-primary btn-sm"><fa-icon [icon]='"plus"'></fa-icon></button>
+                            <button class="btn btn-primary btn-sm" (click)="newAttention()"><fa-icon
+                                    [icon]='"plus"'></fa-icon></button>
                         </div>
                     </div>
                 </div>
@@ -136,14 +139,35 @@
 
                                 <ng-template #attentionsList>
                                     <ng-container *ngFor="let item of consultation?.attentions">
-                                        <a class=" list-group-item list-group-item-action " aria-current=" true">
+                                        <!-- <a class=" list-group-item list-group-item-action " aria-current=" true">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="mb-1">Fecha: {{item.endDate | timeAgoDetailed}}</h5>
                                                 <small>{{item.status}}</small>
                                             </div>
                                             <p class="mb-1">{{item.comments}}</p>
-                                        </a>
+                                        </a> -->
+
+                                        <li class="list-group-item d-flex align-items-stretch p-0">
+                                            <div class="flex-grow-1 list-group-content p-1">
+                                                <div class="d-flex w-100 justify-content-between P-1">
+                                                    <h6>Fecha: {{item.endDate | timeAgoDetailed}}</h6><br>
+
+                                                </div>
+                                                <small>Nro. de procedimientos: {{item.procedures.length}}</small>
+                                                <br>
+                                                <small style="word-break: break-all;">{{item.comments}}</small>
+                                            </div>
+                                            <button (click)="detailAttention(item)" style=" max-width: 2rem"
+                                                class="btn btn-secondary btn-sm rounded-0 flex-fill "><fa-icon
+                                                    [icon]='"eye"'></fa-icon></button>
+                                            <button (click)="detailAttention(item)"
+                                                class="btn btn-warning btn-sm rounded-0 flex-fill button-g-list"><fa-icon
+                                                    [icon]='"trash"'></fa-icon></button>
+                                        </li>
                                     </ng-container>
+
+
+
                                 </ng-template>
 
                             </div>
@@ -154,7 +178,7 @@
             </div>
         </div>
         <!-- pagos -->
-        <div class="col-md-4">
+        <div class="col-md-4 no-print">
 
             <div class="card">
                 <div class="card-header">

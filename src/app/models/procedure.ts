@@ -5,5 +5,6 @@ export interface Procedure {
     name: string,
     status: string,
     comments: string,
-    symbol: Symbol
+    symbol: Symbol,
+    item?: number
 }

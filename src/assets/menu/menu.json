@@ -1,12 +1,12 @@
 [
   {
     "icon": "caret-down-outline",
-    "text": "Manteninmiento",
+    "text": "Mantenimiento",
     "childs": [
       {
         "icon": "alarm-outline",
         "text": "Pacientes",
-        "url": "control/paciente"
+        "url": "control/patient"
       },
       {
         "icon": "alarm-outline",
@@ -30,10 +30,5 @@
         "url": "control/historial"
       }
     ]
-  },
-  {
-    "icon": "Logout",
-    "text": "Cerrar Sesión",
-    "url": "/login"
   }
 ]

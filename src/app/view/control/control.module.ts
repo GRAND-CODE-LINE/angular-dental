@@ -19,6 +19,7 @@ import { TimeAgoDetailedPipe } from 'src/app/pipes/time-ago-detailed.pipe';
 import { CreateSymbolComponent } from './symbol/create-symbol/create-symbol.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AttentionComponent } from './attention/attention.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         AgePipe,
         TimeAgoDetailedPipe,
         SymbolComponent,
-        CreateSymbolComponent
+        CreateSymbolComponent,
+        AttentionComponent
     ],
     imports: [
         FormsModule,
