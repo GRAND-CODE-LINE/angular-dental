@@ -62,4 +62,9 @@ export class HistorialComponent {
     // this.router.navigate(['control/consultation/create'])
     this.router.navigateByUrl('control/consultation/create', { state: this.patientGet });
   }
+
+
+  editConsultation(idConsultation: any) {
+    this.router.navigateByUrl('control/consultation/edit/' + idConsultation, { state: this.patientGet });
+  }
 }

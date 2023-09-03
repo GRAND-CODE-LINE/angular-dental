@@ -208,4 +208,8 @@ export class ConsultaComponent {
   reload() {
     this.getConsultationById(this.consultation.id)
   }
+
+  newAttention() {
+    this.router.navigateByUrl('control/attention/create/', { state: this.consultation });
+  }
 }

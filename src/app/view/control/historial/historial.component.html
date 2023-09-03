@@ -11,7 +11,8 @@
         <div class="col">
             <div class="input-group mb-3">
                 <input type="text" class="form-control form-control-lg" placeholder="Número de documento"
-                    aria-label="Número de documento" [(ngModel)]="nroDocumento" [disabled]="patientGet!=undefined" (keyup.enter)="getConsultation()">
+                    aria-label="Número de documento" [(ngModel)]="nroDocumento" [disabled]="patientGet!=undefined"
+                    (keyup.enter)="getConsultation()">
                 <button *ngIf="!patientGet" (click)="getConsultation()" class="btn btn-outline-primary"
                     type="button"><fa-icon [icon]='"search"'></fa-icon></button>
                 <button *ngIf="patientGet" (click)="cancel()" class="btn btn-outline-danger" type="button"><fa-icon
@@ -32,7 +33,7 @@
                     <div class="d-flex justify-content-between">
                         <h5>Información general</h5>
                         <div class="btn-group" role="group">
-                            <button class="btn btn-primary" ><fa-icon [icon]='"pen-to-square"'></fa-icon></button>
+                            <button class="btn btn-primary"><fa-icon [icon]='"pen-to-square"'></fa-icon></button>
 
                         </div>
                     </div>
@@ -120,7 +121,8 @@
                     <div class="d-flex justify-content-between">
                         <h5>Consultas</h5>
                         <div class="btn-group" role="group">
-                            <button (click)="newConsultation()" class="btn btn-primary"><fa-icon [icon]='"plus"'></fa-icon></button>
+                            <button (click)="newConsultation()" class="btn btn-primary"><fa-icon
+                                    [icon]='"plus"'></fa-icon></button>
                         </div>
                     </div>
                 </div>
@@ -138,17 +140,36 @@
                                 </ng-container>
 
                                 <ng-template #consultaionsList>
-                                    <ng-container *ngFor="let item of patientGet.consultations">
-                                        <a class=" list-group-item list-group-item-action " aria-current=" true">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1">Código: {{item.code}}</h5>
-                                                <small>{{item.date | timeAgoDetailed}}</small>
-                                                <small>{{item.status}}</small>
-                                            </div>
-                                            <p class="mb-1">{{item.description}}</p>
-                                            <small>{{item.price}}</small>
-                                        </a>
-                                    </ng-container>
+                                    <ul class="list-group">
+                                        <ng-container *ngFor="let item of patientGet.consultations">
+                                            <li class="list-group-item d-flex align-items-stretch p-0">
+                                                <div class="flex-grow-1 list-group-content p-1">
+                                                    <div class="d-flex w-100 justify-content-between P-1">
+                                                        <h6 class="mb-1">Código: {{item.code}}</h6>
+                                                    </div>
+                                                    <small>{{item.date | timeAgoDetailed}}</small><br>
+                                                    <small>Estado: {{item.status}}</small>
+                                                    <p class="mb-1">{{item.description}}</p>
+                                                    <small>{{item.price | currency:'PEN'}}</small>
+                                                </div>
+                                                <button (click)="editConsultation(item.id)"
+                                                    class="btn btn-danger btn-sm rounded-0 flex-fill button-g-list"><fa-icon
+                                                        [icon]='"trash"'></fa-icon></button>
+                                            </li>
+
+
+                                            <!-- <a class=" list-group-item list-group-item-action " aria-current=" true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1">Código: {{item.code}}</h5>
+                                                    <small>{{item.date | timeAgoDetailed}}</small>
+                                                    <small>{{item.status}}</small>
+                                                </div>
+                                                <p class="mb-1">{{item.description}}</p>
+                                                <small>{{item.price}}</small>
+                                            </a> -->
+                                        </ng-container>
+                                    </ul>
+
                                 </ng-template>
 
                             </div>
