@@ -1,6 +1,6 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { firstValueFrom, map } from 'rxjs';
 import { Consultation } from 'src/app/models/consultation';
 import { Patient } from 'src/app/models/patient';
 import { Action } from 'src/app/models/action';
@@ -11,6 +11,8 @@ import { Payment } from 'src/app/models/payment';
 import { Message_I } from 'src/app/models/utils/message_i';
 import { MessagesService } from 'src/app/layouts/services/messages.service';
 import * as _ from 'lodash';
+import { ConsultationService } from 'src/app/services/consultation/consultation.service';
+import { Attention } from 'src/app/models/attention';
 
 @Component({
   selector: 'app-consulta',
@@ -18,34 +20,38 @@ import * as _ from 'lodash';
   styleUrls: ['./consulta.component.scss']
 })
 export class ConsultaComponent {
-
   patientGet: Patient | undefined;
-
   consultation!: Consultation;
   consultationOld!: Consultation;
-
   config = {
     animated: true
   };
   modalRef?: BsModalRef;
-
-
   actionForm!: FormGroup;
   paymentForm!: FormGroup;
   @ViewChild('modalActions') modalAction!: TemplateRef<any>;
   @ViewChild('modalPayment') modalPayment!: TemplateRef<any>;
+  edit: boolean = false;
   constructor(private location: Location, private modalService: BsModalService,
-    private fb: FormBuilder, private messageService: MessagesService) {
+    private fb: FormBuilder, private messageService: MessagesService, private consultationService: ConsultationService,
+    private router: Router, private route: ActivatedRoute) {
   }
 
 
-  ngOnInit() {
-    let state = this.location.getState();
-    console.log(state);
-
-    this.patientGet = state as unknown as Patient;
-    this.initConsultation();
-    this.initForms()
+  async ngOnInit() {
+    this.initForms();
+    if (this.route.snapshot.params['id'] != undefined) {
+      this.edit = true;
+      await this.getConsultationById(this.route.snapshot.params['id'])
+    } else {
+      this.edit = false;
+      this.initConsultation();
+      let state = this.location.getState();
+      this.patientGet = _.clone(state) as unknown as Patient;
+      if (!this.patientGet.id) {
+        this.router.navigate(['control/historial'])
+      }
+    }
   }
 
   initConsultation() {
@@ -59,11 +65,19 @@ export class ConsultaComponent {
       patient: this.patientGet as Patient,
       price: 0,
       status: 'Creado',
-      code: ''
+      code: 0
     }
-
-
     this.consultationOld = _.clone(this.consultation);
+  }
+
+  async getConsultationById(id: any) {
+    let res = await firstValueFrom(this.consultationService.getById(id));
+    console.log(res);
+
+    const consultation: Consultation = res as Consultation;
+    this.consultation = consultation;
+    this.consultationOld = _.clone(this.consultation);
+    this.patientGet = _.clone(consultation.patient) as unknown as Patient;
   }
 
   initForms() {
@@ -116,6 +130,7 @@ export class ConsultaComponent {
 
   deleteAction(action: Action) {
     this.consultation.actions = this.consultation.actions.filter(x => { return x.item !== action.item })
+    this.calculateTotalPrice();
   }
 
 
@@ -149,6 +164,7 @@ export class ConsultaComponent {
 
   deletePayment(action: Payment) {
     this.consultation.payments = this.consultation.payments.filter(x => { return x.item !== action.item })
+    this.calculateBalance();
   }
 
   calculateBalance() {
@@ -158,12 +174,55 @@ export class ConsultaComponent {
     }
     this.consultation.balance = total;
   }
+
   checkForUnSaved() {
     if (!_.isEqual(this.consultation, this.consultationOld)) {
       return true;
     } else {
       return false;
     }
+  }
 
+  saveChanges() {
+    if (this.edit) {
+      this.updateConsultation();
+    } else {
+      this.createConsultation();
+    }
+  }
+
+  async createConsultation() {
+    this.consultation.patient = this.patientGet as Patient
+    let res = await firstValueFrom(this.consultationService.create(this.consultation));
+    const consultation: Consultation = res as Consultation;
+    this.router.navigate(['control/consultation/edit', consultation.id])
+  }
+
+  async updateConsultation() {
+    this.consultation.patient = this.patientGet as Patient
+    let res = await firstValueFrom(this.consultationService.update(this.consultation.id, this.consultation));
+    const consultation: Consultation = res as Consultation;
+    this.router.navigate(['control/consultation/edit', consultation.id])
+    this.getConsultationById(this.consultation.id)
+  }
+
+  reload() {
+    this.getConsultationById(this.consultation.id)
+  }
+
+  async newAttention() {
+    if (this.edit) {
+      this.router.navigateByUrl('control/attention/create', { state: this.consultation });
+    } else {
+      this.consultation.patient = this.patientGet as Patient
+      let res = await firstValueFrom(this.consultationService.create(this.consultation));
+      const consultation: Consultation = res as Consultation;
+      this.router.navigateByUrl('control/attention/create', { state: consultation });
+    }
+
+  }
+
+  detailAttention(item: Attention) {
+    this.router.navigateByUrl('control/attention/edit/' + item.id, { state: this.consultation });
   }
 }
