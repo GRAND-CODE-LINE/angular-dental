@@ -81,4 +81,7 @@ export class PatientComponent {
     await firstValueFrom(this.patientService.delete(event.id));
     this.paginateData();
   }
+  onNewPatient(){
+    this.router.navigateByUrl('control/patient/create')
+  }
 }

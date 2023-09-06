@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Patient } from 'src/app/models/patient';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { PersonService } from 'src/app/services/person/person.service';
@@ -19,6 +19,7 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
   listEnfermedades: string[] = [];
   alergiaAdd: string = '';
   enfermedadesAdd: string = '';
+  
   constructor(
     private service: PatientService,
     private personService: PersonService,
@@ -105,4 +106,5 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
   eliminarEnfermedad(enfermedad: string) {
     this.listEnfermedades = this.listEnfermedades.filter(x => { return x !== enfermedad })
   }
+  
 }

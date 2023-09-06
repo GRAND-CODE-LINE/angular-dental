@@ -121,6 +121,9 @@
                   </button>
                 </ng-container>
               </div>
+              <div>
+                <input id='fotocamara' name="fotocamara" type="text" class="form-control" style="display: none" />
+              </div>
               <div class="col-md-6">
                 <label class="col-form-label">redSocial</label>
                 <input class="form-control" type="textarea" name="redSocial" id="redSocial"
@@ -147,12 +150,12 @@
                   formControlName="talla">
               </div>
 
-              <div class="col-auto bg-ganger p-1" *ngIf="!modoEditar" >
-                <input class="botons" type="submit" value="Registrar">
+              <div class="col-auto bg-ganger p-1" *ngIf="!modoEditar">
+                <input class="btn btn-primary" type="submit" value="Registrar">
               </div>
               <div class="col-auto bg-ganger p-1" *ngIf="modoEditar">
 
-                <input class="botons" type="submit" value="Actualizar Datos">
+                <input class="btn btn-primary" type="submit" value="Actualizar Datos">
               </div>
 
 
