@@ -61,7 +61,9 @@ export class LoginService {
     }, 100);
   }
 
-
+  isLogged() {
+    return !!localStorage.getItem("minita_user");
+  }
 
 
 }
