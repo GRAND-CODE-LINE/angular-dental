@@ -18,7 +18,7 @@ import { SymbolService } from 'src/app/services/symbol/symbol.service';
 @Component({
   selector: 'app-attention',
   templateUrl: './attention.component.html',
-  styleUrls: ['./attention.component.scss']
+  styleUrls: ['./attention.component.scss'],
 })
 export class AttentionComponent {
   modalRef?: BsModalRef;
@@ -27,31 +27,33 @@ export class AttentionComponent {
   config = {
     animated: true,
     size: 'lg',
-    class: 'modal-lg'
+    class: 'modal-lg',
   };
   consultation: Consultation | undefined;
   patientGet: Patient | undefined;
   procedures: Procedure[] = [];
   procedureselected!: FormGroup;
-  symbolsList: Symbol[] = []
+  symbolsList: Symbol[] = [];
   selectedSymbol!: Symbol;
   attention!: Attention;
   edit = false;
   constructor(
-    private route: ActivatedRoute, private modalService: BsModalService,
-    private location: Location, private fb: FormBuilder, private symbolService: SymbolService,
-    private attentionService: AttentionService, private router: Router
-  ) {
-
-  }
+    private route: ActivatedRoute,
+    private modalService: BsModalService,
+    private location: Location,
+    private fb: FormBuilder,
+    private symbolService: SymbolService,
+    private attentionService: AttentionService,
+    private router: Router
+  ) {}
 
   async ngOnInit(): Promise<void> {
-    this.initAttention()
+    this.initAttention();
     this.getSymbols();
     console.log('Init');
     if (this.route.snapshot.params['id'] != undefined) {
       this.edit = true;
-      await this.getAttentionById(this.route.snapshot.params['id'])
+      await this.getAttentionById(this.route.snapshot.params['id']);
     } else {
       this.edit = false;
       let state = this.location.getState();
@@ -63,7 +65,7 @@ export class AttentionComponent {
       id: [null],
       name: [null, Validators.compose([Validators.required])],
       comments: [null],
-    })
+    });
   }
 
   initAttention() {
@@ -71,7 +73,7 @@ export class AttentionComponent {
       comments: '',
       status: 'Creado',
       procedures: [],
-    }
+    };
   }
 
   async getAttentionById(id: any) {
@@ -81,23 +83,22 @@ export class AttentionComponent {
     const attention: Attention = res as Attention;
     this.attention = attention;
     this.consultation = attention.consultation;
-    this.patientGet = this.consultation?.patient
-    this.procedures = attention.procedures
+    this.patientGet = this.consultation?.patient;
+    this.procedures = attention.procedures;
   }
 
-
   onProcedureClick() {
-    this.modalRef = this.modalService.show(this.modalAction, this.config)
+    this.modalRef = this.modalService.show(this.modalAction, this.config);
   }
   onAddProcedure() {
     if (this.procedureselected.invalid) {
-      return
+      return;
     }
 
     let procedure: Procedure = this.procedureselected.value;
     procedure.symbol = this.selectedSymbol;
-    this.procedures.push(procedure)
-    this.procedureselected.reset()
+    this.procedures.push(procedure);
+    this.procedureselected.reset();
     this.modalService.hide();
   }
 
@@ -110,38 +111,41 @@ export class AttentionComponent {
   }
 
   async createAttention() {
-    this.attention.procedures = this.procedures
-    this.attention.consultation = this.consultation
+    this.attention.procedures = this.procedures;
+    this.attention.consultation = this.consultation;
     console.log(this.attention);
-    let res = await firstValueFrom(this.attentionService.create(this.attention));
+    let res = await firstValueFrom(
+      this.attentionService.create(this.attention)
+    );
     const attention: Attention = res as Attention;
-    this.router.navigate(['control/attention/edit', attention.id])
+    this.router.navigate(['control/attention/edit', attention.id]);
   }
 
   async updateAttention() {
-    this.attention.procedures = this.procedures
-    this.attention.consultation = this.consultation
+    this.attention.procedures = this.procedures;
+    this.attention.consultation = this.consultation;
     console.log(this.attention);
-    let res = await firstValueFrom(this.attentionService.update(this.attention.id, this.attention));
+    let res = await firstValueFrom(
+      this.attentionService.update(this.attention.id, this.attention)
+    );
     const attention: Attention = res as Attention;
-    this.router.navigate(['control/attention/edit', attention.id])
-    this.getAttentionById(this.attention.id)
+    this.router.navigate(['control/attention/edit', attention.id]);
+    this.getAttentionById(this.attention.id);
   }
 
-  reload() {
-
-  }
-
+  reload() {}
 
   async getSymbols() {
     let filter = {
       page: 0,
       size: 100,
-      sortOrder: 1
-    }
-    let res: Paginate_I = await firstValueFrom(this.symbolService.paginate(filter));
+      sortOrder: 1,
+    };
+    let res: Paginate_I = await firstValueFrom(
+      this.symbolService.paginate(filter)
+    );
 
-    this.symbolsList = res.content
+    this.symbolsList = res.content;
   }
 
   selectSymbol(item: Symbol) {
@@ -150,9 +154,9 @@ export class AttentionComponent {
       name: item.acronym + ' - ' + item.name,
       status: 'Creado',
       comments: '',
-      symbol: item
-    }
-    this.procedureselected.patchValue(procedure)
+      symbol: item,
+    };
+    this.procedureselected.patchValue(procedure);
   }
 
   resetProcedure() {
@@ -160,8 +164,8 @@ export class AttentionComponent {
   }
 
   deleteProcedure(action: Procedure) {
-    this.procedures = this.procedures.filter(x => { return x.item !== action.item })
+    this.procedures = this.procedures.filter((x) => {
+      return x.item !== action.item;
+    });
   }
 }
-
-
