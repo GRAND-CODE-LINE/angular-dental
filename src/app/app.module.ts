@@ -13,6 +13,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import { LoaderInterceptorService } from './security/services/loader-interceptor.service';
 
 
 
@@ -32,13 +34,18 @@ import { far } from '@fortawesome/free-regular-svg-icons';
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    }), LayoutsModule, ModalModule.forRoot(), FontAwesomeModule
+    }), LayoutsModule, ModalModule.forRoot(), FontAwesomeModule,
 
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,
-    multi: true
+    multi: true,
+
+  }, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LoaderInterceptorService,
+    multi: true,
   }, MessagesService],
   bootstrap: [AppComponent]
 })

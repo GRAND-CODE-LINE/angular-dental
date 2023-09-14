@@ -11,13 +11,16 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { RouterModule } from '@angular/router';
+import { LoaderComponent } from './loader/loader.component';
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 
 
 
 @NgModule({
   declarations: [
     MenuComponent,
-    ModalComponent
+    ModalComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -25,11 +28,20 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     // HttpClientModule,
     FontAwesomeModule,
-    RouterModule
+    RouterModule,
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.wanderingCubes,
+      backdropBackgroundColour: "rgba(0,0,0,0.1)",
+      backdropBorderRadius: "40px",
+      primaryColour: "#f6b162",
+      secondaryColour: "#82d0fb",
+      tertiaryColour: "#ffffff",
+      fullScreenBackdrop: true
+    })
 
   ],
   providers: [MessagesService, LoginService],
-  exports: [ModalComponent, MenuComponent]
+  exports: [ModalComponent, MenuComponent, LoaderComponent]
 })
 export class LayoutsModule {
 

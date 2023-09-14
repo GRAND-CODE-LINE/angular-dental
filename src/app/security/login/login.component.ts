@@ -36,12 +36,7 @@ export class LoginComponent {
     console.log(res);
     if (res) {
       await (this.loginservice.logIn(res))
-
-     
     }
-
-
-
   }
 
   test() {
