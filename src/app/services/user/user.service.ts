@@ -26,7 +26,7 @@ export class UserService {
     return this.http.put(this.URL_BASE + id, user)
   }
 
-  delete(id: string) {
+  delete(id?: string) {
     return this.http.delete(this.URL_BASE + id)
   }
 

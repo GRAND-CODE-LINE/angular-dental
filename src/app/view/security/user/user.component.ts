@@ -98,8 +98,11 @@ export class UserComponent {
 
 
   }
-  onDeleteClick(event: User) {
+  async onDeleteClick(event: User) {
     console.log(event);
+    await firstValueFrom(this.userService.delete(event.id));
+
+    this.update()
   }
 
 
