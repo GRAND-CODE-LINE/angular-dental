@@ -8,7 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PatientComponent } from './patient/patient.component';
 import { CreatepatientComponent } from './patient/createpatient/createpatient.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from "../../shared/shared.module";
+import { SharedModule } from '../../shared/shared.module';
 import { PersonService } from 'src/app/services/person/person.service';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
@@ -20,27 +20,28 @@ import { CreateSymbolComponent } from './symbol/create-symbol/create-symbol.comp
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AttentionComponent } from './attention/attention.component';
-
+import { WebcamModule } from 'ngx-webcam';
 
 @NgModule({
-    declarations: [
-        HistorialComponent,
-        ConsultaComponent,
-        PatientComponent,
-        CreatepatientComponent,
-        AgePipe,
-        TimeAgoDetailedPipe,
-        SymbolComponent,
-        CreateSymbolComponent,
-        AttentionComponent
-    ],
-    imports: [
-        FormsModule,
-        CommonModule,
-        ControlRoutingModule,
-        FontAwesomeModule,
-        ReactiveFormsModule,
-        SharedModule,
-    ]
+  declarations: [
+    HistorialComponent,
+    ConsultaComponent,
+    PatientComponent,
+    CreatepatientComponent,
+    AgePipe,
+    TimeAgoDetailedPipe,
+    SymbolComponent,
+    CreateSymbolComponent,
+    AttentionComponent,
+  ],
+  imports: [
+    FormsModule,
+    CommonModule,
+    ControlRoutingModule,
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    SharedModule,
+    WebcamModule,
+  ],
 })
-export class ControlModule { }
+export class ControlModule {}

@@ -32,7 +32,11 @@
     "jquery": "^3.6.4",
     "lodash": "^4.17.21",
     "ngx-bootstrap": "^10.2.0",
+<<<<<<< HEAD
+    "ngx-webcam": "^0.4.1",
+=======
     "ngx-loading": "^15.0.0",
+>>>>>>> 8e0eaa0746cfd6800819fd862b07600262be8e97
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
