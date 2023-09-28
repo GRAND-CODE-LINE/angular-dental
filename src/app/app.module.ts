@@ -32,7 +32,6 @@ import { LoaderInterceptorService } from './security/services/loader-interceptor
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-<<<<<<< HEAD
       registrationStrategy: 'registerWhenStable:30000',
     }),
     LayoutsModule,
@@ -45,26 +44,14 @@ import { LoaderInterceptorService } from './security/services/loader-interceptor
       useClass: AuthInterceptorService,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptorService,
+      multi: true,
+    },
     MessagesService,
   ],
   bootstrap: [AppComponent],
-=======
-      registrationStrategy: 'registerWhenStable:30000'
-    }), LayoutsModule, ModalModule.forRoot(), FontAwesomeModule,
-
-  ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptorService,
-    multi: true,
-
-  }, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: LoaderInterceptorService,
-    multi: true,
-  }, MessagesService],
-  bootstrap: [AppComponent]
->>>>>>> 8e0eaa0746cfd6800819fd862b07600262be8e97
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
