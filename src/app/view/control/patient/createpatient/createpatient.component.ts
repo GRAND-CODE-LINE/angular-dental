@@ -139,6 +139,7 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
   }
   public triggerSnapshot(): void {
     this.trigger.next(undefined);
+    this.modalService.hide();
   }
   public handleImage(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
