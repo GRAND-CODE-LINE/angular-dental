@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row justify-content-center">
+  <div class="row">
     <div class="col-md-12 col-sm-12 vertical-center">
       <div class="card">
         <div class="card-header">
@@ -137,25 +137,23 @@
                   placeholder="Ingrese El numero de Emergencia" formControlName="numeroEmergencia">
               </div>
               <div class="col-md-6">
-                <label class="col-form-label">Peso</label>
+                <label class="col-form-label">Peso (Kg)</label>
                 <input class="form-control" type="documento" name="peso" id="peso" placeholder="Ingrese su peso"
                   formControlName="peso">
               </div>
               <div class="col-md-6">
-                <label class="col-form-label">Talla</label>
+                <label class="col-form-label">Talla (cm)</label>
                 <input class="form-control" type="documento" name="talla" id="talla" placeholder="Ingrese su  talla"
                   formControlName="talla">
               </div>
-
-              <div class="col-auto bg-ganger p-1" *ngIf="!modoEditar" >
-                <input class="botons" type="submit" value="Registrar">
+              <div class="col-auto bg-ganger">
+                <div class="col-auto bg-ganger" *ngIf="!modoEditar">
+                  <input class="botons" type="submit" value="Registrar">
+                </div>
+                <div class="col-auto bg-ganger" *ngIf="modoEditar">
+                  <input class="botons" type="submit" value="Actualizar Datos">
+                </div>
               </div>
-              <div class="col-auto bg-ganger p-1" *ngIf="modoEditar">
-
-                <input class="botons" type="submit" value="Actualizar Datos">
-              </div>
-
-
             </div>
           </form>
         </div>
