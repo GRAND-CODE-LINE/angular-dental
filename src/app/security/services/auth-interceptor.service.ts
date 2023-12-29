@@ -51,12 +51,13 @@ export class AuthInterceptorService implements HttpInterceptor {
               type: 'danger'
             }
             this.messageService.openModal(message);
-          } else if (err.status === 401) {
+          } else if (err.status === 401 || err.status === 403) {
             let message: Message_I = {
               title: 'Error',
               message: 'Sesión ha expirado, ingresar nuevamente.',
               type: 'danger'
             }
+
             this.messageService.openModal(message);
             this.loginService.logOut();
             this.router.navigateByUrl('/security/login');
