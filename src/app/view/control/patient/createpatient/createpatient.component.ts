@@ -82,7 +82,6 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
   }
   create() {
     if (!this.modoEditar) {
-      this.patient.fotoPermiso = this.captureImage;
       this.crearPatient();
       this.service
         .create(this.patient)
@@ -110,6 +109,7 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     this.patient = this.patientform.value;
     this.patient.alergias = this.listAlergias;
     this.patient.enfermedades = this.listEnfermedades;
+    this.patient.fotoPermiso = this.captureImage;
     this.patient.persona = this.personform.value;
   }
   agregarAlergia() {
@@ -139,10 +139,12 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
   }
   public triggerSnapshot(): void {
     this.trigger.next(undefined);
+    this.modalService.hide();
   }
   public handleImage(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
     this.captureImage = webcamImage!.imageAsDataUrl;
+    console.log(this.captureImage);
   }
   public get triggerObservable(): Observable<any> {
     return this.trigger.asObservable();
