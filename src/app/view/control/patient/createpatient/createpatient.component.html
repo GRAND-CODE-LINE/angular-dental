@@ -149,19 +149,19 @@
                 <input class="form-control" type="documento" name="talla" id="talla" placeholder="Ingrese su  talla"
                   formControlName="talla">
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6" style="text-align: center; margin-top: 1rem;">
                 <button class="btn btn-success" type="button" (click)="onTakePhoto()">Tomar foto</button>
-              </div>
-              <div class="col-auto bg-ganger p-1" *ngIf="!modoEditar">
-                <input class="btn btn-primary" type="submit" value="Registrar">
-              </div>
-              <div class="col-auto bg-ganger p-1" *ngIf="modoEditar">
-
-                <input class="btn btn-primary" type="submit" value="Actualizar Datos">
-
               </div>
             </div>
           </form>
+        </div>
+        <div class="card-footer" style="text-align: center;">
+          <div class="col" *ngIf="!modoEditar">
+            <input (click)="create()" class="btn btn-primary" type="submit" value="Registrar">
+          </div>
+          <div class="col" *ngIf="modoEditar">
+            <input (click)="create()" class="btn btn-primary" type="submit" value="Actualizar Datos">
+          </div>
         </div>
       </div>
     </div>
@@ -172,8 +172,12 @@
   <div class="modal-header">
     <h4 class="modal-title pull-left">tomar foto</h4>
   </div>
-  <div class="col-md-6">
-    <webcam [trigger]="triggerObservable" (imageCapture)="handleImage($event)"></webcam>
+  <div class="modal-body">
+    <div class="col " style="text-align: center !important">
+      <webcam [trigger]="triggerObservable" (imageCapture)="handleImage($event)"></webcam>
+    </div>
+  </div>
+  <div class="modal-footer" style="justify-content: center;">
     <button class="btn btn-success" (click)="triggerSnapshot()">Tomar foto</button>
   </div>
 </ng-template>
