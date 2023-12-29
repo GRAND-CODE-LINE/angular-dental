@@ -121,6 +121,9 @@
                   </button>
                 </ng-container>
               </div>
+              <div>
+                <input id='fotocamara' name="fotocamara" type="text" class="form-control" style="display: none" />
+              </div>
               <div class="col-md-6">
                 <label class="col-form-label">redSocial</label>
                 <input class="form-control" type="textarea" name="redSocial" id="redSocial"
@@ -146,13 +149,16 @@
                 <input class="form-control" type="documento" name="talla" id="talla" placeholder="Ingrese su  talla"
                   formControlName="talla">
               </div>
-              <div class="col-auto bg-ganger">
-                <div class="col-auto bg-ganger" *ngIf="!modoEditar">
-                  <input class="botons" type="submit" value="Registrar">
-                </div>
-                <div class="col-auto bg-ganger" *ngIf="modoEditar">
-                  <input class="botons" type="submit" value="Actualizar Datos">
-                </div>
+              <div class="col-md-6">
+                <button class="btn btn-success" (click)="onTakePhoto()">Tomar foto</button>
+              </div>
+              <div class="col-auto bg-ganger p-1" *ngIf="!modoEditar">
+                <input class="btn btn-primary" type="submit" value="Registrar">
+              </div>
+              <div class="col-auto bg-ganger p-1" *ngIf="modoEditar">
+
+                <input class="btn btn-primary" type="submit" value="Actualizar Datos">
+
               </div>
             </div>
           </form>
@@ -161,3 +167,13 @@
     </div>
   </div>
 </div>
+
+<ng-template #modalActions>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">tomar foto</h4>
+  </div>
+  <div class="col-md-6">
+    <webcam [trigger]="triggerObservable" (imageCapture)="handleImage($event)"></webcam>
+    <button class="btn btn-success" (click)="triggerSnapshot();">Tomar foto</button>
+  </div>
+</ng-template>

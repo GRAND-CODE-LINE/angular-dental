@@ -10,16 +10,17 @@ import { AuthInterceptorService } from './security/services/auth-interceptor.ser
 import { LayoutsModule } from './layouts/layouts.module';
 import { MessagesService } from './layouts/services/messages.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import {
+  FontAwesomeModule,
+  FaIconLibrary,
+} from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
-
-
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import { LoaderInterceptorService } from './security/services/loader-interceptor.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserAnimationsModule,
     RouterModule,
@@ -31,19 +32,41 @@ import { far } from '@fortawesome/free-regular-svg-icons';
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
+<<<<<<< HEAD
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
+    LayoutsModule,
+    ModalModule.forRoot(),
+    FontAwesomeModule,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+    MessagesService,
+  ],
+  bootstrap: [AppComponent],
+=======
       registrationStrategy: 'registerWhenStable:30000'
-    }), LayoutsModule, ModalModule.forRoot(), FontAwesomeModule
+    }), LayoutsModule, ModalModule.forRoot(), FontAwesomeModule,
 
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,
-    multi: true
+    multi: true,
+
+  }, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LoaderInterceptorService,
+    multi: true,
   }, MessagesService],
   bootstrap: [AppComponent]
+>>>>>>> 8e0eaa0746cfd6800819fd862b07600262be8e97
 })
 export class AppModule {
-
   constructor(library: FaIconLibrary) {
     library.addIconPacks(fas, far);
   }

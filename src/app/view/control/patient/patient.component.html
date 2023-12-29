@@ -1,15 +1,19 @@
 <div class="container-fluid ">
-    <div class="row justify-content-center">
-      <div class="col-md-10 col-sm-12 vertical-center">
-        <div class="card">
-          <div class="card-header">
-            <div class="col-auto bg-ganger p-1">
-              <h4>Patient</h4>
-            </div>
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-sm-12 vertical-center">
+      <div class="card">
+        <div class="card-header">
+          <div class="col-auto bg-ganger p-1">
+            <h4>Patient</h4>
           </div>
-          <app-mini-table [cols]="cols" [items]="items" [paginateObject]="paginateObject" [edit]="true" [delete]="true"
-            (onEditClick)="onEditClick($event)" (onDeleteClick)="onDeleteClick($event)"></app-mini-table>
+          <div class="d-grid mb-1">
+            <button type="button" (click)="onNewPatient()" class="btn btn-primary">
+              <fa-icon [icon]='"plus"'></fa-icon> Nuevo Paciente</button>
+          </div>
         </div>
+        <app-mini-table [cols]="cols" [items]="items" [paginateObject]="paginateObject" [edit]="true" [delete]="true"
+          (onEditClick)="onEditClick($event)" (onDeleteClick)="onDeleteClick($event)"></app-mini-table>
       </div>
     </div>
   </div>
+</div>

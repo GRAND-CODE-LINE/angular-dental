@@ -48,6 +48,9 @@ export class HistorialComponent {
       this.status = 'withvalue';
     }
     this.patientGet = res as Patient
+    this.patientGet.consultations = this.patientGet.consultations?.sort(function (a, b) {
+      return b.code - a.code
+    })
     console.log(this.patientGet);
 
   }
@@ -61,5 +64,10 @@ export class HistorialComponent {
   newConsultation() {
     // this.router.navigate(['control/consultation/create'])
     this.router.navigateByUrl('control/consultation/create', { state: this.patientGet });
+  }
+
+
+  editConsultation(idConsultation: any) {
+    this.router.navigateByUrl('control/consultation/edit/' + idConsultation, { state: this.patientGet });
   }
 }

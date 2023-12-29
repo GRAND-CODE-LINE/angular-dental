@@ -6,7 +6,7 @@ import { Payment } from "./payment";
 export interface Consultation {
     id?: string,
     date: Date,
-    code: string,
+    code: number,
     price: number,
     status: string,
     balance: number,

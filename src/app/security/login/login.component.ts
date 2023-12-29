@@ -17,7 +17,7 @@ export class LoginComponent {
   constructor(private loginservice: LoginService, private fb: FormBuilder, private router: Router) {
 
     this.loginForm = this.fb.group({
-      username: ['asdas', Validators.compose([Validators.required])],
+      username: [, Validators.compose([Validators.required])],
       password: [, Validators.required]
     })
   }
@@ -32,15 +32,11 @@ export class LoginComponent {
     console.log(login);
 
 
-    let res: LoginResponse = await firstValueFrom(this.loginservice.login(login));
+    let res: LoginResponse = await firstValueFrom(this.loginservice.loginRequest(login));
     console.log(res);
     if (res) {
-      localStorage.setItem('minita_user', JSON.stringify(res));
-      this.router.navigateByUrl('/home/principal');
+      await (this.loginservice.logIn(res))
     }
-
-
-
   }
 
   test() {

@@ -1,74 +1,159 @@
+<br>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6">
-            <div class="card" style="width: 18rem;">
-                <ul class="list-group list-group-flush">
-                    <li class="nombre"></li>
-                    <li class="apellido"></li>
-                    <li class="dni"></li>
-                    <li class="edad"></li>
-                </ul>
+        <div class="col-md-12 justify-content-between" style=" text-align:  center;">
+            <div class="d-flex w-100 justify-content-between pt-1 pb-1">
+                <h4 *ngIf="!attention.id">Nueva Atencion</h4>
+                <h4 *ngIf="attention.id">Atencion {{attention.id}}</h4>
+                <div>
+                    <button (click)="saveChanges()" class="btn btn-success btn-sm ms-1"><fa-icon
+                            [icon]='"floppy-disk"'></fa-icon>
+                        Guardar</button>
+                    <button class="btn btn-secondary btn-sm ms-1"><fa-icon [icon]='"comment"'></fa-icon>
+                        Comentarios</button>
+                    <button (click)="reload()" *ngIf="attention.id" class="btn btn-warning btn-sm ms-1"><fa-icon
+                            [icon]='"arrow-rotate-right"'></fa-icon>
+                        Actualizar</button>
+                </div>
+            </div>
+            <div class="d-grid mb-1">
+                <button type="button" (click)="onProcedureClick()" class="btn btn-primary">
+                    <fa-icon [icon]='"plus"'></fa-icon> Nuevo
+                    Procedimiento</button>
+            </div>
+
+            <div class="col justify-content-end" style=" text-align:  center;">
+                <div class="alert alert-warning" role="alert" style="padding: 0.2rem;">
+                    <fa-icon [icon]='"triangle-exclamation"'></fa-icon> No se guardaron los cambios.
+                </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <button type="button" (click)="onProcedureClick" class="btn btn-success">Procedimiento</button>
-        </div>
     </div>
-    <div class="container-table">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="action">
-                        
-                    </th>
-                    <th class="action">
-                    
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of items">
-                    <ng-container *ngFor="let col of Cards">
-                        <div class="card" style="width: 5rem;">
-                            <img src="symbol" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title"></h5>
-                                <p class="card-text"></p>
-                            </div>
-                            <div class="card-body">
+    <div class="container-fluid" *ngIf="patientGet">
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="card mb-1">
+                    <div class="card-body" *ngIf="patientGet.persona">
+                        <h5 class="card-title">Paciente: {{patientGet.persona.nombre}} {{patientGet.persona.apaterno}}
+                            {{patientGet.persona.amaterno}}
+                        </h5>
+                        <h6 class="card-subtitle text-body-secondary">Documento:
+                            {{patientGet.persona.numeroDocumento}}</h6>
+                        <p class="card-text">Edad: {{patientGet.persona.fechaNacimiento |
+                            age}} años</p>
+                    </div>
+                </div>
+                <div class="card ">
+                    <div class="card-body" *ngIf="patientGet.persona">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <label for="comments" class="form-label">Comentarios</label>
+                                <textarea type="text" class="form-control" id="comments"
+                                    [(ngModel)]="attention.comments" maxlength="200"></textarea>
                             </div>
                         </div>
-                    </ng-container>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card ">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="list-group">
+                                    <ng-container *ngIf="procedures.length==0; else proceduresList">
+                                        <a class=" list-group-item list-group-item-action " aria-current=" true">
+                                            <div class="justify-content-between">
+                                                <h5 class="mb-1" style="text-align: center;">No hay procedimientos</h5>
+                                            </div>
+                                        </a>
+                                    </ng-container>
 
+                                    <ng-template #proceduresList>
+                                        <ng-container *ngFor="let item of procedures">
+                                            <li class="list-group-item d-flex align-items-stretch p-0">
+                                                <div class="flex-grow-1 list-group-content p-1">
+                                                    <div class="d-flex w-100 justify-content-between P-1">
+                                                        <h6 class="mb-1">Nombre: {{item.name}}</h6>
+
+                                                    </div>
+                                                    <small style="word-break: break-all;">Comentarios: {{item.comments
+                                                        }}</small>
+                                                </div>
+                                                <img class="oversize-procedure" [src]="item.symbol.image" alt="image">
+                                                <button (click)="deleteProcedure(item)"
+                                                    class="btn btn-danger btn-sm rounded-0 flex-fill button-g-list"><fa-icon
+                                                        [icon]='"trash"'></fa-icon></button>
+                                            </li>
+                                        </ng-container>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
 
 <ng-template #modalActions>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Procedimiento </h4>
-        <button type="button" class="btn-close close pull-right" aria-label="Close">
+        <h4 class="modal-title pull-left">Nuevo Procedimiento </h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
             <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <form autocomplete="off">
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="name" class="form-label">Nombre</label>
-                </div>
-                <div class="col-md-12">
-                    <label for="comments" class="form-label">Comentarios</label>
-                    <textarea type="text" class="form-control" id="comments" formControlName="comments"></textarea>
-                </div>
-                <button type="button" class="btn btn-success">Guardar</button>
+        <div class="row">
+            <div class="col-md-4">
+                <form autocomplete="off" [formGroup]="procedureselected">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="name" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="name" formControlName="name" readonly>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="comments" class="form-label">Comentarios</label>
+                            <textarea type="text" class="form-control" id="comments" formControlName="comments"
+                                maxlength="200"></textarea>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
+            <div class="col-md-8">
+
+                <div class="row">
+                    <ng-container *ngFor="let item of symbolsList">
+                        <div class="col-3" style="padding: 0;" (click)="selectSymbol(item)" role="button">
+                            <div class="item-symbol">
+                                <div class="flex-grow-1 list-group-content p-1">
+                                    <div class="d-flex w-100 justify-content-between P-1">
+                                        <p class="mb-1">{{item.acronym}} - {{item.name}}</p>
+                                        <br>
+
+                                    </div>
+                                    <img class="oversize" [src]="item.image" alt="image">
+                                    <small>{{item.group}}</small>
+                                </div>
+                            </div>
+
+                        </div>
+                    </ng-container>
+                </div>
+
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary"><fa-icon [icon]='"floppy-disk"'></fa-icon>
+        <button class="btn btn-primary" (click)="onAddProcedure()"><fa-icon [icon]='"floppy-disk"'></fa-icon>
             Agregar</button>
+
+        <button class="btn btn-warning" (click)=" resetProcedure()"><fa-icon [icon]='"trash"'></fa-icon>
+            Limpiar</button>
     </div>
 </ng-template>
