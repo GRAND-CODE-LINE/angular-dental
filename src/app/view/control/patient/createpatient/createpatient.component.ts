@@ -11,7 +11,9 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { WebcamImage } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
+import { MessagesService } from 'src/app/layouts/services/messages.service';
 import { Patient } from 'src/app/models/patient';
+import { Message_I } from 'src/app/models/utils/message_i';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { PersonService } from 'src/app/services/person/person.service';
 
@@ -46,7 +48,8 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     private personService: PersonService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private messageService: MessagesService
   ) {}
 
   ngOnInit(): void {
@@ -81,6 +84,15 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
   create() {
+    if (!this.patientform.valid || !this.personform.valid) {
+      let message: Message_I = {
+        title: 'Falta llenar datos',
+        message: 'complete todos los campos con asteriscos',
+        type: 'danger',
+      };
+      this.messageService.openModal(message);
+      return;
+    }
     if (!this.modoEditar) {
       this.crearPatient();
       this.service
