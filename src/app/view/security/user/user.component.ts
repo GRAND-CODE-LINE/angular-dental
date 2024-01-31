@@ -44,7 +44,7 @@ export class UserComponent {
 
   initCols() {
     this.cols = [
-      { name: 'Id', field: 'id' },
+      // { name: 'Id', field: 'id' },
       { name: 'Username', field: 'username' },
       { name: 'Email', field: 'email' }]
   }
