@@ -43,7 +43,7 @@ export class SymbolComponent {
 
   initCols() {
     this.cols = [
-      { name: 'Id', field: 'id' },
+      // { name: 'Id', field: 'id' },
       { name: 'Nombre', field: 'name' },
       { name: 'Grupo', field: 'group' },
       { name: 'Abreviatura', field: 'acronym' },
