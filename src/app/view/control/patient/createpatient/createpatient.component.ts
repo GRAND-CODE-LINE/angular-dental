@@ -49,7 +49,8 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private modalService: BsModalService,
-    private messageService: MessagesService
+    private messageService: MessagesService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -67,15 +68,15 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
         Validators.compose([Validators.required, Validators.maxLength(8)]),
       ],
       fechaNacimiento: [null, Validators.compose([Validators.required])],
-      genero: [],
+      genero: [null, Validators.compose([Validators.required])],
     });
     this.patientform = this.fb.group({
       id: [],
-      redSocial: [null, Validators.compose([Validators.required])],
+      redSocial: [],
       contactoEmergencia: [null, Validators.compose([Validators.required])],
       numeroEmergencia: [null, Validators.compose([Validators.required])],
-      peso: [null, Validators.compose([Validators.required])],
-      talla: [null, Validators.compose([Validators.required])],
+      peso: [],
+      talla: [],
     });
     if (this.route.snapshot.params['id'] != undefined) {
       this.modoEditar = true;
@@ -99,6 +100,7 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
         .create(this.patient)
         .subscribe((data: any) => (this.patient = data));
     } else {
+      this.crearPatient();
       this.service
         .update(this.patient.id, this.patient)
         .subscribe((data: any) => (this.patient = data));
@@ -123,6 +125,7 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     this.patient.enfermedades = this.listEnfermedades;
     this.patient.fotoPermiso = this.captureImage;
     this.patient.persona = this.personform.value;
+    this.router.navigateByUrl('control/patient');
   }
   agregarAlergia() {
     if (this.alergiaAdd.trim() != '') {

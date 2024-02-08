@@ -46,8 +46,9 @@
               </div>
               <div class="col-md-6">
                 <label class="col-form-label">Numero de Documento *</label>
-                <input class="form-control" type="documento" name="documento" id="documento"
-                  placeholder="Ingrese su Numero de Documento" formControlName="numeroDocumento">
+                <input class="form-control" type="number" name="documento" id="documento"
+                  placeholder="Ingrese su Numero de Documento" formControlName="numeroDocumento"
+                  pattern="[0-9]+([\.,][0-9]*)?$">
               </div>
             </div>
             <div class="row">
@@ -55,8 +56,8 @@
                 <label class="col-form-label">Selecciona Genero *</label>
                 <select class="form-select" aria-label="Default select example" formControlName="genero">
                   <option selected>Genero</option>
-                  <option value="dni">Masculino</option>
-                  <option value="Passaporte">Femenino</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenino">Femenino</option>
                 </select>
               </div>
               <div class="col-md-6">
@@ -68,7 +69,7 @@
             <div class="row">
               <div class="col-md-6">
                 <label class="col-form-label">Celular *</label>
-                <input class="form-control" type="celular" name="celular" id="celular" placeholder="Ingrese su celular"
+                <input class="form-control" type="number" name="celular" id="celular" placeholder="Ingrese su celular"
                   formControlName="celular">
               </div>
 
@@ -136,18 +137,18 @@
               </div>
               <div class="col-md-6">
                 <label class="col-form-label">Numero de Emergencia *</label>
-                <input class="form-control" type="text" name="numeroEmergencia" id="numeroEmergencia"
+                <input class="form-control" type="number" name="numeroEmergencia" id="numeroEmergencia"
                   placeholder="Ingrese El numero de Emergencia" formControlName="numeroEmergencia">
               </div>
               <div class="col-md-6">
-                <label class="col-form-label">Peso (Kg) *</label>
-                <input class="form-control" type="documento" name="peso" id="peso" placeholder="Ingrese su peso"
-                  formControlName="peso">
+                <label class="col-form-label">Peso (Kg) </label>
+                <input class="form-control" type="number" step="0.01" name="peso" id="peso"
+                  placeholder="Ingrese su peso" formControlName="peso">
               </div>
               <div class="col-md-6">
-                <label class="col-form-label">Talla (cm) *</label>
-                <input class="form-control" type="documento" name="talla" id="talla" placeholder="Ingrese su  talla"
-                  formControlName="talla">
+                <label class="col-form-label">Talla (cm) </label>
+                <input class="form-control" type="number" step="0.01" name="talla" id="talla"
+                  placeholder="Ingrese su  talla" formControlName="talla">
               </div>
               <div class="col-md-6" style="text-align: center; margin-top: 1rem;">
                 <button class="btn btn-success" type="button" (click)="onTakePhoto()">Tomar foto</button>
