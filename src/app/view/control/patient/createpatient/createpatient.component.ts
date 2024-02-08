@@ -11,7 +11,9 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { WebcamImage } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
+import { MessagesService } from 'src/app/layouts/services/messages.service';
 import { Patient } from 'src/app/models/patient';
+import { Message_I } from 'src/app/models/utils/message_i';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { PersonService } from 'src/app/services/person/person.service';
 
@@ -46,7 +48,9 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     private personService: PersonService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private messageService: MessagesService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -64,15 +68,15 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
         Validators.compose([Validators.required, Validators.maxLength(8)]),
       ],
       fechaNacimiento: [null, Validators.compose([Validators.required])],
-      genero: [],
+      genero: [null, Validators.compose([Validators.required])],
     });
     this.patientform = this.fb.group({
       id: [],
-      redSocial: [null, Validators.compose([Validators.required])],
+      redSocial: [],
       contactoEmergencia: [null, Validators.compose([Validators.required])],
       numeroEmergencia: [null, Validators.compose([Validators.required])],
-      peso: [null, Validators.compose([Validators.required])],
-      talla: [null, Validators.compose([Validators.required])],
+      peso: [],
+      talla: [],
     });
     if (this.route.snapshot.params['id'] != undefined) {
       this.modoEditar = true;
@@ -81,12 +85,22 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
   create() {
+    if (!this.patientform.valid || !this.personform.valid) {
+      let message: Message_I = {
+        title: 'Falta llenar datos',
+        message: 'complete todos los campos con asteriscos',
+        type: 'danger',
+      };
+      this.messageService.openModal(message);
+      return;
+    }
     if (!this.modoEditar) {
       this.crearPatient();
       this.service
         .create(this.patient)
         .subscribe((data: any) => (this.patient = data));
     } else {
+      this.crearPatient();
       this.service
         .update(this.patient.id, this.patient)
         .subscribe((data: any) => (this.patient = data));
@@ -111,6 +125,7 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     this.patient.enfermedades = this.listEnfermedades;
     this.patient.fotoPermiso = this.captureImage;
     this.patient.persona = this.personform.value;
+    this.router.navigateByUrl('control/patient');
   }
   agregarAlergia() {
     if (this.alergiaAdd.trim() != '') {

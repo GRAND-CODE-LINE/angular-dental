@@ -9,7 +9,7 @@ import { Paginate_T } from 'src/app/shared/mini-table/mini-table.component';
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
-  styleUrls: ['./patient.component.scss']
+  styleUrls: ['./patient.component.scss'],
 })
 export class PatientComponent {
   patients: any[] = [];
@@ -22,15 +22,15 @@ export class PatientComponent {
     currentPage: 0,
     size: 0,
     total: 0,
-    totalpages: 0
-  }
+    totalpages: 0,
+  };
   constructor(private patientService: PatientService, private router: Router) {
     this.filter = {
       page: 0,
       size: 10,
       sortFiled: 'id',
-      sortOrder: 1
-    }
+      sortOrder: 1,
+    };
   }
   ngOnInit(): void {
     console.log('Init');
@@ -40,14 +40,12 @@ export class PatientComponent {
 
   initCols() {
     this.cols = [
-      { name: 'ID ', field: 'id' },
       { name: 'Nombre', field: 'persona', subfield: 'nombre' },
       { name: 'Apellido', field: 'persona', subfield: 'apaterno' },
-      { name: 'Mail', field: 'persona', subfield: 'email' },
       { name: 'DNI', field: 'persona', subfield: 'numeroDocumento' },
-      { name: 'Fecha Nac.', field: 'persona', subfield: 'fechaNacimiento' },
-      { name: 'Talla', field: 'talla' },
-      { name: 'Genero', field: 'genero' }];
+      { name: 'Edad', field: 'persona', subfield: 'fechaNacimiento' },
+      { name: 'Genero', field: 'persona', subfield: 'genero' },
+    ];
   }
 
   ngOnChanges() {
@@ -59,29 +57,31 @@ export class PatientComponent {
   }
 
   async paginateData() {
-    let res: Paginate_I = await firstValueFrom(this.patientService.paginate(this.filter));
+    let res: Paginate_I = await firstValueFrom(
+      this.patientService.paginate(this.filter)
+    );
     this.items = res.content;
-    console.log("imprimiendo content :", res.content);
+    console.log('imprimiendo content :', res.content);
     this.paginateObject = {
       size: res.size,
       total: res.totalElements,
       totalpages: res.totalPages,
-      currentPage: res.number
-    }
+      currentPage: res.number,
+    };
   }
 
   onEditClick(event: Patient) {
     this.router.navigate(['control/patient/edit', event.id]);
 
     //  this.personService.servidor.emit(event);
-
   }
 
   async onDeleteClick(event: Patient) {
     await firstValueFrom(this.patientService.delete(event.id));
     this.paginateData();
+    this.ngOnInit;
   }
-  onNewPatient(){
-    this.router.navigateByUrl('control/patient/create')
+  onNewPatient() {
+    this.router.navigateByUrl('control/patient/create');
   }
 }
