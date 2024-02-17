@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
-import { Person } from 'src/app/models/person';
+import { Observable, firstValueFrom } from 'rxjs';
+import { observeNotification } from 'rxjs/internal/Notification';
+import { Person, itemsType } from 'src/app/models/Person';
 import { User } from 'src/app/models/user';
 import { PersonService } from 'src/app/services/person/person.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -10,33 +12,31 @@ import { UserService } from 'src/app/services/user/user.service';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.scss']
+  styleUrls: ['./create-user.component.scss'],
 })
 export class CreateUserComponent {
-
   user!: User;
   userForm!: FormGroup;
-  edit = false
+  edit = false;
   personform!: FormGroup;
-
-  documentTypePerson = [
-    { value: null, label: 'Seleccione' },
-    { value: 'DNI', label: 'DNI' },
-    { value: 'Pasaporte', label: 'Pasaporte' }
-  ]
-
-  constructor(private userService: UserService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private personService: PersonService) { }
-
+  documentType!: Observable<itemsType[]>;
+  constructor(
+    private userService: UserService,
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private personService: PersonService,
+    private http: HttpClient
+  ) {}
 
   async ngOnInit(): Promise<void> {
+    this.documentType = this.getDocumentType();
     this.initForms();
     if (this.route.snapshot.params['id'] != undefined) {
       this.edit = true;
-      await this.getUserById(this.route.snapshot.params['id'])
+      await this.getUserById(this.route.snapshot.params['id']);
     }
-
   }
-
 
   initForms() {
     this.userForm = this.fb.group({
@@ -45,8 +45,7 @@ export class CreateUserComponent {
       email: [null, Validators.compose([Validators.required])],
       password: [null, Validators.compose([Validators.required])],
       reppassword: [null, Validators.compose([Validators.required])],
-    })
-
+    });
 
     this.personform = this.fb.group({
       nombre: [null, Validators.compose([Validators.required])],
@@ -56,49 +55,51 @@ export class CreateUserComponent {
       telefono: [null, Validators.compose([Validators.required])],
       email: [null, Validators.compose([Validators.required])],
       tipoDocumento: [null, Validators.compose([Validators.required])],
-      numeroDocumento: [null, Validators.compose([Validators.required, Validators.maxLength(8)])],
-      fechaNacimiento: [null, Validators.compose([Validators.required])]
-    })
-
+      numeroDocumento: [
+        null,
+        Validators.compose([Validators.required, Validators.maxLength(8)]),
+      ],
+      fechaNacimiento: [null, Validators.compose([Validators.required])],
+    });
   }
 
   async getUserById(id: string) {
     let userGet: any = await firstValueFrom(this.userService.getById(id));
     console.log(userGet);
-    this.userForm.patchValue(userGet)
-    this.personform.patchValue(userGet.person)
+    this.userForm.patchValue(userGet);
+    this.personform.patchValue(userGet.person);
   }
 
   async create() {
     if (!this.userForm.valid) {
-      return
+      return;
     }
 
-
     this.user = this.userForm.value;
-    this.user.person = this.personform.value
+    this.user.person = this.personform.value;
 
     console.log(this.user);
 
     await firstValueFrom(this.userService.create(this.user));
-    this.router.navigate(['securityadm/user'])
-
+    this.router.navigate(['securityadm/user']);
+  }
+  getDocumentType() {
+    return this.http.get<itemsType[]>('assets/data/documenttype.json');
   }
 
   async update() {
     console.log('edita');
-    
+
     this.user = this.userForm.value;
-    this.user.person = this.personform.value
+    this.user.person = this.personform.value;
     await firstValueFrom(this.userService.update(this.user.id, this.user));
-    this.router.navigate(['securityadm/user'])
+    this.router.navigate(['securityadm/user']);
   }
 
   saveData() {
     console.log('aaaaaaaaaaaaaaaa');
     console.log(this.edit);
-    
-    
+
     if (this.edit) {
       this.update();
     } else {
@@ -106,20 +107,19 @@ export class CreateUserComponent {
     }
   }
 
-  back() {
-
-  }
-
+  back() {}
 
   async searchPerson() {
     let person = this.personform.value;
-    let res: any = await firstValueFrom(this.personService.getByDocument(person.numeroDocumento)) as Person;
+    let res: any = (await firstValueFrom(
+      this.personService.getByDocument(person.numeroDocumento)
+    )) as Person;
 
     let personGet: Person = res;
     console.log(personGet);
 
     if (personGet) {
-      this.personform.patchValue(personGet)
+      this.personform.patchValue(personGet);
     }
     // personGet.fechaNacimiento = personGet.fechaNacimiento.substring(0, 10);
   }

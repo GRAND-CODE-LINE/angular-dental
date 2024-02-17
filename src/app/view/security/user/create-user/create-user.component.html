@@ -48,7 +48,7 @@
                     <div class="col-6">
                         <label for="tipoDoc" class="form-label">Tipo Documento</label>
                         <select class="form-select" id="tipoDoc" formControlName="tipoDocumento">
-                            <option *ngFor="let item of documentTypePerson" value="item.value">{{item.label}}
+                            <option *ngFor="let item of documentType|async" value="item.value">{{item.label}}
                             </option>
                         </select>
                     </div>
