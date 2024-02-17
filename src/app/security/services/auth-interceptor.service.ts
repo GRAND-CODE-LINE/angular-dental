@@ -33,7 +33,7 @@ export class AuthInterceptorService implements HttpInterceptor {
       .pipe(
         tap(event => {
           // Realizar acciones en caso de éxito (por ejemplo, registro de la respuesta).
-          if (event instanceof HttpResponse && event.body.error) {
+          if (event instanceof HttpResponse && event?.body?.error) {
             let message: Message_I = {
               title: 'Error',
               message: event.body.error,
@@ -44,6 +44,8 @@ export class AuthInterceptorService implements HttpInterceptor {
           }
         }),
         catchError((err: HttpErrorResponse, res: any) => {
+          console.log(err);
+          
           if ((err.status === 401 || err.status === 403) && this.router.url == '/security/login') {
             let message: Message_I = {
               title: 'Error',

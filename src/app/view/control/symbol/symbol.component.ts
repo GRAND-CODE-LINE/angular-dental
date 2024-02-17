@@ -91,8 +91,10 @@ export class SymbolComponent {
   onEditClick(event: Symbol) {
     this.router.navigate(['control/symbol/edit', event.id])
   }
-  onDeleteClick(event: Symbol) {
+  async onDeleteClick(event: Symbol) {
     console.log(event);
+    await firstValueFrom(this.symbolService.delete(event.id));
+    this.update()
   }
 
 

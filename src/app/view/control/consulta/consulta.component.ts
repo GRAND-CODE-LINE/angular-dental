@@ -1,6 +1,6 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, HostListener, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { firstValueFrom, map } from 'rxjs';
+import { Observable, firstValueFrom, map } from 'rxjs';
 import { Consultation } from 'src/app/models/consultation';
 import { Patient } from 'src/app/models/patient';
 import { Action } from 'src/app/models/action';
@@ -13,13 +13,23 @@ import { MessagesService } from 'src/app/layouts/services/messages.service';
 import * as _ from 'lodash';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
 import { Attention } from 'src/app/models/attention';
+import { ComponentCanDeactivate } from 'src/app/security/guards/PendingChangesGuard';
 
 @Component({
   selector: 'app-consulta',
   templateUrl: './consulta.component.html',
   styleUrls: ['./consulta.component.scss']
 })
-export class ConsultaComponent {
+export class ConsultaComponent implements ComponentCanDeactivate {
+  // @HostListener allows us to also guard against browser refresh, close, etc.
+  @HostListener('window:beforeunload')
+  canDeactivate(): Observable<boolean> | boolean {
+    // insert logic to check if there are pending changes here;
+    // returning true will navigate without confirmation
+    // returning false will show a confirm dialog before navigating away
+    // return true
+    return !this.checkForUnSaved()
+  }
   patientGet: Patient | undefined;
   consultation!: Consultation;
   consultationOld!: Consultation;
@@ -32,6 +42,7 @@ export class ConsultaComponent {
   @ViewChild('modalActions') modalAction!: TemplateRef<any>;
   @ViewChild('modalPayment') modalPayment!: TemplateRef<any>;
   edit: boolean = false;
+  numRegex = /^-?\d*[.,]?\d{0,2}$/;
   constructor(private location: Location, private modalService: BsModalService,
     private fb: FormBuilder, private messageService: MessagesService, private consultationService: ConsultationService,
     private router: Router, private route: ActivatedRoute) {
@@ -85,7 +96,7 @@ export class ConsultaComponent {
       id: [],
       name: [null, Validators.compose([Validators.required])],
       comments: [null],
-      price: [null, Validators.compose([Validators.required])],
+      price: [null, Validators.compose([Validators.required, Validators.pattern(this.numRegex)])],
     })
     this.paymentForm = this.fb.group({
       id: [],
@@ -95,6 +106,9 @@ export class ConsultaComponent {
 
   newAction(modalTemplate: TemplateRef<any>) {
     if (this.actionForm.invalid) {
+
+      console.log(this.actionForm);
+
       return;
     }
     let item;
@@ -224,5 +238,10 @@ export class ConsultaComponent {
 
   detailAttention(item: Attention) {
     this.router.navigateByUrl('control/attention/edit/' + item.id, { state: this.consultation });
+  }
+
+
+  calculateRemaining() {
+    this.paymentForm.patchValue({ amount: this.consultation.price - this.consultation.balance })
   }
 }

@@ -45,7 +45,7 @@ export class PatientComponent {
       { name: 'Apellido', field: 'persona', subfield: 'apaterno' },
       { name: 'Mail', field: 'persona', subfield: 'email' },
       { name: 'DNI', field: 'persona', subfield: 'numeroDocumento' },
-      { name: 'Fecha Nac.', field: 'persona', subfield: 'fechaNacimiento' },
+      { name: 'Fecha Nac.', field: 'persona', subfield: 'fechaNacimiento', isDate: true },
       { name: 'Talla', field: 'talla' },
       { name: 'Genero', field: 'genero' }];
   }
@@ -61,7 +61,7 @@ export class PatientComponent {
   async paginateData() {
     let res: Paginate_I = await firstValueFrom(this.patientService.paginate(this.filter));
     this.items = res.content;
-    console.log("imprimiendo content :", res.content);
+    console.log(res.content);
     this.paginateObject = {
       size: res.size,
       total: res.totalElements,
@@ -81,7 +81,7 @@ export class PatientComponent {
     await firstValueFrom(this.patientService.delete(event.id));
     this.paginateData();
   }
-  onNewPatient(){
+  onNewPatient() {
     this.router.navigateByUrl('control/patient/create')
   }
 }
