@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import {
   Component,
   OnChanges,
@@ -12,6 +13,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { WebcamImage } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 import { MessagesService } from 'src/app/layouts/services/messages.service';
+import { itemsType } from 'src/app/models/Person';
 import { Patient } from 'src/app/models/patient';
 import { Message_I } from 'src/app/models/utils/message_i';
 import { PatientService } from 'src/app/services/patient/patient.service';
@@ -25,6 +27,7 @@ import { PersonService } from 'src/app/services/person/person.service';
 export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
   modalRef?: BsModalRef;
   @ViewChild('modalActions') modalAction!: TemplateRef<any>;
+  documentType!: Observable<itemsType[]>;
   config = {
     animated: true,
     size: 'lg',
@@ -43,6 +46,13 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
   private nextWebcam: Subject<any> = new Subject();
   captureImage = '';
 
+  // documentTypePerson = [
+  //   { value: 'null', label: 'Tipo Domunento' },
+  //   { value: 'DNI', label: 'Documento de identidad' },
+  //   { value: 'PASAPORTE', label: 'Pasaporte' },
+  //   { value: 'CARNET DE EXTRANJERIA', label: 'Carnet Extrangeria' },
+  // ];
+
   constructor(
     private service: PatientService,
     private personService: PersonService,
@@ -50,10 +60,16 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     private route: ActivatedRoute,
     private modalService: BsModalService,
     private messageService: MessagesService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {}
 
+  getDocumentType() {
+    return this.http.get<itemsType[]>('assets/Documents/Documents.json');
+  }
+
   ngOnInit(): void {
+    this.documentType = this.getDocumentType();
     this.personform = this.fb.group({
       id: [],
       nombre: [null, Validators.compose([Validators.required])],

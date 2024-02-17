@@ -1,0 +1,15 @@
+[
+    { 
+        "value": null,
+        "label": "Tipo Domunento"
+    },
+    {   "value": "DNI", 
+        "label": "Documento de identidad"
+    },
+    {   "value": "PASPORTE",
+        "label": "Pasaporte" 
+    },
+    {   "value": "CARET DE EXTRANJERIA",
+        "label": "Carnet Extrangeria" 
+    }
+  ]

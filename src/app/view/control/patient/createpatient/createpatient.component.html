@@ -38,10 +38,8 @@
               <div class="col-md-6">
                 <label class="col-form-label">Selecciona Tipo de Documento *</label>
                 <select class="form-select" aria-label="Default select example" formControlName="tipoDocumento">
-                  <option selected>Tipo Documento</option>
-                  <option value="dni">DNI </option>
-                  <option value="Passaporte">Passaporte</option>
-                  <option value="libreta electoral">LE</option>
+                  <option *ngFor="let item of documentType|async" value="item.value">{{item.label}}
+                  </option>
                 </select>
               </div>
               <div class="col-md-6">
