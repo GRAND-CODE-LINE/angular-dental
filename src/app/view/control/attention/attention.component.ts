@@ -1,9 +1,9 @@
 import { Location } from '@angular/common';
-import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, TemplateRef, ViewChild } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { firstValueFrom } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { Attention } from 'src/app/models/attention';
 import { Consultation } from 'src/app/models/consultation';
 import { Patient } from 'src/app/models/patient';
@@ -14,13 +14,24 @@ import { AttentionService } from 'src/app/services/attention/attention.service';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { SymbolService } from 'src/app/services/symbol/symbol.service';
+import * as _ from 'lodash';
+import { ComponentCanDeactivate } from 'src/app/security/guards/PendingChangesGuard';
 
 @Component({
   selector: 'app-attention',
   templateUrl: './attention.component.html',
   styleUrls: ['./attention.component.scss'],
 })
-export class AttentionComponent {
+export class AttentionComponent implements ComponentCanDeactivate {
+  // @HostListener allows us to also guard against browser refresh, close, etc.
+  @HostListener('window:beforeunload')
+  canDeactivate(): Observable<boolean> | boolean {
+    // insert logic to check if there are pending changes here;
+    // returning true will navigate without confirmation
+    // returning false will show a confirm dialog before navigating away
+    // return true
+    return !this.checkForUnSaved()
+  }
   modalRef?: BsModalRef;
 
   @ViewChild('modalActions') modalAction!: TemplateRef<any>;
@@ -37,6 +48,8 @@ export class AttentionComponent {
   selectedSymbol!: Symbol;
   attention!: Attention;
   edit = false;
+  attentionOld: Attention | undefined;
+  proceduresOld: Procedure[] = [];
   constructor(
     private route: ActivatedRoute,
     private modalService: BsModalService,
@@ -45,7 +58,7 @@ export class AttentionComponent {
     private symbolService: SymbolService,
     private attentionService: AttentionService,
     private router: Router
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
     this.initAttention();
@@ -74,6 +87,8 @@ export class AttentionComponent {
       status: 'Creado',
       procedures: [],
     };
+    this.proceduresOld = _.clone(this.procedures);
+    this.attentionOld = _.clone(this.attention);
   }
 
   async getAttentionById(id: any) {
@@ -82,9 +97,11 @@ export class AttentionComponent {
 
     const attention: Attention = res as Attention;
     this.attention = attention;
+    this.attentionOld = _.clone(this.attention);
     this.consultation = attention.consultation;
     this.patientGet = this.consultation?.patient;
     this.procedures = attention.procedures;
+    this.proceduresOld = _.clone(this.procedures);
   }
 
   onProcedureClick() {
@@ -133,7 +150,9 @@ export class AttentionComponent {
     this.getAttentionById(this.attention.id);
   }
 
-  reload() {}
+  reload() {
+    this.getAttentionById(this.attention.id)
+  }
 
   async getSymbols() {
     let filter = {
@@ -167,5 +186,13 @@ export class AttentionComponent {
     this.procedures = this.procedures.filter((x) => {
       return x.item !== action.item;
     });
+  }
+
+  checkForUnSaved() {
+    if (!_.isEqual(this.attention, this.attentionOld) || !_.isEqual(this.procedures, this.proceduresOld)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

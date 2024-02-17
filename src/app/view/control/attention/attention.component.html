@@ -1,10 +1,10 @@
 <br>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 justify-content-between" style=" text-align:  center;">
+        <div class="col-md-12 justify-content-between mb-1" style=" text-align:  center;">
             <div class="d-flex w-100 justify-content-between pt-1 pb-1">
                 <h4 *ngIf="!attention.id">Nueva Atencion</h4>
-                <h4 *ngIf="attention.id">Atencion {{attention.id}}</h4>
+                <h4 *ngIf="attention.id">Editar Atencion</h4>
                 <div>
                     <button (click)="saveChanges()" class="btn btn-success btn-sm ms-1"><fa-icon
                             [icon]='"floppy-disk"'></fa-icon>
@@ -22,7 +22,7 @@
                     Procedimiento</button>
             </div>
 
-            <div class="col justify-content-end" style=" text-align:  center;">
+            <div class="col justify-content-end" style=" text-align:  center;" *ngIf="checkForUnSaved()">
                 <div class="alert alert-warning" role="alert" style="padding: 0.2rem;">
                     <fa-icon [icon]='"triangle-exclamation"'></fa-icon> No se guardaron los cambios.
                 </div>
@@ -131,8 +131,8 @@
                         <div class="col-3" style="padding: 0;" (click)="selectSymbol(item)" role="button">
                             <div class="item-symbol">
                                 <div class="flex-grow-1 list-group-content p-1">
-                                    <div class="d-flex w-100 justify-content-between P-1">
-                                        <p class="mb-1">{{item.acronym}} - {{item.name}}</p>
+                                    <div class=" w-100 justify-content-between P-1" style="word-wrap: break-word; font-size: 0.8rem;">
+                                        <p class="mb-1"><strong>{{item.acronym}} - {{item.name}}</strong></p>
                                         <br>
 
                                     </div>

@@ -20,7 +20,9 @@ export class CreateUserComponent {
   personform!: FormGroup;
 
   documentTypePerson = [
-    { value: 'DNI', label: 'Documento de identidad' }
+    { value: null, label: 'Seleccione' },
+    { value: 'DNI', label: 'DNI' },
+    { value: 'Pasaporte', label: 'Pasaporte' }
   ]
 
   constructor(private userService: UserService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private personService: PersonService) { }
@@ -84,6 +86,8 @@ export class CreateUserComponent {
   }
 
   async update() {
+    console.log('edita');
+    
     this.user = this.userForm.value;
     this.user.person = this.personform.value
     await firstValueFrom(this.userService.update(this.user.id, this.user));
@@ -91,6 +95,10 @@ export class CreateUserComponent {
   }
 
   saveData() {
+    console.log('aaaaaaaaaaaaaaaa');
+    console.log(this.edit);
+    
+    
     if (this.edit) {
       this.update();
     } else {

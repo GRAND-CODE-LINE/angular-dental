@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MessagesService } from '../layouts/services/messages.service';
 import { ModalComponent } from '../layouts/modal/modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PendingChangesGuard } from './guards/PendingChangesGuard';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     
   ],
-  providers: [LoginService],
+  providers: [LoginService,PendingChangesGuard],
   exports: [SecurityRoutingModule]
 })
 export class SecurityModule { }
