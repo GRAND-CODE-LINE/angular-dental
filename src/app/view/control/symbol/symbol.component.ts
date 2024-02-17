@@ -43,7 +43,7 @@ export class SymbolComponent {
 
   initCols() {
     this.cols = [
-      { name: 'Id', field: 'id' },
+      // { name: 'Id', field: 'id' },
       { name: 'Nombre', field: 'name' },
       { name: 'Grupo', field: 'group' },
       { name: 'Abreviatura', field: 'acronym' },
@@ -91,8 +91,10 @@ export class SymbolComponent {
   onEditClick(event: Symbol) {
     this.router.navigate(['control/symbol/edit', event.id])
   }
-  onDeleteClick(event: Symbol) {
+  async onDeleteClick(event: Symbol) {
     console.log(event);
+    await firstValueFrom(this.symbolService.delete(event.id));
+    this.update()
   }
 
 

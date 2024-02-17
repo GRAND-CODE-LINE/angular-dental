@@ -5,8 +5,6 @@ import { Message_I } from 'src/app/models/utils/message_i';
 import { LoginService } from 'src/app/security/services/login.service';
 import { MessagesService } from '../services/messages.service';
 
-
-
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -51,12 +49,8 @@ export class ModalComponent {
 
   }
 
-
   async test() {
     let res: any = await firstValueFrom(this.loginservice.test());
     console.log(res);
-
   }
-
-
 }

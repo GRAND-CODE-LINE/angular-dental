@@ -21,7 +21,6 @@
                                     <fa-icon [icon]='"thumbs-up"'></fa-icon>
                                     Si</span>
                             </ng-container>
-
                             <ng-template #negative>
                                 <span class="badge text-bg-danger mini-badge">
                                     <fa-icon [icon]='"thumbs-down"'> </fa-icon>
@@ -29,25 +28,40 @@
                             </ng-template>
 
                         </ng-container>
-                        <ng-template #nonBoolean> {{item[col.field]}}</ng-template>
+                        <ng-template #nonBoolean>
+                            <ng-container *ngIf="col.isDate">
+                                {{item[col.field] | date}}
+                            </ng-container>
+                            <ng-container *ngIf="!col.isDate">
+                                {{item[col.field]}}
+                            </ng-container>
+
+                        </ng-template>
 
                     </td>
-                    <td *ngIf="col.subfield " [attr.data-label]="col.name">
+                    <td *ngIf="col.subfield" [attr.data-label]="col.name">
                         <ng-container *ngIf="item[col.field]">
-                            {{item[col.field][col.subfield]}}
+                            <ng-container *ngIf="col.isDate">
+                                {{item[col.field][col.subfield] | date}}
+                            </ng-container>
+                            <ng-container *ngIf="!col.isDate">
+                                {{item[col.field][col.subfield]}}
+                            </ng-container>
                         </ng-container>
                     </td>
                 </ng-container>
+
+
+
+
                 <ng-container *ngIf="edit">
                     <td [attr.data-label]="'Editar'"> <button type="button" class="btn btn-outline-warning m-2 btn-sm"
                             (click)="onEdit(item)"><fa-icon [icon]='"pen-to-square"'></fa-icon></button></td>
-
                 </ng-container>
 
                 <ng-container *ngIf="delete">
                     <td [attr.data-label]="'Eliminar'"> <button type="button" class="btn btn-outline-danger m-2 btn-sm"
                             (click)="onDelete(item)"><fa-icon [icon]='"trash"'></fa-icon></button></td>
-
                 </ng-container>
 
             </tr>
@@ -72,6 +86,4 @@
             </li>
         </ul>
     </nav>
-
-
 </div>

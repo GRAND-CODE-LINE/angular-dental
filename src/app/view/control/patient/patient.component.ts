@@ -43,9 +43,9 @@ export class PatientComponent {
       { name: 'Nombre', field: 'persona', subfield: 'nombre' },
       { name: 'Apellido', field: 'persona', subfield: 'apaterno' },
       { name: 'DNI', field: 'persona', subfield: 'numeroDocumento' },
-      { name: 'Edad', field: 'persona', subfield: 'fechaNacimiento' },
-      { name: 'Genero', field: 'persona', subfield: 'genero' },
-    ];
+      { name: 'Fecha Nac.', field: 'persona', subfield: 'fechaNacimiento', isDate: true },
+      { name: 'Talla', field: 'talla' },
+      { name: 'Genero', field: 'persona', subfield: 'genero' }];
   }
 
   ngOnChanges() {

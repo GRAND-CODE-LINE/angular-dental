@@ -15,29 +15,17 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-
-    console.log('ahce login');
-
     const token: any = localStorage.getItem('minita_user');
     const loginobj: LoginResponse = JSON.parse(token)
 
     let request = req;
-    console.log("--------------Aqui token", token);
-
     if (token) {
-
       request = req.clone({
-        //headers: new HttpHeaders({ Authorization: loginobj.tokenType + ' ' + loginobj.accessToken }),
-        // setHeaders: {
-        //   'Authorization': loginobj.tokenType + ' ' + loginobj.accessToken
-        // }
         setHeaders: {
           Authorization: `Bearer ${loginobj.accessToken}`,
           'Access-Control-Allow-Origin': '*'
         }
       });
-
-
     }
     console.log(loginobj);
     console.log(request.headers);
@@ -45,13 +33,19 @@ export class AuthInterceptorService implements HttpInterceptor {
       .pipe(
         tap(event => {
           // Realizar acciones en caso de éxito (por ejemplo, registro de la respuesta).
-          if (event instanceof HttpResponse) {
-
+          if (event instanceof HttpResponse && event?.body?.error) {
+            let message: Message_I = {
+              title: 'Error',
+              message: event.body.error,
+              type: 'danger'
+            }
+            this.messageService.openModal(message);
+            throw new Error('Error Login:' + event.body.error)
           }
         }),
-        catchError((err: HttpErrorResponse) => {
+        catchError((err: HttpErrorResponse, res: any) => {
           console.log(err);
-
+          
           if ((err.status === 401 || err.status === 403) && this.router.url == '/security/login') {
             let message: Message_I = {
               title: 'Error',
@@ -59,15 +53,23 @@ export class AuthInterceptorService implements HttpInterceptor {
               type: 'danger'
             }
             this.messageService.openModal(message);
-          } else if (err.status === 401) {
+          } else if (err.status === 401 || err.status === 403) {
             let message: Message_I = {
               title: 'Error',
               message: 'Sesión ha expirado, ingresar nuevamente.',
               type: 'danger'
             }
+
             this.messageService.openModal(message);
             this.loginService.logOut();
             this.router.navigateByUrl('/security/login');
+          } else if (err.status === 500) {
+            let message: Message_I = {
+              title: 'Error',
+              message: 'Error no controlado.',
+              type: 'danger'
+            }
+            this.messageService.openModal(message);
           }
           return throwError(() => new Error('Error Login:' + err.message));
 
