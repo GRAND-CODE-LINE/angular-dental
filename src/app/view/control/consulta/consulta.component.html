@@ -6,7 +6,10 @@
                 <h4 *ngIf="!consultation.id">Nueva Consulta</h4>
                 <h4 *ngIf="consultation.id">Consulta {{patientGet?.persona?.numeroDocumento}}-{{consultation.code}}</h4>
                 <div class="no-print">
-                    <button (click)="saveChanges()" class="btn btn-success btn-sm ms-1"><fa-icon
+                    <button (click)="closeConsultation()" *ngIf="consultation.id && consultation.status == 'Completado'"
+                        class="btn btn-danger btn-sm ms-1"><fa-icon [icon]='"times"'></fa-icon>
+                        Cerrar consulta</button>
+                    <button *ngIf="canEdit" (click)="saveChanges()" class="btn btn-success btn-sm ms-1"><fa-icon
                             [icon]='"floppy-disk"'></fa-icon>
                         Guardar</button>
                     <!-- <button class="btn btn-secondary btn-sm ms-1"><fa-icon [icon]='"comment"'></fa-icon>
@@ -72,7 +75,7 @@
                     <div class="d-flex justify-content-between">
                         <h5>Cotizacion</h5>
                         <div class="btn-group" role="group">
-                            <button class="btn btn-primary btn-sm" (click)="openPopupAction()"><fa-icon
+                            <button *ngIf="canEdit" class="btn btn-primary btn-sm" (click)="openPopupAction()"><fa-icon
                                     [icon]='"plus"'></fa-icon></button>
                         </div>
                     </div>
@@ -98,7 +101,7 @@
                                                 </div>
                                                 <small>{{item.comments}}</small>
                                             </div>
-                                            <button (click)="deleteAction(item)"
+                                            <button *ngIf="canEdit" (click)="deleteAction(item)"
                                                 class="btn btn-danger btn-sm rounded-0 flex-fill button-g-list"><fa-icon
                                                     [icon]='"trash"'></fa-icon></button>
                                         </li>
@@ -119,7 +122,7 @@
                     <div class="d-flex justify-content-between">
                         <h5>Atenciones</h5>
                         <div class="btn-group" role="group">
-                            <button class="btn btn-primary btn-sm" (click)="newAttention()"><fa-icon
+                            <button *ngIf="canEdit" class="btn btn-primary btn-sm" (click)="newAttention()"><fa-icon
                                     [icon]='"plus"'></fa-icon></button>
                         </div>
                     </div>
@@ -160,8 +163,8 @@
                                             <button (click)="detailAttention(item)" style=" max-width: 2rem"
                                                 class="btn btn-secondary btn-sm rounded-0 flex-fill "><fa-icon
                                                     [icon]='"eye"'></fa-icon></button>
-                                            <button (click)="detailAttention(item)"
-                                                class="btn btn-warning btn-sm rounded-0 flex-fill button-g-list"><fa-icon
+                                            <button *ngIf="canEdit" (click)="deleteAtention(item)"
+                                                class="btn btn-danger btn-sm rounded-0 flex-fill button-g-list"><fa-icon
                                                     [icon]='"trash"'></fa-icon></button>
                                         </li>
                                     </ng-container>
@@ -185,7 +188,7 @@
                     <div class="d-flex justify-content-between">
                         <h5>Pagos</h5>
                         <div class="btn-group" role="group">
-                            <button (click)="openPopupPayment()" class="btn btn-primary btn-sm"><fa-icon
+                            <button *ngIf="canEdit" (click)="openPopupPayment()" class="btn btn-primary btn-sm"><fa-icon
                                     [icon]='"plus"'></fa-icon></button>
                         </div>
                     </div>
@@ -213,7 +216,7 @@
                                                 </div>
                                                 <small>{{item.date | timeAgoDetailed}}</small>
                                             </div>
-                                            <button (click)="deletePayment(item)"
+                                            <button *ngIf="canEdit" (click)="deletePayment(item)"
                                                 class="btn btn-danger btn-sm rounded-0 flex-fill button-g-list"><fa-icon
                                                     [icon]='"trash"'></fa-icon></button>
                                         </li>
@@ -286,7 +289,8 @@
 
         </div>
         <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" (click)="calculateRemaining()"><fa-icon [icon]='"plus"'></fa-icon>
+            <button class="btn btn-secondary" type="button" (click)="calculateRemaining()"><fa-icon
+                    [icon]='"plus"'></fa-icon>
                 Calcular Restante</button>
             <button class="btn btn-primary" type="submit"><fa-icon [icon]='"floppy-disk"'></fa-icon>
                 Agregar</button>

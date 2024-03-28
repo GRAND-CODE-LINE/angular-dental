@@ -6,18 +6,17 @@
                 <h4 *ngIf="!attention.id">Nueva Atencion</h4>
                 <h4 *ngIf="attention.id">Editar Atencion</h4>
                 <div>
-                    <button (click)="saveChanges()" class="btn btn-success btn-sm ms-1"><fa-icon
+                    <button *ngIf="canEdit"  (click)="saveChanges()" class="btn btn-success btn-sm ms-1"><fa-icon
                             [icon]='"floppy-disk"'></fa-icon>
                         Guardar</button>
-                    <button class="btn btn-secondary btn-sm ms-1"><fa-icon [icon]='"comment"'></fa-icon>
-                        Comentarios</button>
+                   
                     <button (click)="reload()" *ngIf="attention.id" class="btn btn-warning btn-sm ms-1"><fa-icon
                             [icon]='"arrow-rotate-right"'></fa-icon>
                         Actualizar</button>
                 </div>
             </div>
             <div class="d-grid mb-1">
-                <button type="button" (click)="onProcedureClick()" class="btn btn-primary">
+                <button *ngIf="canEdit" type="button" (click)="onProcedureClick()" class="btn btn-primary">
                     <fa-icon [icon]='"plus"'></fa-icon> Nuevo
                     Procedimiento</button>
             </div>
@@ -109,6 +108,33 @@
     </div>
     <div class="modal-body">
         <div class="row">
+
+            <div class="col-md-8">
+
+                <div class="row">
+                    <ng-container *ngFor="let item of symbolsList">
+                        <div class="col-3" style="padding: 0;" (click)="selectSymbol(item)" role="button">
+                            <div class="item-symbol">
+                                <div class="flex-grow-1 p-1">
+                                    <div class="w-100 justify-content-between P-1"
+                                        style="word-wrap: break-word; font-size: 0.8rem;">
+                                        <p class="mb-1">
+                                            <strong *ngIf="item.acronym">{{item.acronym}} - </strong>
+                                            <strong>{{item.name}}</strong>
+                                        </p>
+                                        <br>
+
+                                    </div>
+                                    <img class="oversize" [src]="item.image" alt="image">
+                                    <small>{{item.group}}</small>
+                                </div>
+                            </div>
+
+                        </div>
+                    </ng-container>
+                </div>
+
+            </div>
             <div class="col-md-4">
                 <form autocomplete="off" [formGroup]="procedureselected">
                     <div class="row">
@@ -124,36 +150,13 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-8">
-
-                <div class="row">
-                    <ng-container *ngFor="let item of symbolsList">
-                        <div class="col-3" style="padding: 0;" (click)="selectSymbol(item)" role="button">
-                            <div class="item-symbol">
-                                <div class="flex-grow-1 list-group-content p-1">
-                                    <div class=" w-100 justify-content-between P-1" style="word-wrap: break-word; font-size: 0.8rem;">
-                                        <p class="mb-1"><strong>{{item.acronym}} - {{item.name}}</strong></p>
-                                        <br>
-
-                                    </div>
-                                    <img class="oversize" [src]="item.image" alt="image">
-                                    <small>{{item.group}}</small>
-                                </div>
-                            </div>
-
-                        </div>
-                    </ng-container>
-                </div>
-
-            </div>
         </div>
 
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" (click)="onAddProcedure()"><fa-icon [icon]='"floppy-disk"'></fa-icon>
-            Agregar</button>
-
         <button class="btn btn-warning" (click)=" resetProcedure()"><fa-icon [icon]='"trash"'></fa-icon>
             Limpiar</button>
+        <button class="btn btn-primary" (click)="onAddProcedure()"><fa-icon [icon]='"floppy-disk"'></fa-icon>
+            Agregar</button>
     </div>
 </ng-template>

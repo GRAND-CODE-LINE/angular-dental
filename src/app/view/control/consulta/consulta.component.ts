@@ -14,6 +14,7 @@ import * as _ from 'lodash';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
 import { Attention } from 'src/app/models/attention';
 import { ComponentCanDeactivate } from 'src/app/security/guards/PendingChangesGuard';
+import { AttentionService } from 'src/app/services/attention/attention.service';
 
 @Component({
   selector: 'app-consulta',
@@ -27,7 +28,9 @@ export class ConsultaComponent implements ComponentCanDeactivate {
     // insert logic to check if there are pending changes here;
     // returning true will navigate without confirmation
     // returning false will show a confirm dialog before navigating away
-    // return true
+    if (!this.edit) {
+      return true
+    }
     return !this.checkForUnSaved()
   }
   patientGet: Patient | undefined;
@@ -42,10 +45,11 @@ export class ConsultaComponent implements ComponentCanDeactivate {
   @ViewChild('modalActions') modalAction!: TemplateRef<any>;
   @ViewChild('modalPayment') modalPayment!: TemplateRef<any>;
   edit: boolean = false;
+  canEdit: boolean = true;
   numRegex = /^-?\d*[.,]?\d{0,2}$/;
   constructor(private location: Location, private modalService: BsModalService,
     private fb: FormBuilder, private messageService: MessagesService, private consultationService: ConsultationService,
-    private router: Router, private route: ActivatedRoute) {
+    private router: Router, private route: ActivatedRoute, private attentionService: AttentionService) {
   }
 
 
@@ -89,6 +93,11 @@ export class ConsultaComponent implements ComponentCanDeactivate {
     this.consultation = consultation;
     this.consultationOld = _.clone(this.consultation);
     this.patientGet = _.clone(consultation.patient) as unknown as Patient;
+
+    if (consultation.status == 'Cerrado') {
+      this.canEdit = false
+    }
+
   }
 
   initForms() {
@@ -187,6 +196,13 @@ export class ConsultaComponent implements ComponentCanDeactivate {
       total = total + iterator.amount
     }
     this.consultation.balance = total;
+
+    if (this.consultation.balance == this.consultation.price) {
+      this.consultation.status = 'Completado'
+    } else if (this.consultation.balance < this.consultation.price) {
+      this.consultation.status = 'Pendiente'
+    }
+
   }
 
   checkForUnSaved() {
@@ -243,5 +259,17 @@ export class ConsultaComponent implements ComponentCanDeactivate {
 
   calculateRemaining() {
     this.paymentForm.patchValue({ amount: this.consultation.price - this.consultation.balance })
+  }
+
+
+  closeConsultation() {
+    this.consultation.status = 'Cerrado'
+    this.updateConsultation()
+  }
+
+  async deleteAtention(item: Attention) {
+    await firstValueFrom(this.attentionService.delete(item.id));
+
+    //this.reload()
   }
 }

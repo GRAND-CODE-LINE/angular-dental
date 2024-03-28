@@ -31,7 +31,7 @@ export class SymbolComponent {
       page: 0,
       size: 10,
       sortFiled: 'username',
-      sortOrder: 1
+      sortOrder: 1,
     }
   }
 
@@ -60,6 +60,7 @@ export class SymbolComponent {
 
 
   async paginateData() {
+    console.log(this.filter);
 
     let res: Paginate_I = await firstValueFrom(this.symbolService.paginate(this.filter));
     this.items = res.content;
