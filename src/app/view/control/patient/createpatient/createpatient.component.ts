@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   Component,
@@ -61,8 +62,9 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     private modalService: BsModalService,
     private messageService: MessagesService,
     private router: Router,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private datePipe: DatePipe
+  ) { }
 
   getDocumentType() {
     return this.http.get<itemsType[]>('assets/Documents/Documents.json');
@@ -133,6 +135,14 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
   Llenar(data: Patient) {
     this.patientform.patchValue(data);
     this.personform.patchValue(data.persona);
+
+    // Supongamos que 'fechaSinFormato' es tu fecha sin formato
+    let fechaFormateada = this.datePipe.transform(data.persona.fechaNacimiento, 'yyyy-MM-dd');
+
+    // Asigna la fecha formateada al control del formulario
+    this.personform.patchValue({
+      fechaNacimiento: fechaFormateada
+    })
   }
 
   crearPatient() {

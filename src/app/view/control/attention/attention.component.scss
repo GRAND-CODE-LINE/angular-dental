@@ -1,9 +1,10 @@
 .oversize {
-    width: 7rem;
+    width: 100%;
     height: auto;
     margin-left: auto;
     margin-right: auto;
     display: block;
+    object-fit: cover
 }
 
 .item-symbol {
@@ -12,6 +13,7 @@
     border-color: #dee2e6;
     border-width: 0.1rem;
     border-style: solid;
+    height: 100%;
 }
 
 .button-g-list {

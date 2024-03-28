@@ -22,4 +22,8 @@ export class AttentionService {
   getById(id: string) {
     return this.http.get(this.URL_BASE + id)
   }
+
+  delete(id?: string) {
+    return this.http.delete(this.URL_BASE + id)
+  }
 }

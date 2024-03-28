@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,8 +16,11 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
-import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { LoaderInterceptorService } from './security/services/loader-interceptor.service';
+
+import localeEs from "@angular/common/locales/es";
+import { DatePipe, registerLocaleData } from "@angular/common";
+registerLocaleData(localeEs, "es");
 
 @NgModule({
   declarations: [AppComponent],
@@ -50,6 +53,8 @@ import { LoaderInterceptorService } from './security/services/loader-interceptor
       multi: true,
     },
     MessagesService,
+    { provide: LOCALE_ID, useValue: "es" },
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })

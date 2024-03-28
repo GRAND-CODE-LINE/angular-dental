@@ -15,7 +15,7 @@
             <tr *ngFor="let item of items">
                 <ng-container *ngFor="let col of cols">
                     <td *ngIf="!col.subfield" [attr.data-label]="col.name">
-                        <ng-container *ngIf="item[col.field]==true || item[col.field]==false; else nonBoolean">
+                        <ng-container *ngIf="item[col.field]===true || item[col.field]===false; else nonBoolean">
                             <ng-container *ngIf="item[col.field]; else negative">
                                 <span class="badge text-bg-primary mini-badge">
                                     <fa-icon [icon]='"thumbs-up"'></fa-icon>

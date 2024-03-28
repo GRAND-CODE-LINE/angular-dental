@@ -8,7 +8,7 @@ import { Attention } from 'src/app/models/attention';
 import { Consultation } from 'src/app/models/consultation';
 import { Patient } from 'src/app/models/patient';
 import { Procedure } from 'src/app/models/procedure';
-import { Symbol } from 'src/app/models/symbol';
+import { Symbol, SymbolFilter } from 'src/app/models/symbol';
 import { Paginate_I } from 'src/app/models/utils/filter_i';
 import { AttentionService } from 'src/app/services/attention/attention.service';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
@@ -30,6 +30,9 @@ export class AttentionComponent implements ComponentCanDeactivate {
     // returning true will navigate without confirmation
     // returning false will show a confirm dialog before navigating away
     // return true
+    if (!this.edit) {
+      return true
+    }
     return !this.checkForUnSaved()
   }
   modalRef?: BsModalRef;
@@ -50,6 +53,7 @@ export class AttentionComponent implements ComponentCanDeactivate {
   edit = false;
   attentionOld: Attention | undefined;
   proceduresOld: Procedure[] = [];
+  canEdit = true;
   constructor(
     private route: ActivatedRoute,
     private modalService: BsModalService,
@@ -102,6 +106,11 @@ export class AttentionComponent implements ComponentCanDeactivate {
     this.patientGet = this.consultation?.patient;
     this.procedures = attention.procedures;
     this.proceduresOld = _.clone(this.procedures);
+
+
+    if (this.consultation?.status == 'Cerrado') {
+      this.canEdit = false;
+    }
   }
 
   onProcedureClick() {
@@ -130,6 +139,7 @@ export class AttentionComponent implements ComponentCanDeactivate {
   async createAttention() {
     this.attention.procedures = this.procedures;
     this.attention.consultation = this.consultation;
+
     console.log(this.attention);
     let res = await firstValueFrom(
       this.attentionService.create(this.attention)
@@ -155,10 +165,11 @@ export class AttentionComponent implements ComponentCanDeactivate {
   }
 
   async getSymbols() {
-    let filter = {
+    let filter: SymbolFilter = {
       page: 0,
       size: 100,
       sortOrder: 1,
+      active: true
     };
     let res: Paginate_I = await firstValueFrom(
       this.symbolService.paginate(filter)
@@ -170,9 +181,9 @@ export class AttentionComponent implements ComponentCanDeactivate {
   selectSymbol(item: Symbol) {
     this.selectedSymbol = item;
     let procedure: Procedure = {
-      name: item.acronym + ' - ' + item.name,
+      name: item.acronym ? item.acronym + ' - ' + item.name : item.name,
       status: 'Creado',
-      comments: '',
+      //comments: '',
       symbol: item,
     };
     this.procedureselected.patchValue(procedure);
