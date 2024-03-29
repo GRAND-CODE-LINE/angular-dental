@@ -11,6 +11,7 @@ import { PendingChangesGuard } from 'src/app/security/guards/PendingChangesGuard
 
 const routes: Routes = [
   { path: 'historial', component: HistorialComponent },
+  { path: 'historial/:id', component: HistorialComponent },
   { path: 'symbol', component: SymbolComponent },
   { path: 'symbol/create', component: CreateSymbolComponent },
   { path: 'symbol/edit/:id', component: CreateSymbolComponent },

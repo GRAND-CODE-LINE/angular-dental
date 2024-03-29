@@ -270,6 +270,13 @@ export class ConsultaComponent implements ComponentCanDeactivate {
   async deleteAtention(item: Attention) {
     await firstValueFrom(this.attentionService.delete(item.id));
 
-    //this.reload()
+    this.reload()
   }
+
+  backHistory(){
+    console.log(this.consultation);
+    
+    this.router.navigateByUrl('control/historial/' + this.consultation.patient.persona.numeroDocumento);
+  }
+
 }

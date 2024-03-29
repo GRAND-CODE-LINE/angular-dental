@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { Patient } from 'src/app/models/patient';
 import { ConsultationService } from 'src/app/services/consultation/consultation.service';
 import { trigger, state, animate, style, transition } from '@angular/animations'
+import { Patient } from 'src/app/models/patient';
 @Component({
   selector: 'app-historial',
   templateUrl: './historial.component.html',
@@ -36,6 +36,10 @@ export class HistorialComponent {
   async ngOnInit() {
     console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     //let resp = await this.consultationService.test()
+    if (this.route.snapshot.params['id'] != undefined) {
+      this.nroDocumento = this.route.snapshot.params['id']
+      this.getConsultation()
+    }
   }
 
 
@@ -71,7 +75,7 @@ export class HistorialComponent {
     this.router.navigateByUrl('control/consultation/edit/' + idConsultation, { state: this.patientGet });
   }
 
-  patientEdit(){
+  patientEdit() {
     this.router.navigateByUrl('control/patient/edit/' + this.patientGet?.id);
   }
 }

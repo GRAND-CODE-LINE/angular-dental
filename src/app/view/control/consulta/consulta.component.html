@@ -6,15 +6,19 @@
                 <h4 *ngIf="!consultation.id">Nueva Consulta</h4>
                 <h4 *ngIf="consultation.id">Consulta {{patientGet?.persona?.numeroDocumento}}-{{consultation.code}}</h4>
                 <div class="no-print">
+                    <button *ngIf="canEdit" (click)="backHistory()" class="btn btn-secondary ms-1"><fa-icon
+                            [icon]='"arrow-alt-circle-left"'></fa-icon>
+                        Volver a historial </button>
                     <button (click)="closeConsultation()" *ngIf="consultation.id && consultation.status == 'Completado'"
-                        class="btn btn-danger btn-sm ms-1"><fa-icon [icon]='"times"'></fa-icon>
+                        class="btn btn-danger ms-1"><fa-icon [icon]='"times"'></fa-icon>
                         Cerrar consulta</button>
-                    <button *ngIf="canEdit" (click)="saveChanges()" class="btn btn-success btn-sm ms-1"><fa-icon
+
+                    <button *ngIf="canEdit" (click)="saveChanges()" class="btn btn-success ms-1"><fa-icon
                             [icon]='"floppy-disk"'></fa-icon>
                         Guardar</button>
                     <!-- <button class="btn btn-secondary btn-sm ms-1"><fa-icon [icon]='"comment"'></fa-icon>
                         Comentarios</button> -->
-                    <button (click)="reload()" *ngIf="consultation.id" class="btn btn-warning btn-sm ms-1"><fa-icon
+                    <button (click)="reload()" *ngIf="consultation.id" class="btn btn-warning ms-1"><fa-icon
                             [icon]='"arrow-rotate-right"'></fa-icon>
                         Actualizar</button>
                 </div>
@@ -39,11 +43,14 @@
                         <h5 class="card-title">Precio: {{consultation.price | currency:'PEN'}}
                         </h5>
                         <h6 class="text-body-secondary"> Pagado: {{consultation.balance | currency:'PEN'}} </h6>
+                        <h6 class="text-body-secondary"> Pendiente: {{consultation.price - consultation.balance | currency:'PEN'}} </h6>
                         <p class="text-body-secondary"><strong>Estado: </strong> {{consultation.status}}</p>
                     </div>
 
-                    <h6 class="card-subtitle mb-1 text-body-secondary"> Fecha: {{consultation.date | timeAgoDetailed}}
+                    <h6 class="card-subtitle mb-1 text-body-secondary"> Fecha: {{consultation.date | date}}
                     </h6>
+                    <small class="card-subtitle mb-1 text-body-secondary"> Creado {{consultation.date | timeAgoDetailed}}
+                    </small>
 
                     <p *ngIf="consultation.description" class="card-text"><strong>Descripcion: </strong>
                         {{consultation.description}}</p>
@@ -153,12 +160,21 @@
                                         <li class="list-group-item d-flex align-items-stretch p-0">
                                             <div class="flex-grow-1 list-group-content p-1">
                                                 <div class="d-flex w-100 justify-content-between P-1">
-                                                    <h6>Fecha: {{item.endDate | timeAgoDetailed}}</h6><br>
-
+                                                    <h6>Fecha: {{item.endDate | date}}</h6><br>
                                                 </div>
-                                                <small>Nro. de procedimientos: {{item.procedures.length}}</small>
-                                                <br>
-                                                <small style="word-break: break-all;">{{item.comments}}</small>
+
+                                                <small style="word-break: break-all;">Procedimientos:</small>
+                                                <ul
+                                                    class="list-group list-group-flush list-group-numbered list-group-proc">
+                                                    <ng-container *ngFor="let proc of item.procedures">
+                                                        <li class="list-group-item list-group-item-proc">{{proc.name}}
+                                                        </li>
+                                                    </ng-container>
+                                                </ul>
+
+
+                                                <small *ngIf="item.comments"
+                                                    style="word-break: break-all;">{{item.comments}}</small>
                                             </div>
                                             <button (click)="detailAttention(item)" style=" max-width: 2rem"
                                                 class="btn btn-secondary btn-sm rounded-0 flex-fill "><fa-icon

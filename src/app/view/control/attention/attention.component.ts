@@ -206,4 +206,14 @@ export class AttentionComponent implements ComponentCanDeactivate {
       return false;
     }
   }
+
+  backConsultation() {
+    this.router.navigate(['control/consultation/edit', this.consultation?.id]);
+  }
+
+  async saveAndbackConsultation() {
+    await this.saveChanges();
+
+    this.router.navigate(['control/consultation/edit', this.consultation?.id]);
+  }
 }
