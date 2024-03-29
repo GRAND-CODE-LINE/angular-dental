@@ -1,16 +1,22 @@
 <br>
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col-md-12 justify-content-between mb-1" style=" text-align:  center;">
             <div class="d-flex w-100 justify-content-between pt-1 pb-1">
                 <h4 *ngIf="!attention.id">Nueva Atencion</h4>
                 <h4 *ngIf="attention.id">Editar Atencion</h4>
                 <div>
-                    <button *ngIf="canEdit"  (click)="saveChanges()" class="btn btn-success btn-sm ms-1"><fa-icon
+                    <button *ngIf="canEdit" (click)="backConsultation()" class="btn btn-secondary ms-1"><fa-icon
+                            [icon]='"arrow-alt-circle-left"'></fa-icon>
+                        Volver a consulta</button>
+                    <!-- <button *ngIf="canEdit" (click)="saveAndbackConsultation()" class="btn btn-success ms-1"><fa-icon
+                            [icon]='"floppy-disk"'></fa-icon>
+                        Guardar y salir</button> -->
+                    <button *ngIf="canEdit" (click)="saveChanges()" class="btn btn-success ms-1"><fa-icon
                             [icon]='"floppy-disk"'></fa-icon>
                         Guardar</button>
-                   
-                    <button (click)="reload()" *ngIf="attention.id" class="btn btn-warning btn-sm ms-1"><fa-icon
+
+                    <button (click)="reload()" *ngIf="attention.id" class="btn btn-warning ms-1"><fa-icon
                             [icon]='"arrow-rotate-right"'></fa-icon>
                         Actualizar</button>
                 </div>
@@ -28,67 +34,66 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid" *ngIf="patientGet">
-        <div class="row">
 
-            <div class="col-md-4">
-                <div class="card mb-1">
-                    <div class="card-body" *ngIf="patientGet.persona">
-                        <h5 class="card-title">Paciente: {{patientGet.persona.nombre}} {{patientGet.persona.apaterno}}
-                            {{patientGet.persona.amaterno}}
-                        </h5>
-                        <h6 class="card-subtitle text-body-secondary">Documento:
-                            {{patientGet.persona.numeroDocumento}}</h6>
-                        <p class="card-text">Edad: {{patientGet.persona.fechaNacimiento |
-                            age}} años</p>
-                    </div>
+    <div class="row" *ngIf="patientGet">
+
+        <div class="col-md-4">
+            <div class="card mb-1">
+                <div class="card-body" *ngIf="patientGet.persona">
+                    <h5 class="card-title">Paciente: {{patientGet.persona.nombre}} {{patientGet.persona.apaterno}}
+                        {{patientGet.persona.amaterno}}
+                    </h5>
+                    <h6 class="card-subtitle text-body-secondary">Documento:
+                        {{patientGet.persona.numeroDocumento}}</h6>
+                    <p class="card-text">Edad: {{patientGet.persona.fechaNacimiento |
+                        age}} años</p>
                 </div>
-                <div class="card ">
-                    <div class="card-body" *ngIf="patientGet.persona">
-                        <div class="row">
+            </div>
+            <div class="card ">
+                <div class="card-body" *ngIf="patientGet.persona">
+                    <div class="row">
 
-                            <div class="col-md-12">
-                                <label for="comments" class="form-label">Comentarios</label>
-                                <textarea type="text" class="form-control" id="comments"
-                                    [(ngModel)]="attention.comments" maxlength="200"></textarea>
-                            </div>
+                        <div class="col-md-12">
+                            <label for="comments" class="form-label">Comentarios</label>
+                            <textarea type="text" class="form-control" id="comments" [(ngModel)]="attention.comments"
+                                maxlength="200"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
-                <div class="card ">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="list-group">
-                                    <ng-container *ngIf="procedures.length==0; else proceduresList">
-                                        <a class=" list-group-item list-group-item-action " aria-current=" true">
-                                            <div class="justify-content-between">
-                                                <h5 class="mb-1" style="text-align: center;">No hay procedimientos</h5>
-                                            </div>
-                                        </a>
-                                    </ng-container>
+        </div>
+        <div class="col-md-8">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="list-group">
+                                <ng-container *ngIf="procedures.length==0; else proceduresList">
+                                    <a class=" list-group-item list-group-item-action " aria-current=" true">
+                                        <div class="justify-content-between">
+                                            <h5 class="mb-1" style="text-align: center;">No hay procedimientos</h5>
+                                        </div>
+                                    </a>
+                                </ng-container>
 
-                                    <ng-template #proceduresList>
-                                        <ng-container *ngFor="let item of procedures">
-                                            <li class="list-group-item d-flex align-items-stretch p-0">
-                                                <div class="flex-grow-1 list-group-content p-1">
-                                                    <div class="d-flex w-100 justify-content-between P-1">
-                                                        <h6 class="mb-1">Nombre: {{item.name}}</h6>
+                                <ng-template #proceduresList>
+                                    <ng-container *ngFor="let item of procedures">
+                                        <li class="list-group-item d-flex align-items-stretch p-0">
+                                            <div class="flex-grow-1 list-group-content p-1">
+                                                <div class="d-flex w-100 justify-content-between P-1">
+                                                    <h6 class="mb-1">Nombre: {{item.name}}</h6>
 
-                                                    </div>
-                                                    <small style="word-break: break-all;">Comentarios: {{item.comments
-                                                        }}</small>
                                                 </div>
-                                                <img class="oversize-procedure" [src]="item.symbol.image" alt="image">
-                                                <button (click)="deleteProcedure(item)"
-                                                    class="btn btn-danger btn-sm rounded-0 flex-fill button-g-list"><fa-icon
-                                                        [icon]='"trash"'></fa-icon></button>
-                                            </li>
-                                        </ng-container>
-                                    </ng-template>
-                                </div>
+                                                <small style="word-break: break-all;">Comentarios: {{item.comments
+                                                    }}</small>
+                                            </div>
+                                            <img class="oversize-procedure" [src]="item.symbol.image" alt="image">
+                                            <button (click)="deleteProcedure(item)"
+                                                class="btn btn-danger btn-sm rounded-0 flex-fill button-g-list"><fa-icon
+                                                    [icon]='"trash"'></fa-icon></button>
+                                        </li>
+                                    </ng-container>
+                                </ng-template>
                             </div>
                         </div>
                     </div>
@@ -96,6 +101,7 @@
             </div>
         </div>
     </div>
+
     <br>
 </div>
 
@@ -140,7 +146,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="name" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="name" formControlName="name" readonly>
+                            <input type="text" class="form-control" id="name" formControlName="name" >
                         </div>
                         <div class="col-md-12">
                             <label for="comments" class="form-label">Comentarios</label>
