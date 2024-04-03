@@ -72,6 +72,9 @@ export class CreatePersonComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   Llenar(data: Person) {
+    console.log('XD');
+    
+    data.fechaNacimiento?.setDate(data.fechaNacimiento?.getDate() + 1);
     this.personform.patchValue(data);
   }
 }

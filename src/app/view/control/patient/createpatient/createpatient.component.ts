@@ -19,7 +19,7 @@ import { Patient } from 'src/app/models/patient';
 import { Message_I } from 'src/app/models/utils/message_i';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { PersonService } from 'src/app/services/person/person.service';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-createpatient',
   templateUrl: './createpatient.component.html',
@@ -133,11 +133,13 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   Llenar(data: Patient) {
+    console.log(data.persona);
     this.patientform.patchValue(data);
     this.personform.patchValue(data.persona);
 
     // Supongamos que 'fechaSinFormato' es tu fecha sin formato
-    let fechaFormateada = this.datePipe.transform(data.persona.fechaNacimiento, 'yyyy-MM-dd');
+
+    let fechaFormateada = moment(data.persona.fechaNacimiento).format("yyyy-MM-DD")
 
     // Asigna la fecha formateada al control del formulario
     this.personform.patchValue({
@@ -151,6 +153,10 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     this.patient.enfermedades = this.listEnfermedades;
     this.patient.fotoPermiso = this.captureImage;
     this.patient.persona = this.personform.value;
+    this.patient.persona.fechaNacimiento = new Date(this.patient.persona.fechaNacimiento)
+    const offsetMinutos = new Date().getTimezoneOffset();
+    const offsetMilisegundos = offsetMinutos * 60 * 1000;
+    this.patient.persona.fechaNacimiento = new Date(this.patient.persona.fechaNacimiento.getTime() + offsetMilisegundos);
     this.router.navigateByUrl('control/patient');
   }
   agregarAlergia() {

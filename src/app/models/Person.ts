@@ -8,7 +8,7 @@ export interface Person {
   email: string;
   tipoDocumento: string;
   numeroDocumento: string;
-  fechaNacimiento?: Date;
+  fechaNacimiento: Date;
   direccion: string;
   genero: string;
   celular: string;
