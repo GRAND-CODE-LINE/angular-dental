@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { WebcamImage } from 'ngx-webcam';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, firstValueFrom } from 'rxjs';
 import { MessagesService } from 'src/app/layouts/services/messages.service';
 import { itemsType } from 'src/app/models/Person';
 import { Patient } from 'src/app/models/patient';
@@ -64,7 +64,7 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     private router: Router,
     private http: HttpClient,
     private datePipe: DatePipe
-  ) { }
+  ) {}
 
   getDocumentType() {
     return this.http.get<itemsType[]>('assets/Documents/Documents.json');
@@ -102,7 +102,7 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
       this.service.getById(id).subscribe((data: any) => this.Llenar(data));
     }
   }
-  create() {
+  async create() {
     if (!this.patientform.valid || !this.personform.valid) {
       let message: Message_I = {
         title: 'Falta llenar datos',
@@ -114,15 +114,12 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     }
     if (!this.modoEditar) {
       this.crearPatient();
-      this.service
-        .create(this.patient)
-        .subscribe((data: any) => (this.patient = data));
+      await firstValueFrom(this.service.create(this.patient));
     } else {
       this.crearPatient();
-      this.service
-        .update(this.patient.id, this.patient)
-        .subscribe((data: any) => (this.patient = data));
+      await firstValueFrom(this.service.update(this.patient.id, this.patient));
     }
+    this.router.navigateByUrl('control/patient');
   }
   ngOnChanges() {
     console.log('Changes');
@@ -136,15 +133,18 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     console.log(data.persona);
     this.patientform.patchValue(data);
     this.personform.patchValue(data.persona);
-
+    this.listAlergias = data.alergias;
+    this.listEnfermedades = data.enfermedades;
     // Supongamos que 'fechaSinFormato' es tu fecha sin formato
+
 
     let fechaFormateada = moment(data.persona.fechaNacimiento).format("yyyy-MM-DD")
 
+
     // Asigna la fecha formateada al control del formulario
     this.personform.patchValue({
-      fechaNacimiento: fechaFormateada
-    })
+      fechaNacimiento: fechaFormateada,
+    });
   }
 
   crearPatient() {
@@ -153,11 +153,13 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     this.patient.enfermedades = this.listEnfermedades;
     this.patient.fotoPermiso = this.captureImage;
     this.patient.persona = this.personform.value;
+
     this.patient.persona.fechaNacimiento = new Date(this.patient.persona.fechaNacimiento)
     const offsetMinutos = new Date().getTimezoneOffset();
     const offsetMilisegundos = offsetMinutos * 60 * 1000;
     this.patient.persona.fechaNacimiento = new Date(this.patient.persona.fechaNacimiento.getTime() + offsetMilisegundos);
     this.router.navigateByUrl('control/patient');
+
   }
   agregarAlergia() {
     if (this.alergiaAdd.trim() != '') {

@@ -33,7 +33,8 @@
                     <div class="d-flex justify-content-between">
                         <h5>Información general</h5>
                         <div class="btn-group" role="group">
-                            <button class="btn btn-primary" (click)="patientEdit()"><fa-icon [icon]='"pen-to-square"'></fa-icon></button>
+                            <button class="btn btn-primary" (click)="patientEdit()"><fa-icon
+                                    [icon]='"pen-to-square"'></fa-icon></button>
 
                         </div>
                     </div>
@@ -91,7 +92,8 @@
                     <div class="row ">
                         <div class="col-sm-12 mb-2">
                             <p><strong>Observaciones: </strong> </p>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly></textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                readonly></textarea>
                         </div>
                         <div class="col-md-6 col-sm-12" *ngIf="patientGet.alergias.length != 0">
                             <p><strong>Alergias:</strong></p>
@@ -118,7 +120,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h5>Consultas</h5>
+                        <h5>Historial</h5>
                         <div class="btn-group" role="group">
                             <button (click)="newConsultation()" class="btn btn-primary"><fa-icon
                                     [icon]='"plus"'></fa-icon></button>

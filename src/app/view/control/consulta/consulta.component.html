@@ -43,13 +43,15 @@
                         <h5 class="card-title">Precio: {{consultation.price | currency:'PEN'}}
                         </h5>
                         <h6 class="text-body-secondary"> Pagado: {{consultation.balance | currency:'PEN'}} </h6>
-                        <h6 class="text-body-secondary"> Pendiente: {{consultation.price - consultation.balance | currency:'PEN'}} </h6>
+                        <h6 class="text-body-secondary"> Pendiente: {{consultation.price - consultation.balance |
+                            currency:'PEN'}} </h6>
                         <p class="text-body-secondary"><strong>Estado: </strong> {{consultation.status}}</p>
                     </div>
 
                     <h6 class="card-subtitle mb-1 text-body-secondary"> Fecha: {{consultation.date | date}}
                     </h6>
-                    <small class="card-subtitle mb-1 text-body-secondary"> Creado {{consultation.date | timeAgoDetailed}}
+                    <small class="card-subtitle mb-1 text-body-secondary"> Creado {{consultation.date |
+                        timeAgoDetailed}}
                     </small>
 
                     <p *ngIf="consultation.description" class="card-text"><strong>Descripcion: </strong>
@@ -127,7 +129,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h5>Atenciones</h5>
+                        <h5>Visitas</h5>
                         <div class="btn-group" role="group">
                             <button *ngIf="canEdit" class="btn btn-primary btn-sm" (click)="newAttention()"><fa-icon
                                     [icon]='"plus"'></fa-icon></button>
@@ -160,7 +162,7 @@
                                         <li class="list-group-item d-flex align-items-stretch p-0">
                                             <div class="flex-grow-1 list-group-content p-1">
                                                 <div class="d-flex w-100 justify-content-between P-1">
-                                                    <h6>Fecha: {{item.endDate | date}}</h6><br>
+                                                    <h6>Fecha: {{item.endDate | date:'short'}}</h6><br>
                                                 </div>
 
                                                 <small style="word-break: break-all;">Procedimientos:</small>
