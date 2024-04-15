@@ -15,6 +15,9 @@ import { ConsultationService } from 'src/app/services/consultation/consultation.
 import { Attention } from 'src/app/models/attention';
 import { ComponentCanDeactivate } from 'src/app/security/guards/PendingChangesGuard';
 import { AttentionService } from 'src/app/services/attention/attention.service';
+import { SymbolService } from 'src/app/services/symbol/symbol.service';
+import { SymbolFilter } from 'src/app/models/symbol';
+import { Paginate_I } from 'src/app/models/utils/filter_i';
 
 @Component({
   selector: 'app-consulta',
@@ -33,6 +36,9 @@ export class ConsultaComponent implements ComponentCanDeactivate {
     }
     return !this.checkForUnSaved()
   }
+
+  @ViewChild('modalActions') modalAction!: TemplateRef<any>;
+  @ViewChild('modalPayment') modalPayment!: TemplateRef<any>;
   patientGet: Patient | undefined;
   consultation!: Consultation;
   consultationOld!: Consultation;
@@ -42,14 +48,14 @@ export class ConsultaComponent implements ComponentCanDeactivate {
   modalRef?: BsModalRef;
   actionForm!: FormGroup;
   paymentForm!: FormGroup;
-  @ViewChild('modalActions') modalAction!: TemplateRef<any>;
-  @ViewChild('modalPayment') modalPayment!: TemplateRef<any>;
+
   edit: boolean = false;
   canEdit: boolean = true;
   numRegex = /^-?\d*[.,]?\d{0,2}$/;
+
   constructor(private location: Location, private modalService: BsModalService,
     private fb: FormBuilder, private messageService: MessagesService, private consultationService: ConsultationService,
-    private router: Router, private route: ActivatedRoute, private attentionService: AttentionService) {
+    private router: Router, private route: ActivatedRoute, private attentionService: AttentionService, private symbolService: SymbolService) {
   }
 
 
@@ -273,10 +279,25 @@ export class ConsultaComponent implements ComponentCanDeactivate {
     this.reload()
   }
 
-  backHistory(){
+  backHistory() {
     console.log(this.consultation);
-    
+
     this.router.navigateByUrl('control/historial/' + this.consultation.patient.persona.numeroDocumento);
   }
 
+
+  async getSymbols() {
+    let filter: SymbolFilter = {
+      page: 0,
+      size: 100,
+      sortOrder: 1,
+      active: true,
+      name: undefined
+    };
+    let res: Paginate_I = await firstValueFrom(
+      this.symbolService.paginate(filter)
+    );
+
+    // this.symbolsList = res.content;
+  }
 }
