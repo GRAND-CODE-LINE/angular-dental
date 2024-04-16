@@ -1,1 +1,4 @@
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+<div class="container-spinner" *ngIf="loading">
+    <p-progressSpinner ></p-progressSpinner>
+</div>
+<p-blockUI [blocked]="loading"></p-blockUI>
