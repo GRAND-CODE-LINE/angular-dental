@@ -9,11 +9,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoleService } from 'src/app/services/role/role.service';
 import { MiniTableComponent } from 'src/app/shared/mini-table/mini-table.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CreatemenuComponent } from './menu/createmenu/createmenu.component';
 @NgModule({
   declarations: [
     PersonComponent,
     MenuComponent,
     CreatePersonComponent,
+    CreatemenuComponent,
     //MiniTableComponent
   ],
   imports: [
