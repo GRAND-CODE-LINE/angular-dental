@@ -22,7 +22,7 @@ import { Paginate_I } from 'src/app/models/utils/filter_i';
 @Component({
   selector: 'app-consulta',
   templateUrl: './consulta.component.html',
-  styleUrls: ['./consulta.component.scss']
+  styleUrls: ['./consulta.component.scss'],
 })
 export class ConsultaComponent implements ComponentCanDeactivate {
   // @HostListener allows us to also guard against browser refresh, close, etc.
@@ -32,9 +32,9 @@ export class ConsultaComponent implements ComponentCanDeactivate {
     // returning true will navigate without confirmation
     // returning false will show a confirm dialog before navigating away
     if (!this.edit) {
-      return true
+      return true;
     }
-    return !this.checkForUnSaved()
+    return !this.checkForUnSaved();
   }
 
   @ViewChild('modalActions') modalAction!: TemplateRef<any>;
@@ -43,7 +43,7 @@ export class ConsultaComponent implements ComponentCanDeactivate {
   consultation!: Consultation;
   consultationOld!: Consultation;
   config = {
-    animated: true
+    animated: true,
   };
   modalRef?: BsModalRef;
   actionForm!: FormGroup;
@@ -53,24 +53,30 @@ export class ConsultaComponent implements ComponentCanDeactivate {
   canEdit: boolean = true;
   numRegex = /^-?\d*[.,]?\d{0,2}$/;
 
-  constructor(private location: Location, private modalService: BsModalService,
-    private fb: FormBuilder, private messageService: MessagesService, private consultationService: ConsultationService,
-    private router: Router, private route: ActivatedRoute, private attentionService: AttentionService, private symbolService: SymbolService) {
-  }
-
+  constructor(
+    private location: Location,
+    private modalService: BsModalService,
+    private fb: FormBuilder,
+    private messageService: MessagesService,
+    private consultationService: ConsultationService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private attentionService: AttentionService,
+    private symbolService: SymbolService
+  ) {}
 
   async ngOnInit() {
     this.initForms();
     if (this.route.snapshot.params['id'] != undefined) {
       this.edit = true;
-      await this.getConsultationById(this.route.snapshot.params['id'])
+      await this.getConsultationById(this.route.snapshot.params['id']);
     } else {
       this.edit = false;
       this.initConsultation();
       let state = this.location.getState();
       this.patientGet = _.clone(state) as unknown as Patient;
       if (!this.patientGet.id) {
-        this.router.navigate(['control/historial'])
+        this.router.navigate(['control/historial']);
       }
     }
   }
@@ -86,8 +92,8 @@ export class ConsultaComponent implements ComponentCanDeactivate {
       patient: this.patientGet as Patient,
       price: 0,
       status: 'Creado',
-      code: 0
-    }
+      code: 0,
+    };
     this.consultationOld = _.clone(this.consultation);
   }
 
@@ -101,9 +107,8 @@ export class ConsultaComponent implements ComponentCanDeactivate {
     this.patientGet = _.clone(consultation.patient) as unknown as Patient;
 
     if (consultation.status == 'Cerrado') {
-      this.canEdit = false
+      this.canEdit = false;
     }
-
   }
 
   initForms() {
@@ -111,17 +116,22 @@ export class ConsultaComponent implements ComponentCanDeactivate {
       id: [],
       name: [null, Validators.compose([Validators.required])],
       comments: [null],
-      price: [null, Validators.compose([Validators.required, Validators.pattern(this.numRegex)])],
-    })
+      price: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(this.numRegex),
+        ]),
+      ],
+    });
     this.paymentForm = this.fb.group({
       id: [],
-      amount: [null, Validators.compose([Validators.required])]
-    })
+      amount: [null, Validators.compose([Validators.required])],
+    });
   }
 
   newAction(modalTemplate: TemplateRef<any>) {
     if (this.actionForm.invalid) {
-
       console.log(this.actionForm);
 
       return;
@@ -130,13 +140,13 @@ export class ConsultaComponent implements ComponentCanDeactivate {
     if (this.consultation?.actions.length == 0) {
       item = 1;
     } else {
-      item = Math.max(...this.consultation?.actions.map(o => o.item)) + 1
+      item = Math.max(...this.consultation?.actions.map((o) => o.item)) + 1;
     }
     let action: Action = this.actionForm.value;
-    action.item = item
-    this.consultation?.actions.push(action)
+    action.item = item;
+    this.consultation?.actions.push(action);
     this.modalService.hide();
-    this.actionForm.reset()
+    this.actionForm.reset();
     this.calculateTotalPrice();
   }
 
@@ -149,8 +159,8 @@ export class ConsultaComponent implements ComponentCanDeactivate {
       let message: Message_I = {
         title: 'Error',
         message: 'No hay cotizaciones.',
-        type: 'danger'
-      }
+        type: 'danger',
+      };
       this.messageService.openModal(message);
       return;
     }
@@ -158,19 +168,19 @@ export class ConsultaComponent implements ComponentCanDeactivate {
   }
 
   deleteAction(action: Action) {
-    this.consultation.actions = this.consultation.actions.filter(x => { return x.item !== action.item })
+    this.consultation.actions = this.consultation.actions.filter((x) => {
+      return x.item !== action.item;
+    });
     this.calculateTotalPrice();
   }
-
 
   calculateTotalPrice() {
     let total = 0;
     for (const iterator of this.consultation.actions) {
-      total = total + iterator.price
+      total = total + iterator.price;
     }
     this.consultation.price = total;
   }
-
 
   newPayment(modalTemplate: TemplateRef<any>) {
     if (this.paymentForm.invalid) {
@@ -180,35 +190,36 @@ export class ConsultaComponent implements ComponentCanDeactivate {
     if (this.consultation?.payments.length == 0) {
       item = 1;
     } else {
-      item = Math.max(...this.consultation?.payments.map(o => o.item)) + 1
+      item = Math.max(...this.consultation?.payments.map((o) => o.item)) + 1;
     }
     let payment: Payment = this.paymentForm.value;
     payment.item = item;
     payment.date = new Date();
-    this.consultation?.payments.push(payment)
+    this.consultation?.payments.push(payment);
     this.modalService.hide();
-    this.paymentForm.reset()
+    this.paymentForm.reset();
     this.calculateBalance();
   }
 
   deletePayment(action: Payment) {
-    this.consultation.payments = this.consultation.payments.filter(x => { return x.item !== action.item })
+    this.consultation.payments = this.consultation.payments.filter((x) => {
+      return x.item !== action.item;
+    });
     this.calculateBalance();
   }
 
   calculateBalance() {
     let total = 0;
     for (const iterator of this.consultation.payments) {
-      total = total + iterator.amount
+      total = total + iterator.amount;
     }
     this.consultation.balance = total;
 
     if (this.consultation.balance == this.consultation.price) {
-      this.consultation.status = 'Completado'
+      this.consultation.status = 'Completado';
     } else if (this.consultation.balance < this.consultation.price) {
-      this.consultation.status = 'Pendiente'
+      this.consultation.status = 'Pendiente';
     }
-
   }
 
   checkForUnSaved() {
@@ -228,63 +239,75 @@ export class ConsultaComponent implements ComponentCanDeactivate {
   }
 
   async createConsultation() {
-    this.consultation.patient = this.patientGet as Patient
-    let res = await firstValueFrom(this.consultationService.create(this.consultation));
+    this.consultation.patient = this.patientGet as Patient;
+    let res = await firstValueFrom(
+      this.consultationService.create(this.consultation)
+    );
     const consultation: Consultation = res as Consultation;
-    this.router.navigate(['control/consultation/edit', consultation.id])
+    this.router.navigate(['control/consultation/edit', consultation.id]);
   }
 
   async updateConsultation() {
-    this.consultation.patient = this.patientGet as Patient
-    let res = await firstValueFrom(this.consultationService.update(this.consultation.id, this.consultation));
+    this.consultation.patient = this.patientGet as Patient;
+    let res = await firstValueFrom(
+      this.consultationService.update(this.consultation.id, this.consultation)
+    );
     const consultation: Consultation = res as Consultation;
-    this.router.navigate(['control/consultation/edit', consultation.id])
-    this.getConsultationById(this.consultation.id)
+    this.router.navigate(['control/consultation/edit', consultation.id]);
+    this.getConsultationById(this.consultation.id);
   }
 
   reload() {
-    this.getConsultationById(this.consultation.id)
+    this.getConsultationById(this.consultation.id);
   }
 
   async newAttention() {
     if (this.edit) {
-      this.router.navigateByUrl('control/attention/create', { state: this.consultation });
+      this.router.navigateByUrl('control/attention/create', {
+        state: this.consultation,
+      });
     } else {
-      this.consultation.patient = this.patientGet as Patient
-      let res = await firstValueFrom(this.consultationService.create(this.consultation));
+      this.consultation.patient = this.patientGet as Patient;
+      let res = await firstValueFrom(
+        this.consultationService.create(this.consultation)
+      );
       const consultation: Consultation = res as Consultation;
-      this.router.navigateByUrl('control/attention/create', { state: consultation });
+      this.router.navigateByUrl('control/attention/create', {
+        state: consultation,
+      });
     }
-
   }
 
   detailAttention(item: Attention) {
-    this.router.navigateByUrl('control/attention/edit/' + item.id, { state: this.consultation });
+    this.router.navigateByUrl('control/attention/edit/' + item.id, {
+      state: this.consultation,
+    });
   }
-
 
   calculateRemaining() {
-    this.paymentForm.patchValue({ amount: this.consultation.price - this.consultation.balance })
+    this.paymentForm.patchValue({
+      amount: this.consultation.price - this.consultation.balance,
+    });
   }
 
-
   closeConsultation() {
-    this.consultation.status = 'Cerrado'
-    this.updateConsultation()
+    this.consultation.status = 'Cerrado';
+    this.updateConsultation();
   }
 
   async deleteAtention(item: Attention) {
     await firstValueFrom(this.attentionService.delete(item.id));
 
-    this.reload()
+    this.reload();
   }
 
   backHistory() {
     console.log(this.consultation);
 
-    this.router.navigateByUrl('control/historial/' + this.consultation.patient.persona.numeroDocumento);
+    this.router.navigateByUrl(
+      'control/historial/' + this.consultation.patient.persona.numeroDocumento
+    );
   }
-
 
   async getSymbols() {
     let filter: SymbolFilter = {
@@ -292,7 +315,7 @@ export class ConsultaComponent implements ComponentCanDeactivate {
       size: 100,
       sortOrder: 1,
       active: true,
-      name: undefined
+      name: undefined,
     };
     let res: Paginate_I = await firstValueFrom(
       this.symbolService.paginate(filter)

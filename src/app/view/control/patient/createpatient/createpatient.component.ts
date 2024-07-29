@@ -137,9 +137,9 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     this.listEnfermedades = data.enfermedades;
     // Supongamos que 'fechaSinFormato' es tu fecha sin formato
 
-
-    let fechaFormateada = moment(data.persona.fechaNacimiento).format("yyyy-MM-DD")
-
+    let fechaFormateada = moment(data.persona.fechaNacimiento).format(
+      'yyyy-MM-DD'
+    );
 
     // Asigna la fecha formateada al control del formulario
     this.personform.patchValue({
@@ -154,12 +154,15 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
     this.patient.fotoPermiso = this.captureImage;
     this.patient.persona = this.personform.value;
 
-    this.patient.persona.fechaNacimiento = new Date(this.patient.persona.fechaNacimiento)
+    this.patient.persona.fechaNacimiento = new Date(
+      this.patient.persona.fechaNacimiento
+    );
     const offsetMinutos = new Date().getTimezoneOffset();
     const offsetMilisegundos = offsetMinutos * 60 * 1000;
-    this.patient.persona.fechaNacimiento = new Date(this.patient.persona.fechaNacimiento.getTime() + offsetMilisegundos);
+    this.patient.persona.fechaNacimiento = new Date(
+      this.patient.persona.fechaNacimiento.getTime() + offsetMilisegundos
+    );
     this.router.navigateByUrl('control/patient');
-
   }
   agregarAlergia() {
     if (this.alergiaAdd.trim() != '') {

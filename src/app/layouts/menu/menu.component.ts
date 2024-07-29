@@ -7,17 +7,17 @@ import { MenuService } from 'src/app/services/menu.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit, OnChanges {
-  menuPrincipal!: Observable<itemsMenu[]>;
+  menuPrincipal!: Observable<any[]>;
   public isAuthenticated: boolean = false;
-  constructor(private servicio: MenuService, public loginService: LoginService) { }
-
+  constructor(
+    private servicio: MenuService,
+    public loginService: LoginService
+  ) {}
 
   ngOnInit() {
-
-
     this.menuPrincipal = this.servicio.recibirMenu();
   }
 
@@ -27,7 +27,5 @@ export class MenuComponent implements OnInit, OnChanges {
   ngOnChanges() {
     console.log('Changes');
     console.log(this.isAuthenticated);
-
   }
-
 }
