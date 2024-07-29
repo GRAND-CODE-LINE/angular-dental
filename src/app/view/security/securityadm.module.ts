@@ -7,12 +7,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CreateRoleComponent } from './role/create-role/create-role.component';
 
 
 
 @NgModule({
   declarations: [
     RoleComponent,
+    CreateRoleComponent,
     UserComponent,
     CreateUserComponent
   ],

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { toInteger } from 'lodash';
 import { firstValueFrom } from 'rxjs';
 import { User, UserFilter } from 'src/app/models/user';
 import { Paginate_I } from 'src/app/models/utils/filter_i';
+import { UserRepresentation_I } from 'src/app/models/utils/User_Representation_K';
 import { UserService } from 'src/app/services/user/user.service';
 import { Paginate_T } from 'src/app/shared/mini-table/mini-table.component';
 
@@ -46,7 +48,10 @@ export class UserComponent {
     this.cols = [
       // { name: 'Id', field: 'id' },
       { name: 'Username', field: 'username' },
-      { name: 'Email', field: 'email' }]
+      { name: 'Nombres', field: 'firstName' },
+      { name: 'Apellidos', field: 'lastName' },
+      { name: 'Email', field: 'email' },
+      { name: 'Activo', field: 'enabled' },]
   }
 
   ngOnChanges() {
@@ -63,15 +68,14 @@ export class UserComponent {
     let res: Paginate_I = await firstValueFrom(this.userService.paginate(this.filter));
     this.items = res.content;
     console.log(this.items);
+    console.log(toInteger((res.totalElements + this.filter.size - 1) / this.filter.size));
+    
     this.paginateObject = {
-      size: res.size,
+      size: this.filter.size,
       total: res.totalElements,
-      totalpages: res.totalPages,
-      currentPage: res.number
+      totalpages: toInteger((res.totalElements + this.filter.size - 1) / this.filter.size),
+      currentPage: this.filter.page
     }
-
-
-
   }
 
   update() {
@@ -94,7 +98,7 @@ export class UserComponent {
 
   onEditClick(event: User) {
     console.log(event);
-    this.router.navigate(['securityadm/user/create', event.id])
+    this.router.navigate(['securityadm/user/create', event.username])
 
 
   }

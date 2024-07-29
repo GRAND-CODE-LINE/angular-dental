@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Role, RoleFilter } from 'src/app/models/role';
 import { Paginate_I } from 'src/app/models/utils/filter_i';
@@ -25,11 +26,11 @@ export class RoleComponent {
     totalpages: 0
   }
 
-  constructor(private roleService: RoleService) {
+  constructor(private roleService: RoleService, private router: Router) {
     //initialize filter
     this.filter = {
       page: 0,
-      size: 2,
+      size: 10,
       sortFiled: 'name',
       sortOrder: 1
     }
@@ -43,9 +44,8 @@ export class RoleComponent {
 
   initCols() {
     this.cols = [
-      { name: 'Id', field: 'id' },
       { name: 'Nombre', field: 'name' },
-      { name: 'Test', field: 'test' }]
+      { name: 'Descripcion', field: 'description' }]
   }
 
   ngOnChanges() {
@@ -93,6 +93,12 @@ export class RoleComponent {
 
   onEditClick(event: Role) {
     console.log(event);
+    this.router.navigate(['securityadm/role/create', event.id])
+  }
 
+  async onDeleteClick(event: Role){
+    console.log(event);
+    let res = await firstValueFrom(this.roleService.delete(event.name));
+    this.update()
   }
 }

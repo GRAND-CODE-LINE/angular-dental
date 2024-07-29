@@ -1,28 +1,21 @@
 <div class="container minita-container">
-    <div class="row">
-        <div class="col-md-12" style="text-align: center;">
+    <div class="row minita-row justify-content-between">
+        <div class="col">
             <h5>Mantenimiento Rol</h5>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <button class="btn btn-primary" (click)="update()">Actualizar</button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <app-mini-filter></app-mini-filter>
+        <div class="col" style="text-align: end;">
+            <button class="btn btn-warning btn-sm me-1" (click)="update()"><fa-icon [icon]='"rotate-right"'>
+                </fa-icon></button>
+            <button class="btn btn-primary btn-sm" [routerLink]="'create'"><fa-icon [icon]='"plus"'>
+                </fa-icon> Nuevo</button>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row minita-row">
         <div class="col-md-12">
             <app-mini-table [cols]="cols" [items]="items" [paginateObject]="paginateObject" [edit]="true"
-                (onPageChange)="onPageChangexx($event)" (onEditClick)="onEditClick($event)"></app-mini-table>
+                [delete]="true" (onPageChange)="onPageChangexx($event)" (onEditClick)="onEditClick($event)"
+                (onDeleteClick)="onDeleteClick($event)"></app-mini-table>
         </div>
     </div>
-
-
-
-
 </div>

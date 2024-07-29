@@ -8,6 +8,7 @@ import { CreateSymbolComponent } from './symbol/create-symbol/create-symbol.comp
 import { ConsultaComponent } from './consulta/consulta.component';
 import { AttentionComponent } from './attention/attention.component';
 import { PendingChangesGuard } from 'src/app/security/guards/PendingChangesGuard';
+import { AuthGuard } from 'src/app/security/guards/KeycloakAuthGuard';
 
 const routes: Routes = [
   { path: 'historial', component: HistorialComponent },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'symbol', component: SymbolComponent },
   { path: 'symbol/create', component: CreateSymbolComponent },
   { path: 'symbol/edit/:id', component: CreateSymbolComponent },
-  { path: 'patient', component: PatientComponent },
+  { path: 'patient', component: PatientComponent, canActivate: [AuthGuard] },
   { path: 'patient/create', component: CreatepatientComponent },
   { path: 'patient/edit/:id', component: CreatepatientComponent },
   { path: 'consultation/create', component: ConsultaComponent, canDeactivate: [PendingChangesGuard] },
