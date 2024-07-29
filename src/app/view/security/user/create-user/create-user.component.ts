@@ -18,7 +18,6 @@ export class CreateUserComponent {
   user!: User;
   userForm!: FormGroup;
   edit = false;
-  personform!: FormGroup;
   documentType!: Observable<itemsType[]>;
   constructor(
     private userService: UserService,
@@ -27,14 +26,14 @@ export class CreateUserComponent {
     private route: ActivatedRoute,
     private personService: PersonService,
     private http: HttpClient
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
     this.documentType = this.getDocumentType();
     this.initForms();
     if (this.route.snapshot.params['id'] != undefined) {
       this.edit = true;
-      await this.getUserById(this.route.snapshot.params['id']);
+      await this.getUserByUsername(this.route.snapshot.params['id']);
     }
   }
 
@@ -45,29 +44,15 @@ export class CreateUserComponent {
       email: [null, Validators.compose([Validators.required])],
       password: [null, Validators.compose([Validators.required])],
       reppassword: [null, Validators.compose([Validators.required])],
-    });
-
-    this.personform = this.fb.group({
-      nombre: [null, Validators.compose([Validators.required])],
-      apaterno: [null, Validators.compose([Validators.required])],
-      amaterno: [null, Validators.compose([Validators.required])],
-      direccion: [null, Validators.compose([])],
-      telefono: [null, Validators.compose([Validators.required])],
-      email: [null, Validators.compose([Validators.required])],
-      tipoDocumento: [null, Validators.compose([Validators.required])],
-      numeroDocumento: [
-        null,
-        Validators.compose([Validators.required, Validators.maxLength(8)]),
-      ],
-      fechaNacimiento: [null, Validators.compose([Validators.required])],
+      firstName: [null, Validators.compose([Validators.required])],
+      lastName: [null, Validators.compose([Validators.required])]
     });
   }
 
-  async getUserById(id: string) {
-    let userGet: any = await firstValueFrom(this.userService.getById(id));
+  async getUserByUsername(username: string) {
+    let userGet: User[] = await firstValueFrom(this.userService.getByUsername(username)) as User[];
     console.log(userGet);
-    this.userForm.patchValue(userGet);
-    this.personform.patchValue(userGet.person);
+    this.userForm.patchValue(userGet[0]);
   }
 
   async create() {
@@ -76,7 +61,7 @@ export class CreateUserComponent {
     }
 
     this.user = this.userForm.value;
-    this.user.person = this.personform.value;
+    // this.user.person = this.personform.value;
 
     console.log(this.user);
 
@@ -91,7 +76,7 @@ export class CreateUserComponent {
     console.log('edita');
 
     this.user = this.userForm.value;
-    this.user.person = this.personform.value;
+    
     await firstValueFrom(this.userService.update(this.user.id, this.user));
     this.router.navigate(['securityadm/user']);
   }
@@ -99,6 +84,7 @@ export class CreateUserComponent {
   saveData() {
     console.log('aaaaaaaaaaaaaaaa');
     console.log(this.edit);
+    console.log(this.userForm);
 
     if (this.edit) {
       this.update();
@@ -107,20 +93,7 @@ export class CreateUserComponent {
     }
   }
 
-  back() {}
+  back() { }
 
-  async searchPerson() {
-    let person = this.personform.value;
-    let res: any = (await firstValueFrom(
-      this.personService.getByDocument(person.numeroDocumento)
-    )) as Person;
 
-    let personGet: Person = res;
-    console.log(personGet);
-
-    if (personGet) {
-      this.personform.patchValue(personGet);
-    }
-    // personGet.fechaNacimiento = personGet.fechaNacimiento.substring(0, 10);
-  }
 }

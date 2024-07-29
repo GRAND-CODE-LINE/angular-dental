@@ -7,8 +7,16 @@
         <div class="card-body">
             <form (submit)="saveData()" [formGroup]="userForm" autocomplete="off">
                 <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="firstname" class="form-label">Nombres</label>
+                        <input type="text" class="form-control" id="firstname" formControlName="firstName">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label">Apellidos</label>
+                        <input type="text" class="form-control" id="lastName" formControlName="lastName">
+                    </div>
                     <div class="col-md-6 col-sm-10">
-                        <label for="username" class="form-label">Username</label>
+                        <label for="username" class="form-label">Usuario</label>
                         <input type="text" class="form-control" id="username" formControlName="username">
                     </div>
                     <div class="col-md-6 col-sm-2">
@@ -25,16 +33,11 @@
                         <label for="reppassword" class="form-label">Repita Contraseña</label>
                         <input type="password" class="form-control" id="reppassword" formControlName="reppassword">
                     </div>
-                    <hr>
-
-
 
                 </div>
-
-
             </form>
 
-            <form [formGroup]="personform" autocomplete="off">
+            <!-- <form [formGroup]="personform" autocomplete="off">
 
                 <div class="row g-3">
                     <div class="col-6">
@@ -74,9 +77,8 @@
                         <input type="date" class="form-control" id="fechaNac" formControlName="fechaNacimiento">
                     </div>
                 </div>
-            </form>
+            </form> -->
             <hr>
-
 
             <button type="button" class="btn btn-primary" (click)="saveData()">Guardar</button>
 

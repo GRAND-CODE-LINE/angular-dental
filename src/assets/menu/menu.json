@@ -15,6 +15,11 @@
       },
       {
         "icon": "alarm-outline",
+        "text": "Role",
+        "url": "securityadm/role"
+      },
+      {
+        "icon": "alarm-outline",
         "text": "Simbolos",
         "url": "control/symbol"
       }

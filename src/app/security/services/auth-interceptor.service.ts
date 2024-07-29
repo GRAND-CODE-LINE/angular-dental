@@ -6,25 +6,23 @@ import { MessagesService } from 'src/app/layouts/services/messages.service';
 import { LoginResponse } from 'src/app/models/login';
 import { Message_I } from 'src/app/models/utils/message_i';
 import { LoginService } from './login.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthInterceptorService implements HttpInterceptor {
-  constructor(private router: Router, private messageService: MessagesService, private loginService: LoginService) { }
+  constructor(private router: Router, private messageService: MessagesService, private loginService: LoginService, private keycloakService: KeycloakService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const token: any = localStorage.getItem('minita_user');
+    const token: any = localStorage.getItem('token');
     const loginobj: LoginResponse = JSON.parse(token)
 
     let request = req;
     if (token) {
       request = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${loginobj.accessToken}`,
-          'Access-Control-Allow-Origin': '*'
-        }
+        headers: req.headers.set('Authorization', `Bearer ${loginobj.access_token}`)
       });
     }
     console.log(loginobj);
@@ -45,7 +43,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         }),
         catchError((err: HttpErrorResponse, res: any) => {
           console.log(err);
-          
+
           if ((err.status === 401 || err.status === 403) && this.router.url == '/security/login') {
             let message: Message_I = {
               title: 'Error',

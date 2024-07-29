@@ -1,0 +1,28 @@
+<br>
+<div class="container minita-container">
+    <div class="card">
+        <div class="card-header">
+            Nuevo usuario
+        </div>
+        <div class="card-body">
+            <form (submit)="saveData()" [formGroup]="roleForm" autocomplete="off">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="firstname" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="firstname" formControlName="name">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label">Decripción</label>
+                        <input type="text" class="form-control" id="lastName" formControlName="description">
+                    </div>
+
+
+                </div>
+            </form>
+
+            <hr>
+            <button type="button" class="btn btn-primary" (click)="saveData()">Guardar</button>
+
+        </div>
+    </div>
+</div>

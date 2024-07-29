@@ -35,6 +35,13 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
+
+    let token = localStorage.getItem('token') ? localStorage.getItem('token') : undefined
+    if (token) {
+      let obj = JSON.parse(token)
+      this.loginservice.openTab(obj.access_token, obj.refresh_token)
+    }
+
     if (this.loginservice.checkAuthStatus()) {
       let res = await this.loginservice.validateToken()
     }
