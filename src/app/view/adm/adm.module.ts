@@ -19,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
+import { ButtonGroupModule } from 'primeng/buttongroup';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { DialogModule } from 'primeng/dialog';
     ButtonModule,
     InputTextModule,
     DialogModule,
+    ButtonGroupModule,
   ],
   exports: [AdmRoutingModule],
   providers: [RoleService],

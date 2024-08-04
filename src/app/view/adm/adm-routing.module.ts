@@ -14,12 +14,10 @@ const routes: Routes = [
   {
     path: 'menu/create',
     component: CreatemenuComponent,
-    canDeactivate: [PendingChangesGuard],
   },
   {
     path: 'menu/edit/:id',
     component: CreatemenuComponent,
-    canDeactivate: [PendingChangesGuard],
   },
 ];
 

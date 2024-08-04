@@ -70,4 +70,10 @@ export class MenuComponent implements OnInit {
   OpenCreate() {
     this.router.navigate(['adm/menu/create']);
   }
+  onPageChangexx(e: Paginate_T) {
+    this.paginateObject = e;
+    this.filter.size = this.paginateObject.size;
+    this.filter.page = this.paginateObject.currentPage;
+    this.paginateData();
+  }
 }

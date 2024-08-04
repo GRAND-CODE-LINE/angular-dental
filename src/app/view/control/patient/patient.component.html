@@ -14,7 +14,8 @@
   <div class="row minita-row">
     <div class="col-md-12">
       <app-mini-table [cols]="cols" [items]="items" [paginateObject]="paginateObject" [edit]="true" [delete]="true"
-        (onEditClick)="onEditClick($event)" (onDeleteClick)="onDeleteClick($event)"></app-mini-table>
+        (onEditClick)="onEditClick($event)" (onDeleteClick)="onDeleteClick($event)"
+        (onPageChange)="onPageChangexx($event)"></app-mini-table>
     </div>
   </div>
 </div>

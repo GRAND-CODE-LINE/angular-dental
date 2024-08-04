@@ -1,38 +1,28 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <form (submit)="create()" [formGroup]="menuForm">
-                <div class="card flex flex-wrap gap-3 justify-content-center">
-                    <div class="row" style="margin-top: 1rem;">
-                        <div class="col dm-6 p-3">
-                            <p-floatLabel>
-                                <input id="name" type="text" pInputText formControlName="name" />
-                                <label for="name">Nombre</label>
-                            </p-floatLabel>
-                        </div>
-                        <div class=" col md-6 p-3" style="text-align: right;">
-                            <p-button label=' Agregar Submenu' [raised]="true" severity="primary"
-                                (onClick)="openModal()">
-                                <fa-icon [icon]='"plus"'></fa-icon>
-                            </p-button>
-                        </div>
-                        <div class="col md-6 p-3" style="text-align: right;">
-                            <p-button label="  Guardar" [raised]="true" severity="success" type="submit">
-                                <fa-icon [icon]='"floppy-disk"'></fa-icon>
-                            </p-button>
-                        </div>
-                        <div class="col md-6 p-3" style="text-align: right;">
-                            <p-button label="  Cancelar" [raised]="true" severity="danger" type="button"
-                                (onClick)="goBack()">
-                                <fa-icon [icon]='"x"'></fa-icon>
-                            </p-button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+<div class="container minita-container">
+    <form (submit)="create()" [formGroup]="menuForm">
+        <h5>Creacion de Menu</h5>
+        <div class="row minita-row justify-content-between">
+            <div class="col">
+                <p-floatLabel>
+                    <input id="name" type="text" pInputText formControlName="name" />
+                    <label for="name">Nombre</label>
+                </p-floatLabel>
+            </div>
+            <div class="col ">
+                <p-buttonGroup>
+                    <p-button label='  Agregar Submenu' [raised]="true" severity="primary" icon="pi pi-plus"
+                        (onClick)="openModal()" size="small" />
+                    <p-button label="   Guardar" [raised]="true" severity="success" type="submit" icon="pi pi-save"
+                        size="small" />
+                    <p-button label="   Cancelar" [raised]="true" severity="danger" type="button" (onClick)="goBack()"
+                        icon="pi pi-times" size="small" />
+                </p-buttonGroup>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
+
+
 
 <div class="container-fluid">
     <div class="row">
@@ -63,9 +53,19 @@
                                                     <h6 class="mb-1">{{item.name}}</h6>
                                                 </div>
                                             </div>
-                                            <button (click)="editMenu(item)"
-                                                class="btn btn-danger btn-sm rounded-0 flex-fill button-g-list"><fa-icon
-                                                    [icon]='"trash"'></fa-icon></button>
+                                            <div class="row" style="padding: 0.5rem; ">
+                                                <div class="col">
+                                                    <button (click)="editMenu(item)"
+                                                        class="btn btn-outline-warning btn-sm rounded-0 flex-fill button-g-list"><fa-icon
+                                                            [icon]='"edit"'></fa-icon></button>
+                                                </div>
+                                                <div class="col">
+                                                    <button (click)="deleteMenu(item)"
+                                                        class="btn btn-danger btn-sm rounded-0 flex-fill button-g-list"><fa-icon
+                                                            [icon]='"trash"'></fa-icon></button>
+                                                </div>
+                                            </div>
+
                                         </li>
                                     </ng-container>
                                 </ng-template>
@@ -89,7 +89,7 @@
                         <input pInputText id="name" class="flex-auto" autocomplete="off" formControlName="name" />
                     </div>
                     <div class="flex justify-content-end gap-2">
-                        <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
+                        <p-button label="Cancelar" severity="secondary" (onClick)="visible = false" />
                         <p-button label="Save" type="submit" />
                     </div>
                 </form>
