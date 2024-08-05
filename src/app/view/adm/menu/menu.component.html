@@ -1,0 +1,18 @@
+<div class="container minita-container">
+    <div class="row minita-row justify-content-between">
+        <div class="col">
+            <h4>Mantenimiento Menús</h4>
+        </div>
+        <div class="col" style="text-align: end; justify-content: center;">
+            <button *ngIf="canEdit" class="btn btn-primary btn-sm" (click)="OpenCreate()"><fa-icon
+                    [icon]='"plus"'></fa-icon></button>
+        </div>
+    </div>
+    <div class="row minita-row">
+        <div class="col-md-12">
+            <app-mini-table [cols]="cols" [items]="items" [paginateObject]="paginateObject" [edit]="true"
+                [delete]="true" (onEditClick)="onEditClick($event)" (onPageChange)="onPageChangexx($event)"
+                (onDeleteClick)="onDeleteClick($event)"></app-mini-table>
+        </div>
+    </div>
+</div>

@@ -43,9 +43,15 @@ export class PatientComponent {
       { name: 'Nombre', field: 'persona', subfield: 'nombre' },
       { name: 'Apellido', field: 'persona', subfield: 'apaterno' },
       { name: 'DNI', field: 'persona', subfield: 'numeroDocumento' },
-      { name: 'Fecha Nac.', field: 'persona', subfield: 'fechaNacimiento', isDate: true },
+      {
+        name: 'Fecha Nac.',
+        field: 'persona',
+        subfield: 'fechaNacimiento',
+        isDate: true,
+      },
       { name: 'Talla', field: 'talla' },
-      { name: 'Genero', field: 'persona', subfield: 'genero' }];
+      { name: 'Genero', field: 'persona', subfield: 'genero' },
+    ];
   }
 
   ngOnChanges() {
@@ -83,5 +89,11 @@ export class PatientComponent {
   }
   onNewPatient() {
     this.router.navigateByUrl('control/patient/create');
+  }
+  onPageChangexx(e: Paginate_T) {
+    this.paginateObject = e;
+    this.filter.size = this.paginateObject.size;
+    this.filter.page = this.paginateObject.currentPage;
+    this.paginateData();
   }
 }

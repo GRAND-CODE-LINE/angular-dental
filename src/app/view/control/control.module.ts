@@ -22,7 +22,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AttentionComponent } from './attention/attention.component';
 import { WebcamModule } from 'ngx-webcam';
 import { PendingChangesGuard } from 'src/app/security/guards/PendingChangesGuard';
-
 @NgModule({
   declarations: [
     HistorialComponent,
@@ -44,6 +43,6 @@ import { PendingChangesGuard } from 'src/app/security/guards/PendingChangesGuard
     SharedModule,
     WebcamModule,
   ],
-  providers:[PendingChangesGuard]
+  providers: [PendingChangesGuard],
 })
 export class ControlModule {}

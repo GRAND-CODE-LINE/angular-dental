@@ -19,14 +19,30 @@ const routes: Routes = [
   { path: 'patient', component: PatientComponent, canActivate: [AuthGuard] },
   { path: 'patient/create', component: CreatepatientComponent },
   { path: 'patient/edit/:id', component: CreatepatientComponent },
-  { path: 'consultation/create', component: ConsultaComponent, canDeactivate: [PendingChangesGuard] },
-  { path: 'consultation/edit/:id', component: ConsultaComponent, canDeactivate: [PendingChangesGuard] },
-  { path: 'attention/create', component: AttentionComponent, canDeactivate: [PendingChangesGuard] },
-  { path: 'attention/edit/:id', component: AttentionComponent, canDeactivate: [PendingChangesGuard] }
+  {
+    path: 'consultation/create',
+    component: ConsultaComponent,
+    canDeactivate: [PendingChangesGuard],
+  },
+  {
+    path: 'consultation/edit/:id',
+    component: ConsultaComponent,
+    canDeactivate: [PendingChangesGuard],
+  },
+  {
+    path: 'attention/create',
+    component: AttentionComponent,
+    canDeactivate: [PendingChangesGuard],
+  },
+  {
+    path: 'attention/edit/:id',
+    component: AttentionComponent,
+    canDeactivate: [PendingChangesGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ControlRoutingModule { }
+export class ControlRoutingModule {}
