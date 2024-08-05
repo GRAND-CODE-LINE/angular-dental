@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { KeycloakService } from 'keycloak-angular';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { KeycloakEventType, KeycloakService } from 'keycloak-angular';
+import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { Login, LoginResponse as LoginResponse } from 'src/app/models/login';
 import { environment } from 'src/environments/environment';
 
@@ -10,9 +10,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class LoginService {
-
-
-
   constructor(private http: HttpClient, private router: Router, private keycloakService: KeycloakService) {
   }
   // http://localhost:9090/realms/DENTAL_DEV/protocol/openid-connect/token
@@ -40,15 +37,27 @@ export class LoginService {
       .set('password', login.password)
       .set('grant_type', 'password')
       .set('client_id', login.client_id)
-      // .set('client_secret', login.client_secret);
+    // .set('client_secret', login.client_secret);
 
     return this.http.post<any>('http://localhost:9090/realms/DENTAL_DEV/protocol/openid-connect/token', body)
   }
 
+  public updateTokenRequest(): Observable<LoginResponse> {
+    const token: any = localStorage.getItem('token');
+    const loginobj: LoginResponse = JSON.parse(token)
 
-  public test(): Observable<any> {
-    return this.http.get<any>(this.URL_BASE + '/test/mod')
+    const username: any = localStorage.getItem('username');
+    let login: Login = { username: username, password: '' };
+    login.client_id = 'dental-security-front'
+    login.grant_type = 'refresh-token'
+    const body = new HttpParams()
+      .set('username', login.username)
+      .set('grant_type', 'refresh-token')
+      .set('client_id', login.client_id)
+      .set('refresh-token', loginobj.refresh_token)
+    return this.http.post<any>('http://localhost:9090/realms/DENTAL_DEV/protocol/openid-connect/token', body)
   }
+
 
 
   logOut() {
@@ -56,10 +65,10 @@ export class LoginService {
     this.router.navigateByUrl('');
   }
 
-  async logIn(user: any) {
-    console.log(user);
-    await localStorage.setItem('token', JSON.stringify(user));
-    this.loadKeycloak(user.access_token, user.refresh_token)
+  async setTokenToCookies(resp: any) {
+    console.log(resp);
+    await localStorage.setItem('token', JSON.stringify(resp));
+    this.loadKeycloak(resp.access_token, resp.refresh_token)
   }
 
   isLogged() {
@@ -67,16 +76,17 @@ export class LoginService {
   }
 
 
-  validateToken(): Observable<any> {
-    return this.http.get<any>(this.URL_BASE + '/auth/validatetoken')
-  }
 
-  openTab(access_token: any, refresh_token: any){
+
+  openTab(access_token: any, refresh_token: any) {
     this.loadKeycloak(access_token, refresh_token)
   }
 
   async loadKeycloak(access_token: any, refresh_token: any) {
     // this.router.navigateByUrl('/home/principal');
+
+
+
     await this.keycloakService.init({
       config: {
         url: 'http://localhost:9090',
@@ -94,9 +104,34 @@ export class LoginService {
       },
       enableBearerInterceptor: true,
       bearerPrefix: 'Bearer',
-  
+
     }).then((authenticated) => {
       console.log(`Keycloak inicializado - Autenticado: ${authenticated}`);
+      const keycloakAuth = this.keycloakService.getKeycloakInstance();
+
+      keycloakAuth.onTokenExpired = () => {
+        if (keycloakAuth.refreshToken) {
+          this.keycloakService.updateToken()
+            .then(async (refreshed) => {
+              if (refreshed) {
+
+                let res: LoginResponse = await firstValueFrom(this.updateTokenRequest());
+                if (res) {
+                  await (this.setTokenToCookies(res))
+                }
+                alert('Token was successfully refreshed');
+              } else {
+                alert('Token is still valid');
+              }
+            }).catch(function () {
+              alert('Failed to refresh the token, or the session has expired');
+            });
+        } else {
+          // login();
+        }
+      }
+
+
     }).catch((error) => console.error('Error en la inicialización de Keycloak', error));;
   }
 

@@ -19,7 +19,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { LoaderInterceptorService } from './security/services/loader-interceptor.service';
 
 import localeEs from "@angular/common/locales/es";
-import { DatePipe, registerLocaleData } from "@angular/common";
+import { CommonModule, DatePipe, registerLocaleData } from "@angular/common";
 import { KeycloakAngularModule, KeycloakBearerInterceptor, KeycloakService } from 'keycloak-angular';
 registerLocaleData(localeEs, "es");
 
@@ -90,7 +90,8 @@ const KeycloakInitializerProvider: Provider = {
     LayoutsModule,
     ModalModule.forRoot(),
     FontAwesomeModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    CommonModule
   ],
   providers: [
     {

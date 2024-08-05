@@ -44,13 +44,7 @@ export class ModalComponent {
     this.modalRef = this.modalService.show(this.modalTemplate, this.config);
   }
 
-
   closePopup() {
-
   }
 
-  async test() {
-    let res: any = await firstValueFrom(this.loginservice.test());
-    console.log(res);
-  }
 }
