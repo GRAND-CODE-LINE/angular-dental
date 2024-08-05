@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(async (event: Event) => {
       if (event instanceof NavigationStart) {
         if (this.loginservice.checkAuthStatus()) {
-          let res = await this.loginservice.validateToken()
+          // let res = await this.loginservice.validateToken()
         }
       }
 
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
     }
 
     if (this.loginservice.checkAuthStatus()) {
-      let res = await this.loginservice.validateToken()
+      // let res = await this.loginservice.validateToken()
     }
   }
 }

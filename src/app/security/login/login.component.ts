@@ -35,7 +35,9 @@ export class LoginComponent {
     let res: LoginResponse = await firstValueFrom(this.loginservice.loginRequest(login));
     console.log(res);
     if (res) {
-      await (this.loginservice.logIn(res))
+      await localStorage.setItem('username', login.username);
+      await (this.loginservice.setTokenToCookies(res))
+      this.router.navigateByUrl('/home/principal');
     }
   }
 
