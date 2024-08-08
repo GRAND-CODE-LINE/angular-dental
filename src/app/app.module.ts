@@ -68,12 +68,12 @@ function initializeKeycloak(keycloak: KeycloakService, loginService: LoginServic
                 if (res) {
                   await (loginService.setTokenToCookies(res))
                 }
-                alert('Token was successfully refreshed');
+                console.log('Token was successfully refreshed');
               } else {
-                alert('Token is still valid');
+                console.log('Token is still valid');
               }
             }).catch(function () {
-              alert('Failed to refresh the token, or the session has expired');
+              console.log('Failed to refresh the token, or the session has expired');
             });
         } else {
           // login();
@@ -130,7 +130,7 @@ const KeycloakInitializerProvider: Provider = {
       useClass: LoaderInterceptorService,
       multi: true,
     },
-   
+
     KeycloakInitializerProvider, // Initializes Keycloak
     MessagesService,
     { provide: LOCALE_ID, useValue: "es" },

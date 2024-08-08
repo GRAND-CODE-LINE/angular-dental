@@ -114,7 +114,7 @@ export class LoginService {
       this.keycloakService.keycloakEvents$.subscribe({
         next: (e) => {
           if (e.type == KeycloakEventType.OnTokenExpired) {
-            alert('Token EXPIRED !!!!!!!!!!!!!!');
+            console.log('Token EXPIRED !!!!!!!!!!!!!!');
             this.keycloakService.updateToken(20).then(async refreshed => {
               console.log('refreshed');
               console.log(refreshed);
@@ -124,9 +124,9 @@ export class LoginService {
                 if (res) {
                   await (this.setTokenToCookies(res))
                 }
-                alert('Token was successfully refreshed');
+                console.log('Token was successfully refreshed');
               } else {
-                alert('Token is still valid');
+                console.log('Token is still valid');
               }
             });
           }
