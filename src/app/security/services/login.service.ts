@@ -49,10 +49,10 @@ export class LoginService {
     const username: any = localStorage.getItem('username');
     let login: Login = { username: username, password: '' };
     login.client_id = 'dental-security-front'
-    login.grant_type = 'refresh-token'
+    login.grant_type = 'refresh_token'
     const body = new HttpParams()
       .set('username', login.username)
-      .set('grant_type', 'refresh-token')
+      .set('grant_type', 'refresh_token')
       .set('client_id', login.client_id)
       .set('refresh-token', loginobj.refresh_token)
     return this.http.post<any>('http://localhost:9090/realms/DENTAL_DEV/protocol/openid-connect/token', body)
@@ -116,6 +116,9 @@ export class LoginService {
           if (e.type == KeycloakEventType.OnTokenExpired) {
             alert('Token EXPIRED !!!!!!!!!!!!!!');
             this.keycloakService.updateToken(20).then(async refreshed => {
+              console.log('refreshed');
+              console.log(refreshed);
+              
               if (refreshed) {
                 let res: LoginResponse = await firstValueFrom(this.updateTokenRequest());
                 if (res) {
