@@ -21,9 +21,12 @@ import { LoaderInterceptorService } from './security/services/loader-interceptor
 import localeEs from "@angular/common/locales/es";
 import { CommonModule, DatePipe, registerLocaleData } from "@angular/common";
 import { KeycloakAngularModule, KeycloakBearerInterceptor, KeycloakService } from 'keycloak-angular';
+import { LoginResponse } from './models/login';
+import { firstValueFrom, Observable } from 'rxjs';
+import { LoginService } from './security/services/login.service';
 registerLocaleData(localeEs, "es");
 
-function initializeKeycloak(keycloak: KeycloakService) {
+function initializeKeycloak(keycloak: KeycloakService, loginService: LoginService) {
   return async () =>
     await keycloak.init({
       config: {
@@ -52,7 +55,30 @@ function initializeKeycloak(keycloak: KeycloakService) {
         return !(isGetRequest && isAcceptablePathMatch);
       }
     }).then((authenticated) => {
-      console.log(`Keycloak inicializado - Autenticado: ${authenticated}`);
+      console.log(`APP MODULE Keycloak inicializado - Autenticado: ${authenticated}`);
+      const keycloakAuth = keycloak.getKeycloakInstance();
+
+      keycloakAuth.onTokenExpired = () => {
+        if (keycloakAuth.refreshToken) {
+          keycloak.updateToken()
+            .then(async (refreshed) => {
+              if (refreshed) {
+
+                let res: LoginResponse = await firstValueFrom(loginService.updateTokenRequest());
+                if (res) {
+                  await (loginService.setTokenToCookies(res))
+                }
+                alert('Token was successfully refreshed');
+              } else {
+                alert('Token is still valid');
+              }
+            }).catch(function () {
+              alert('Failed to refresh the token, or the session has expired');
+            });
+        } else {
+          // login();
+        }
+      }
     }).catch((error) => console.error('Error en la inicialización de Keycloak', error));;
 }
 
@@ -99,25 +125,12 @@ const KeycloakInitializerProvider: Provider = {
       useClass: AuthInterceptorService,
       multi: true,
     },
-    // provideHttpClient(withInterceptorsFromDi()),
-
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: initializeKeycloak,
-    //   multi: true,
-    //   deps: [KeycloakService]
-    // },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: KeycloakBearerInterceptor,
-    //   multi: true,
-    //   deps: [KeycloakService]
-    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptorService,
       multi: true,
     },
+   
     KeycloakInitializerProvider, // Initializes Keycloak
     MessagesService,
     { provide: LOCALE_ID, useValue: "es" },
@@ -125,8 +138,10 @@ const KeycloakInitializerProvider: Provider = {
   ],
   bootstrap: [AppComponent],
 })
+
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIconPacks(fas, far);
   }
 }
+

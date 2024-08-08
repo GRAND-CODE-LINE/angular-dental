@@ -20,7 +20,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CreateUserComponent
   ],
   imports: [
-    BrowserAnimationsModule,
     CommonModule,
     SecurityRoutingModule,
     FormsModule,

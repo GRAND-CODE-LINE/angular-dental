@@ -10,11 +10,11 @@ import { AuthGuard } from 'src/app/security/guards/KeycloakAuthGuard';
 const routes: Routes = [
     { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
 
-    { path: 'user/create', component: CreateUserComponent },
-    { path: 'user/create/:id', component: CreateUserComponent },
-    { path: 'role', component: RoleComponent },
-    { path: 'role/create', component: CreateRoleComponent },
-    { path: 'role/create/:id', component: CreateRoleComponent },
+    { path: 'user/create', component: CreateUserComponent, canActivate: [AuthGuard] },
+    { path: 'user/create/:id', component: CreateUserComponent, canActivate: [AuthGuard] },
+    { path: 'role', component: RoleComponent, canActivate: [AuthGuard] },
+    { path: 'role/create', component: CreateRoleComponent, canActivate: [AuthGuard] },
+    { path: 'role/create/:id', component: CreateRoleComponent, canActivate: [AuthGuard] },
 
 ];
 

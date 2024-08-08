@@ -11,14 +11,14 @@ import { PendingChangesGuard } from 'src/app/security/guards/PendingChangesGuard
 import { AuthGuard } from 'src/app/security/guards/KeycloakAuthGuard';
 
 const routes: Routes = [
-  { path: 'historial', component: HistorialComponent },
-  { path: 'historial/:id', component: HistorialComponent },
-  { path: 'symbol', component: SymbolComponent },
-  { path: 'symbol/create', component: CreateSymbolComponent },
-  { path: 'symbol/edit/:id', component: CreateSymbolComponent },
+  { path: 'historial', component: HistorialComponent, canActivate: [AuthGuard]  },
+  { path: 'historial/:id', component: HistorialComponent, canActivate: [AuthGuard]  },
+  { path: 'symbol', component: SymbolComponent , canActivate: [AuthGuard] },
+  { path: 'symbol/create', component: CreateSymbolComponent , canActivate: [AuthGuard] },
+  { path: 'symbol/edit/:id', component: CreateSymbolComponent, canActivate: [AuthGuard]  },
   { path: 'patient', component: PatientComponent, canActivate: [AuthGuard] },
-  { path: 'patient/create', component: CreatepatientComponent },
-  { path: 'patient/edit/:id', component: CreatepatientComponent },
+  { path: 'patient/create', component: CreatepatientComponent , canActivate: [AuthGuard] },
+  { path: 'patient/edit/:id', component: CreatepatientComponent, canActivate: [AuthGuard]  },
   {
     path: 'consultation/create',
     component: ConsultaComponent,

@@ -37,6 +37,7 @@ export class LoginComponent {
     if (res) {
       await localStorage.setItem('username', login.username);
       await (this.loginservice.setTokenToCookies(res))
+      console.log('aaaaaaaaaaaaaa');
       this.router.navigateByUrl('/home/principal');
     }
   }

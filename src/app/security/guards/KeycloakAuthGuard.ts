@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-    ActivatedRouteSnapshot,
-    Router,
-    RouterStateSnapshot
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 import { LoginService } from '../services/login.service';
 
@@ -11,7 +7,7 @@ import { LoginService } from '../services/login.service';
     providedIn: 'root'
 })
 export class AuthGuard extends KeycloakAuthGuard {
-    constructor(protected override readonly router: Router, protected readonly keycloak: KeycloakService, private loginService: LoginService) {
+    constructor(protected override readonly router: Router, protected keycloak: KeycloakService, private loginService: LoginService) {
         super(router, keycloak);
     }
 
@@ -19,12 +15,12 @@ export class AuthGuard extends KeycloakAuthGuard {
         console.log('authenticated');
         console.log(this.authenticated);
         // Force the user to log in if currently unauthenticated.
-        // let token = localStorage.getItem('token') ? localStorage.getItem('token') : undefined
+        let token = localStorage.getItem('token') ? localStorage.getItem('token') : undefined
         // if (token) {
         //     let obj = JSON.parse(token)
         //     this.loginService.openTab(obj.access_token, obj.refresh_token)
         // }
-        if (!this.authenticated) {
+        if (!this.authenticated && !token) {
             localStorage.clear();
             this.router.navigateByUrl('/security/login');
             return false;

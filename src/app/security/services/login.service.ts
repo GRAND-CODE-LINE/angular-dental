@@ -68,7 +68,8 @@ export class LoginService {
   async setTokenToCookies(resp: any) {
     console.log(resp);
     await localStorage.setItem('token', JSON.stringify(resp));
-    this.loadKeycloak(resp.access_token, resp.refresh_token)
+    await this.loadKeycloak(resp.access_token, resp.refresh_token)
+
   }
 
   isLogged() {
@@ -83,10 +84,6 @@ export class LoginService {
   }
 
   async loadKeycloak(access_token: any, refresh_token: any) {
-    // this.router.navigateByUrl('/home/principal');
-
-
-
     await this.keycloakService.init({
       config: {
         url: 'http://localhost:9090',
@@ -106,15 +103,20 @@ export class LoginService {
       bearerPrefix: 'Bearer',
 
     }).then((authenticated) => {
-      console.log(`Keycloak inicializado - Autenticado: ${authenticated}`);
-      const keycloakAuth = this.keycloakService.getKeycloakInstance();
+      console.log(`LOGIN SERVICE Keycloak inicializado - Autenticado: ${authenticated}`);
+      if (!authenticated) {
+        localStorage.clear();
+        this.router.navigateByUrl('/security/login');
+      }
 
-      keycloakAuth.onTokenExpired = () => {
-        if (keycloakAuth.refreshToken) {
-          this.keycloakService.updateToken()
-            .then(async (refreshed) => {
+
+
+      this.keycloakService.keycloakEvents$.subscribe({
+        next: (e) => {
+          if (e.type == KeycloakEventType.OnTokenExpired) {
+            alert('Token EXPIRED !!!!!!!!!!!!!!');
+            this.keycloakService.updateToken(20).then(async refreshed => {
               if (refreshed) {
-
                 let res: LoginResponse = await firstValueFrom(this.updateTokenRequest());
                 if (res) {
                   await (this.setTokenToCookies(res))
@@ -123,13 +125,12 @@ export class LoginService {
               } else {
                 alert('Token is still valid');
               }
-            }).catch(function () {
-              alert('Failed to refresh the token, or the session has expired');
             });
-        } else {
-          // login();
+          }
         }
-      }
+      });
+
+    
 
 
     }).catch((error) => console.error('Error en la inicialización de Keycloak', error));;
