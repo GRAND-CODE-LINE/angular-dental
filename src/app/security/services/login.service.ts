@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeycloakEventType, KeycloakService } from 'keycloak-angular';
-import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { Login, LoginResponse as LoginResponse } from 'src/app/models/login';
 import { environment } from 'src/environments/environment';
 
@@ -54,7 +54,7 @@ export class LoginService {
       .set('username', login.username)
       .set('grant_type', 'refresh_token')
       .set('client_id', login.client_id)
-      .set('refresh-token', loginobj.refresh_token)
+      .set('refresh_token', loginobj.refresh_token)
     return this.http.post<any>('http://localhost:9090/realms/DENTAL_DEV/protocol/openid-connect/token', body)
   }
 
@@ -118,7 +118,7 @@ export class LoginService {
             this.keycloakService.updateToken(20).then(async refreshed => {
               console.log('refreshed');
               console.log(refreshed);
-              
+
               if (refreshed) {
                 let res: LoginResponse = await firstValueFrom(this.updateTokenRequest());
                 if (res) {
@@ -132,10 +132,6 @@ export class LoginService {
           }
         }
       });
-
-    
-
-
     }).catch((error) => console.error('Error en la inicialización de Keycloak', error));;
   }
 
