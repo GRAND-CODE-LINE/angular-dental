@@ -1,5 +1,11 @@
 import { Location } from '@angular/common';
-import { Component, HostListener, Input, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Input,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -31,9 +37,9 @@ export class AttentionComponent implements ComponentCanDeactivate {
     // returning false will show a confirm dialog before navigating away
     // return true
     if (!this.edit) {
-      return true
+      return true;
     }
-    return !this.checkForUnSaved()
+    return !this.checkForUnSaved();
   }
   modalRef?: BsModalRef;
 
@@ -62,7 +68,7 @@ export class AttentionComponent implements ComponentCanDeactivate {
     private symbolService: SymbolService,
     private attentionService: AttentionService,
     private router: Router
-  ) { }
+  ) {}
 
   async ngOnInit(): Promise<void> {
     this.initAttention();
@@ -106,7 +112,6 @@ export class AttentionComponent implements ComponentCanDeactivate {
     this.patientGet = this.consultation?.patient;
     this.procedures = attention.procedures;
     this.proceduresOld = _.clone(this.procedures);
-
 
     if (this.consultation?.status == 'Cerrado') {
       this.canEdit = false;
@@ -161,7 +166,7 @@ export class AttentionComponent implements ComponentCanDeactivate {
   }
 
   reload() {
-    this.getAttentionById(this.attention.id)
+    this.getAttentionById(this.attention.id);
   }
 
   async getSymbols() {
@@ -169,7 +174,7 @@ export class AttentionComponent implements ComponentCanDeactivate {
       page: 0,
       size: 100,
       sortOrder: 1,
-      active: true
+      active: true,
     };
     let res: Paginate_I = await firstValueFrom(
       this.symbolService.paginate(filter)
@@ -183,7 +188,6 @@ export class AttentionComponent implements ComponentCanDeactivate {
     let procedure: Procedure = {
       name: item.acronym ? item.acronym + ' - ' + item.name : item.name,
       status: 'Creado',
-      //comments: '',
       symbol: item,
     };
     this.procedureselected.patchValue(procedure);
@@ -200,7 +204,10 @@ export class AttentionComponent implements ComponentCanDeactivate {
   }
 
   checkForUnSaved() {
-    if (!_.isEqual(this.attention, this.attentionOld) || !_.isEqual(this.procedures, this.proceduresOld)) {
+    if (
+      !_.isEqual(this.attention, this.attentionOld) ||
+      !_.isEqual(this.procedures, this.proceduresOld)
+    ) {
       return true;
     } else {
       return false;

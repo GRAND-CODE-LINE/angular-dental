@@ -95,6 +95,7 @@ export class CreatepatientComponent implements OnInit, OnDestroy, OnChanges {
       numeroEmergencia: [null, Validators.compose([Validators.required])],
       peso: [],
       talla: [],
+      coments: [null],
     });
     if (this.route.snapshot.params['id'] != undefined) {
       this.modoEditar = true;

@@ -16,8 +16,9 @@ import { Attention } from 'src/app/models/attention';
 import { ComponentCanDeactivate } from 'src/app/security/guards/PendingChangesGuard';
 import { AttentionService } from 'src/app/services/attention/attention.service';
 import { SymbolService } from 'src/app/services/symbol/symbol.service';
-import { SymbolFilter } from 'src/app/models/symbol';
+import { Symbol, SymbolFilter } from 'src/app/models/symbol';
 import { Paginate_I } from 'src/app/models/utils/filter_i';
+import { Procedure } from 'src/app/models/procedure';
 
 @Component({
   selector: 'app-consulta',
@@ -48,11 +49,12 @@ export class ConsultaComponent implements ComponentCanDeactivate {
   modalRef?: BsModalRef;
   actionForm!: FormGroup;
   paymentForm!: FormGroup;
-
+  symbolsList: Symbol[] = [];
   edit: boolean = false;
   canEdit: boolean = true;
   numRegex = /^-?\d*[.,]?\d{0,2}$/;
-
+  selectedSymbol!: Symbol;
+  procedureselected!: FormGroup;
   constructor(
     private location: Location,
     private modalService: BsModalService,
@@ -151,6 +153,7 @@ export class ConsultaComponent implements ComponentCanDeactivate {
   }
 
   openPopupAction() {
+    this.getSymbols();
     this.modalRef = this.modalService.show(this.modalAction, this.config);
   }
 
@@ -320,7 +323,10 @@ export class ConsultaComponent implements ComponentCanDeactivate {
     let res: Paginate_I = await firstValueFrom(
       this.symbolService.paginate(filter)
     );
-
-    // this.symbolsList = res.content;
+    this.symbolsList = res.content;
+  }
+  selectSymbol(item: Symbol) {
+    this.selectedSymbol = item;
+    this.actionForm.patchValue({ name: this.selectedSymbol.name });
   }
 }

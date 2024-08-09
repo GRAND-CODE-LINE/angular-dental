@@ -10,6 +10,7 @@ export interface Patient {
   numeroEmergencia: string;
   contactoEmergencia: string;
   enfermedades: string[];
+  coments: string;
   peso: number;
   talla: number;
   persona: Person;
